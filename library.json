@@ -1,0 +1,23 @@
+{
+  "title": "PythH5P",
+  "description": "Python code activity",
+  "majorVersion": 1,
+  "minorVersion": 0,
+  "patchVersion": 0,
+  "runnable": 1,
+  "author": "Pierre Duverneix",
+  "license": "MIT",
+  "machineName": "H5P.PytH5P",
+  "preloadedJs": [
+    {
+      "path": "dist/pyth5p.js"
+    }
+  ],
+  "preloadedDependencies": [
+    {
+      "machineName": "H5P.JoubelUI",
+      "majorVersion": 1,
+      "minorVersion": 3
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'UbuntuMono';
+    src: url('../assets/fonts/UbuntuMono-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'IBMPlexMon';
+    src: url('../assets/fonts/IBMPlexMono-Regular.woff2') format('webfont.woff2'),
+    url('../assets/fonts/IBMPlexMono-Regular.woff') format('woff'),
+    url('../assets/fonts/IBMPlexMono-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SourceCodePro';
+    src: url('../assets/fonts/SourceCodePro-Regular.ttf.woff2') format('webfont.woff2'),
+    url('../assets/fonts/SourceCodePro-Regular.ttf.woff') format('woff'),
+    url('../assets/fonts/SourceCodePro-Regular.ttf') format('truetype');
+}
+
+.h5p-pyth5p-code-wrapper {
+    width: var(--code-width) !important;
+    margin: 0 auto;
+} 
+.h5p-pyth5p-code {
+    width: 100%;
+}

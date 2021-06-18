@@ -1,0 +1,97 @@
+[
+  {
+    "label": "statement",
+    "name": "statement",
+    "type": "text",
+    "default": "Write the statement here",
+    "description": "The statement displayed above the code code.",
+    "optional": true,
+    "widget": "html",
+    "tags": [
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "p",
+      "br",
+      "strong",
+      "em",
+      "code"
+    ]
+  },
+  {
+    "label": "Code",
+    "name": "code",
+    "type": "text",
+    "default": "print(\"Hello, I'm Python!\")",
+    "description": "The code that will be shown in the editor.",
+    "widget": "textarea"
+  },
+  {
+    "label": "Display settings",
+    "name": "displaySettings",
+    "type": "group",
+    "importance": "low",
+    "fields": [
+      {
+        "label": "Code font",
+        "name": "codeFont",
+        "type": "select",
+        "description": "The font used to display the code.",
+        "options": [
+          {
+            "value": "monaco",
+            "label": "Monaco"
+          },
+          {
+            "value": "UbuntuMono",
+            "label": "UbuntuMono"
+          },
+          {
+            "value": "FiraCode, monospace",
+            "label": "FiraCode"
+          },
+          {
+            "value": "IBMPlexMon",
+            "label": "IBMPlexMon"
+          },
+          {
+            "value": "SourceCodePro",
+            "label": "SourceCodePro"
+          }
+        ],
+        "default": "monaco"
+      },
+      {
+        "label": "Code width",
+        "name": "codeWidth",
+        "type": "number",
+        "default": "100",
+        "description": "The CSS value of the code width.",
+        "decimals": 0
+      },
+      {
+        "label": "Code width unit",
+        "name": "codeWidthUnit",
+        "type": "select",
+        "description": "The CSS unit of value of the code width.",
+        "options": [
+          {
+            "value": "%",
+            "label": "%"
+          },
+          {
+            "value": "px",
+            "label": "px"
+          },
+          {
+            "value": "em",
+            "label": "em"
+          }
+        ],
+        "default": "%"
+      }
+    ]
+  }
+]

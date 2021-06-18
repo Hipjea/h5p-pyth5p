@@ -1,0 +1,40 @@
+{
+  "name": "pyth5p",
+  "version": "1.0.0",
+  "description": "H5P Python package rendering interactive code",
+  "main": "pyth5p.js",
+  "repository": "https://github.com/Hipjea/pyth5p.js",
+  "author": "Pierre Duverneix",
+  "license": "MIT",
+  "private": true,
+  "contributors": [
+    "Pierre Duverneix <pierre.duverneix@gmail.com> (https://github.com/Hipjea/)"
+  ],
+  "dependencies": {
+    "ace-builds": "^1.4.12",
+    "react": "^17.0.2",
+    "react-ace": "^9.4.1",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "@webpack-cli/generators": "^2.2.0",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^9.0.0",
+    "css-loader": "^5.2.6",
+    "skulpt": "^1.2.0",
+    "style-loader": "^2.0.0",
+    "util": "^0.12.4",
+    "webpack": "^5.39.0",
+    "webpack-cli": "^4.7.2"
+  },
+  "scripts": {
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
+  }
+}
