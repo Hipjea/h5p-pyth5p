@@ -19,9 +19,8 @@ function Snippet(props) {
     const [localCode, setCode] = useState(defaultVal);
 
     useEffect(() => {
-        runit(localCode),
-        [localCode]
-    });
+        runit(localCode)
+    }, [localCode]);
 
     function setPreContent(text) {
         setOuttext(text);
@@ -35,6 +34,8 @@ function Snippet(props) {
     }
 
     function runit(val) {
+        // context.triggerXAPIScored(0, 0, 'completed');
+
         const value = val ?? out;
         setCode(value);
         Sk.pre = pre.current;
@@ -69,7 +70,7 @@ function Snippet(props) {
                     tabSize: 4,
                     fontSize: 13,
                     showGutter: true,
-                    readOnly: false,
+                    readOnly: props.isEditable ? true : false,
                     behavioursEnabled: true,
                     wrapBehavioursEnabled: true,
                     maxLines: "Infinity",

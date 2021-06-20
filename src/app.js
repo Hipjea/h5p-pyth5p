@@ -55,5 +55,9 @@ H5P.PytH5P = (function () {
         };
     }
 
+    // Inherit prototype properties
+    Wrapper.prototype = Object.create(H5P.EventDispatcher.prototype);
+    Wrapper.prototype.constructor = Wrapper;
+
     return Wrapper;
 })();

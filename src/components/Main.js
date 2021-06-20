@@ -14,6 +14,7 @@ export default function Main(props) {
                 <Snippet
                     id={props.id}
                     code={props.code}
+                    {...props}
                 />
             </div>
         </div>
