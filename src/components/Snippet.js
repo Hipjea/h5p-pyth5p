@@ -17,10 +17,17 @@ function Snippet(props) {
     const defaultVal = decodeHtmlEntities(props.code);
     const [out, setOuttext] = useState(0);
     const [localCode, setCode] = useState(defaultVal);
+    const [correction, setCheckCode] = useState(null);
+    const [answers, setAnswers] = useState([]);
 
     useEffect(() => {
-        runit(localCode)
+        runit(localCode, "init")
     }, [localCode]);
+
+    function checkCode() {
+        setCheckCode(props.contentType.correction.correctionCode);
+        setAnswers(props.contentType.correction.answers);
+    };
 
     function setPreContent(text) {
         setOuttext(text);
@@ -33,8 +40,11 @@ function Snippet(props) {
         return Sk.builtinFiles["files"][x];
     }
 
-    function runit(val) {
+    function runit(val, cycle) {
         // context.triggerXAPIScored(0, 0, 'completed');
+        if (cycle != "init") {
+            checkCode();
+        }
 
         const value = val ?? out;
         setCode(value);
@@ -51,6 +61,8 @@ function Snippet(props) {
             setPreContent(err.toString())
         });
     }
+
+    const listAnswers = answers.map((answer, i) => <li key={i}>{answer.text}</li>);
 
     return (
         <section 
@@ -80,7 +92,12 @@ function Snippet(props) {
             />
             
             <button role="button" className="joubel-simple-rounded-button" onClick={() => runit()}>Check</button>
+
             <pre ref={pre}>{out}</pre>
+
+            <div className="correction">{correction}</div>
+
+            {listAnswers ? <ul>{listAnswers}</ul> : null}
         </section>
     );
 }

@@ -28,23 +28,142 @@
     "widget": "textarea"
   },
   {
-    "label": "Is editable ?",
-    "name": "isEditable",
-    "type": "select",
-    "widget": "radioGroup",
-    "alignment": "horizontal",
-    "description": "If true, the code will be editable.",
-    "options": [
+    "name": "contentType",
+    "type": "group",
+    "label": "Content type",
+    "importance": "high",
+    "expanded": true,
+    "fields": [
       {
-        "value": "true",
-        "label": "True"
+        "label": "Is an exercise ?",
+        "name": "isExercise",
+        "type": "boolean",
+        "description": "The activity is an exercise.",
+        "options": [
+          {
+            "value": "false",
+            "label": "Content"
+          },
+          {
+            "value": "true",
+            "label": "Exercise"
+          }
+        ],
+        "default": "false"
       },
       {
-        "value": "false",
-        "label": "False"
+        "name": "correction",
+        "type": "group",
+        "label": "Correction",
+        "importance": "medium",
+        "expanded": true,
+        "widget": "showWhen",
+        "showWhen": {
+          "rules": [
+            {
+              "field": "isExercise",
+              "equals": true
+            }
+          ]
+        },
+        "fields": [
+          {
+            "label": "Correction",
+            "name": "correctionCode",
+            "type": "text",
+            "default": "",
+            "description": "The code answer that will be shown in at vertification if the type is set on \"Exercise\".",
+            "widget": "textarea"
+          },
+          {
+            "name": "answers",
+            "type": "list",
+            "importance": "high",
+            "label": "Possible answers",
+            "entity": "option",
+            "min": 1,
+            "defaultNum": 1,
+            "field": {
+              "name": "answer",
+              "type": "group",
+              "label": "Option",
+              "importance": "high",
+              "fields": [
+                {
+                  "name": "text",
+                  "type": "text",
+                  "importance": "medium",
+                  "widget": "textarea",
+                  "label": "Code"
+                },
+                {
+                  "name": "bestAnswer",
+                  "type": "boolean",
+                  "label": "Best answer",
+                  "importance": "low",
+                  "optional": true
+                },
+                {
+                  "name": "tipsAndFeedback",
+                  "type": "group",
+                  "label": "Tips and feedback",
+                  "importance": "low",
+                  "optional": true,
+                  "fields": [
+                    {
+                      "name": "tip",
+                      "type": "text",
+                      "widget": "html",
+                      "label": "Tip text",
+                      "importance": "low",
+                      "description": "Hint for the user that will appear under the correction.",
+                      "optional": true,
+                      "tags": [
+                        "p",
+                        "br",
+                        "strong",
+                        "em",
+                        "a",
+                        "code"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
       }
-    ],
-    "default": "true"
+    ]
+  },
+  {
+    "name": "behaviour",
+    "type": "group",
+    "label": "Behavioural settings",
+    "importance": "low",
+    "description": "These options will let you control how the task behaves.",
+    "optional": true,
+    "fields": [
+      {
+        "label": "Is editable ?",
+        "name": "isEditable",
+        "type": "select",
+        "widget": "radioGroup",
+        "alignment": "horizontal",
+        "description": "If true, the code will be editable.",
+        "options": [
+          {
+            "value": "true",
+            "label": "True"
+          },
+          {
+            "value": "false",
+            "label": "False"
+          }
+        ],
+        "default": "true"
+      }
+    ]
   },
   {
     "label": "Display settings",
