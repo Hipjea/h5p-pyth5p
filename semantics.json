@@ -1,6 +1,6 @@
 [
   {
-    "label": "statement",
+    "label": "Statement",
     "name": "statement",
     "type": "text",
     "default": "Write the statement here",
@@ -16,8 +16,7 @@
       "p",
       "br",
       "strong",
-      "em",
-      "code"
+      "em"
     ]
   },
   {
@@ -27,6 +26,23 @@
     "default": "print(\"Hello, I'm Python!\")",
     "description": "The code that will be shown in the editor.",
     "widget": "textarea"
+  },
+  {
+    "label": "Is editable ?",
+    "name": "isEditable",
+    "type": "select",
+    "description": "If true, the code will be editable.",
+    "options": [
+      {
+        "value": "true",
+        "label": "True"
+      },
+      {
+        "value": "false",
+        "label": "False"
+      }
+    ],
+    "default": "true"
   },
   {
     "label": "Display settings",
