@@ -40,6 +40,7 @@ function Snippet(props) {
         return Sk.builtinFiles["files"][x];
     }
 
+    
     function runit(val, cycle) {
         // context.triggerXAPIScored(0, 0, 'completed');
         if (cycle != "init") {
@@ -50,10 +51,10 @@ function Snippet(props) {
         setCode(value);
         Sk.pre = pre.current;
         Sk.configure({ output: setPreContent, read: builtinRead }); 
-        var myPromise = Sk.misceval.asyncToPromise(function() {
+        const SkPromise = Sk.misceval.asyncToPromise(function() {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
-        myPromise.then(function(mod) {
+        SkPromise.then(function(mod) {
             console.log('success');
         },
         function(err) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import Snippet from './Snippet';
+import Button from './Button';
 
 
 export default function Main(props) {
@@ -16,6 +17,10 @@ export default function Main(props) {
                     code={props.code}
                     {...props}
                 />
+                { props.contentType.isExercise 
+                    ? <Button status={'SHOW_SOLUTION'} {...props} />
+                    : null
+                }                
             </div>
         </div>
     );

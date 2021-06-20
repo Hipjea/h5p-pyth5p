@@ -39,17 +39,7 @@
         "name": "isExercise",
         "type": "boolean",
         "description": "The activity is an exercise.",
-        "options": [
-          {
-            "value": "false",
-            "label": "Content"
-          },
-          {
-            "value": "true",
-            "label": "Exercise"
-          }
-        ],
-        "default": "false"
+        "default": false
       },
       {
         "name": "correction",

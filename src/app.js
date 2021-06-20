@@ -7,14 +7,20 @@ import Main from './components/Main';
 
 // Load the H5P library
 H5P = H5P || {};
-H5P.PytH5P = (function () {
-    function Wrapper(params, contentId, extras = {}) {
+
+H5P.PytH5P = (function ($, Question) {
+    function PytH5P(params, contentId, extras = {}) {
+        Question.call(this, 'pyth5p');
+
         // Initialize event inheritance
         H5P.EventDispatcher.call(this);
 
         this.wrapper = null;
         this.id = contentId;
         this.params = params;
+        this.params.l10n = {
+            showSolutionButton: 'Show solution'
+        }
         this.error = null;
 
         const root = document.documentElement;
@@ -56,8 +62,8 @@ H5P.PytH5P = (function () {
     }
 
     // Inherit prototype properties
-    Wrapper.prototype = Object.create(H5P.EventDispatcher.prototype);
-    Wrapper.prototype.constructor = Wrapper;
+    PytH5P.prototype = Object.create(Question.prototype);
+    PytH5P.prototype.constructor = PytH5P;
 
-    return Wrapper;
-})();
+    return PytH5P;
+})(H5P.jQuery, H5P.Question);
