@@ -135,12 +135,31 @@
     "optional": true,
     "fields": [
       {
-        "label": "Is editable ?",
+        "label": "Make the code editable",
         "name": "isEditable",
         "type": "select",
         "widget": "radioGroup",
         "alignment": "horizontal",
         "description": "If true, the code will be editable.",
+        "options": [
+          {
+            "value": "true",
+            "label": "True"
+          },
+          {
+            "value": "false",
+            "label": "False"
+          }
+        ],
+        "default": "true"
+      },
+      {
+        "label": "Enable code evaluation on change",
+        "name": "onChangeChecking",
+        "type": "select",
+        "widget": "radioGroup",
+        "alignment": "horizontal",
+        "description": "If true, the code will be evaluated on each changes. The edition may be slow with large code.",
         "options": [
           {
             "value": "true",

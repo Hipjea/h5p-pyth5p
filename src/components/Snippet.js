@@ -1,6 +1,7 @@
 import React, { useContext, useState, useRef, useEffect }from 'react';
 import { PythonCodeContext } from '../PythonCodeContext';
-import { decodeHtmlEntities } from '../utils';
+import { decodeHtmlEntities } from '../utils/utils';
+import { showCheckButton } from '../utils/buttons'
 
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
@@ -42,7 +43,6 @@ function Snippet(props) {
 
     
     function runit(val, cycle) {
-        // context.triggerXAPIScored(0, 0, 'completed');
         if (cycle != "init") {
             checkCode();
         }
@@ -74,9 +74,10 @@ function Snippet(props) {
                 ref={prog}
                 mode="python"
                 theme="github"
-                onChange={val => runit(val)}
+                onChange={ val => props.behaviour.onChangeChecking ? runit(val) : setCode(val) }
                 defaultValue={defaultVal}
-                name="UNIQUE_ID_OF_DIV"
+                name="pyth5p-code-editor"
+                width="100%"
                 setOptions={{
                     enableBasicAutocompletion: false,
                     enableLiveAutocompletion: false,
@@ -87,18 +88,22 @@ function Snippet(props) {
                     behavioursEnabled: true,
                     wrapBehavioursEnabled: true,
                     maxLines: "Infinity",
+                    minLines: 5,
                     fontFamily: customSettings.codeFont
                 }}
                 editorProps={{ $blockScrolling: true }}
             />
             
-            <button role="button" className="joubel-simple-rounded-button" onClick={() => runit()}>Check</button>
+            <pre id="pyth5p-pre" ref={pre}>{out}</pre>
 
-            <pre ref={pre}>{out}</pre>
+            { props.behaviour.onChangeChecking == false
+                ? <button role="button" className="" onClick={() => runit()}><i className="fa fa-play"></i></button>
+                : null
+            }
 
             <div className="correction">{correction}</div>
 
-            {listAnswers ? <ul>{listAnswers}</ul> : null}
+            { listAnswers ? <ul>{listAnswers}</ul> : null }
         </section>
     );
 }

@@ -17,10 +17,33 @@
     url('../assets/fonts/SourceCodePro-Regular.ttf') format('truetype');
 }
 
+.h5p-pyth5p {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 1em;
+}
 .h5p-pyth5p-code-wrapper {
     width: var(--code-width) !important;
     margin: 0 auto;
 } 
 .h5p-pyth5p-code {
     width: 100%;
+}
+#pyth5p-pre {
+    background-color: #303030;
+    color: white;
+    font-family: Monaco, Helvetica;
+    border-radius: 3px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+#pyth5p-pre::before {
+    content: "\279C";
+    margin-right: 10px;
+    color: #1a73d9;
+    font-size: 1em;
+}
+.h5p-pyth5p .feedback-text {
+    display: block;
+    color: #1a73d9;
+    font-weight: bold;
+    margin-bottom: 0.8em;
 }
