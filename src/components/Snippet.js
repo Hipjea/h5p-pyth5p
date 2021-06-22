@@ -1,8 +1,7 @@
-import React, { useContext, useState, useRef, useEffect }from 'react';
+import React, { useContext, useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { PythonCodeContext } from '../PythonCodeContext';
 import { decodeHtmlEntities } from '../utils/utils';
-import { showCheckButton } from '../utils/buttons'
-
+import Button from './Button';
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-github";
@@ -15,23 +14,44 @@ function Snippet(props) {
 
     const prog = useRef(null);
     const pre = useRef(null);
+    const canvas = useRef(null);
     const defaultVal = decodeHtmlEntities(props.code);
-    const [out, setOuttext] = useState(0);
+    const [out, setOuttext] = useState([]);
     const [localCode, setCode] = useState(defaultVal);
     const [correction, setCheckCode] = useState(null);
     const [answers, setAnswers] = useState([]);
 
+    const onChangeChecking = (props.behaviour.onChangeChecking === 'true');
+    const editorOptions = {
+        enableBasicAutocompletion: false,
+        enableLiveAutocompletion: false,
+        tabSize: 4,
+        fontSize: 13,
+        showGutter: true,
+        readOnly: props.isEditable ? true : false,
+        behavioursEnabled: true,
+        wrapBehavioursEnabled: true,
+        maxLines: "Infinity",
+        minLines: 5,
+        fontFamily: customSettings.codeFont
+    }
+
     useEffect(() => {
-        runit(localCode, "init")
+        runit(localCode);
     }, [localCode]);
 
     function checkCode() {
+        console.log("localCode : ", localCode);
         setCheckCode(props.contentType.correction.correctionCode);
         setAnswers(props.contentType.correction.answers);
     };
 
+    function purgePreContent() {
+        setOuttext([]);
+    }
+
     function setPreContent(text) {
-        setOuttext(text);
+        setOuttext(old => [...old, text]);
     }
 
     function builtinRead(x) {
@@ -42,28 +62,33 @@ function Snippet(props) {
     }
 
     
-    function runit(val, cycle) {
-        if (cycle != "init") {
+    function runit(val) {
+        if (val != undefined && onChangeChecking) {
             checkCode();
+        } else {
+            purgePreContent();
+            const value = val ?? localCode;
+            Sk.pre = pre.current;
+            Sk.configure({ output: setPreContent, read: builtinRead, __future__: Sk.python3 }); 
+            (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvas.current;
+            const SkPromise = Sk.misceval.asyncToPromise(function() {
+                return Sk.importMainWithBody("<stdin>", false, value, true);
+            });
+            SkPromise.then(function(mod) {
+                console.log('success');
+            },
+            function(err) {
+                console.log(err.toString());
+                setPreContent(err.toString())
+            });
         }
-
-        const value = val ?? out;
-        setCode(value);
-        Sk.pre = pre.current;
-        Sk.configure({ output: setPreContent, read: builtinRead }); 
-        const SkPromise = Sk.misceval.asyncToPromise(function() {
-            return Sk.importMainWithBody("<stdin>", false, value, true);
-        });
-        SkPromise.then(function(mod) {
-            console.log('success');
-        },
-        function(err) {
-            console.log(err.toString());
-            setPreContent(err.toString())
-        });
     }
 
     const listAnswers = answers.map((answer, i) => <li key={i}>{answer.text}</li>);
+
+    function triggerAction() {
+        return runit()
+    }
 
     return (
         <section 
@@ -74,35 +99,20 @@ function Snippet(props) {
                 ref={prog}
                 mode="python"
                 theme="github"
-                onChange={ val => props.behaviour.onChangeChecking ? runit(val) : setCode(val) }
+                onChange={ val => onChangeChecking ? runit(val) : setCode(val) }
                 defaultValue={defaultVal}
                 name="pyth5p-code-editor"
                 width="100%"
-                setOptions={{
-                    enableBasicAutocompletion: false,
-                    enableLiveAutocompletion: false,
-                    tabSize: 4,
-                    fontSize: 13,
-                    showGutter: true,
-                    readOnly: props.isEditable ? true : false,
-                    behavioursEnabled: true,
-                    wrapBehavioursEnabled: true,
-                    maxLines: "Infinity",
-                    minLines: 5,
-                    fontFamily: customSettings.codeFont
-                }}
+                setOptions={editorOptions}
                 editorProps={{ $blockScrolling: true }}
             />
-            
-            <pre id="pyth5p-pre" ref={pre}>{out}</pre>
-
-            { props.behaviour.onChangeChecking == false
-                ? <button role="button" className="" onClick={() => runit()}><i className="fa fa-play"></i></button>
-                : null
-            }
-
+            <Button visible={!onChangeChecking} action={() => triggerAction()} {...props} />
+            <div className="pyth5p-pre-wrapper">
+                <label>{props.l10n.output}</label>
+                <pre id="pyth5p-pre" ref={pre}>{out}</pre>
+            </div>
+            <div ref={canvas}></div> 
             <div className="correction">{correction}</div>
-
             { listAnswers ? <ul>{listAnswers}</ul> : null }
         </section>
     );
