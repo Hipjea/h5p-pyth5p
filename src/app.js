@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { PythonCodeContextProvider } from './PythonCodeContext';
 import './app.css';
 import Main from './components/Main';
-import { showCheckButton } from './utils/buttons'
+import { showCheckButton } from './utils/buttons';
+import l10n from './localization';
 
 // Load the H5P library
 H5P = H5P || {};
@@ -18,10 +19,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
         this.wrapper = null;
         this.id = contentId;
         this.params = params;
-        this.params.l10n = {
-            score: 'Score',
-            showSolutionButton: 'Show solution'
-        }
+        this.params.l10n = l10n;
         this.error = null;
 
         const root = document.documentElement;
@@ -63,7 +61,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             container[0].classList.add('h5p-pyth5p');
             
             self.$footer.appendTo(container[0]);
-            self.$checkButton = showCheckButton(displayResult, 'fa-check', "Check Answer");
+            self.$checkButton = showCheckButton(displayResult, 'fa-check-circle', l10n.checkAnswer);
             self.$checkButton.appendTo(self.$footer);
         };
 
@@ -71,7 +69,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             let result = 10;
 
             const answer = $('#pyth5p-pre').html();
-            
+
             self.$checkButton.remove();
             self.$feedbacks = $('<div class="feedback-container" />');
             let scoreText = params.l10n.score;
@@ -85,7 +83,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             self.$feedbacks.appendTo(self.$footer);
 
             if (params.behaviour) {
-                //set the value if retry is enabled
+                // Set the value if retry is enabled
                 self.$retryButton = createButton(self.retry, 'fa-repeat',
                     params.l10n.tryAgain);
                 self.$retryButton.appendTo(self.$footer);
@@ -96,7 +94,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                 result === 1);
             self.trigger(completedEvent);
             console.log(completedEvent);
-            // set focus on the first button in the footer
+            // Set focus on the first button in the footer
             self.$footer.children('button').first().focus();
             self.trigger('resize');
         };
