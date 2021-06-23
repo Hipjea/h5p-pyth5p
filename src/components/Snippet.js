@@ -93,10 +93,6 @@ function Snippet(props) {
 
     const listAnswers = answers.map((answer, i) => <li key={i}>{answer.text}</li>);
 
-    function triggerAction() {
-        return runit()
-    }
-
     return (
         <section 
             id={`code-${props.id}`}
@@ -113,9 +109,8 @@ function Snippet(props) {
                 setOptions={editorOptions}
                 editorProps={{ $blockScrolling: true }}
             />
-            <Button visible={!onChangeChecking} action={() => triggerAction()} {...props} />
+            <Button visible={!onChangeChecking} action={() => runit()} {...props} />
             <Preview ref={ref} out={out} {...props} />
-            <div ref={canvas}></div> 
             <div className="correction">{correction}</div>
             { listAnswers ? <ul>{listAnswers}</ul> : null }
         </section>
