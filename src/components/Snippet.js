@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef, useEffect, useLayoutEffect } from 
 import { PythonCodeContext } from '../PythonCodeContext';
 import { decodeHtmlEntities } from '../utils/utils';
 import Button from './Button';
+import { Preview } from './Preview';
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-github";
@@ -12,9 +13,15 @@ function Snippet(props) {
     const context = useContext(PythonCodeContext);
     const { customSettings } = context;
 
+    const pre = React.createRef();
+    const canvas = React.createRef();
+    const ref = {
+        pre: pre,
+        canvas: canvas
+    }
+
     const prog = useRef(null);
-    const pre = useRef(null);
-    const canvas = useRef(null);
+
     const defaultVal = decodeHtmlEntities(props.code);
     const [out, setOuttext] = useState([]);
     const [localCode, setCode] = useState(defaultVal);
@@ -86,10 +93,6 @@ function Snippet(props) {
 
     const listAnswers = answers.map((answer, i) => <li key={i}>{answer.text}</li>);
 
-    function triggerAction() {
-        return runit()
-    }
-
     return (
         <section 
             id={`code-${props.id}`}
@@ -106,12 +109,8 @@ function Snippet(props) {
                 setOptions={editorOptions}
                 editorProps={{ $blockScrolling: true }}
             />
-            <Button visible={!onChangeChecking} action={() => triggerAction()} {...props} />
-            <div className="pyth5p-pre-wrapper">
-                <label>{props.l10n.output}</label>
-                <pre id="pyth5p-pre" ref={pre}>{out}</pre>
-            </div>
-            <div ref={canvas}></div> 
+            <Button visible={!onChangeChecking} action={() => runit()} {...props} />
+            <Preview ref={ref} out={out} {...props} />
             <div className="correction">{correction}</div>
             { listAnswers ? <ul>{listAnswers}</ul> : null }
         </section>
