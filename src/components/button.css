@@ -1,0 +1,23 @@
+.pyth5p-run-btn {
+    background-color: #303030;
+    color: white;
+    margin-top: 10px;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 3px;
+}
+.pyth5p-run-btn:hover {
+    cursor: pointer;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.pyth5p-run-btn i.play {
+    background-image: url('../../assets/images/play.svg'), none;
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    padding: 0 6px 0 6px;
+    margin-right: 6px;
+    opacity: 0.85;
+}
+.pyth5p-run-btn:hover i.play {
+    opacity: 1;
+}

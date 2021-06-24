@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef, useEffect, useLayoutEffect } from 
 import { PythonCodeContext } from '../PythonCodeContext';
 import { decodeHtmlEntities } from '../utils/utils';
 import Button from './Button';
+import Feedback from './Feedback';
 import { Preview } from './Preview';
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
@@ -48,7 +49,7 @@ function Snippet(props) {
     }, [localCode]);
 
     function checkCode() {
-        console.log("localCode : ", localCode);
+        console.log("h", props.contentType.correction)
         setCheckCode(props.contentType.correction.correctionCode);
         setAnswers(props.contentType.correction.answers);
     };
@@ -109,9 +110,9 @@ function Snippet(props) {
                 setOptions={editorOptions}
                 editorProps={{ $blockScrolling: true }}
             />
-            <Button visible={!onChangeChecking} action={() => runit()} {...props} />
+            <Button visible={!onChangeChecking} onLaunchAction={() => runit()} {...props} />
             <Preview ref={ref} out={out} {...props} />
-            <div className="correction">{correction}</div>
+            <Feedback correction={correction} {...props} />
             { listAnswers ? <ul>{listAnswers}</ul> : null }
         </section>
     );

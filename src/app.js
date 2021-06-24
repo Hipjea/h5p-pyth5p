@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { PythonCodeContextProvider } from './PythonCodeContext';
 import './app.css';
 import Main from './components/Main';
-import { showCheckButton } from './utils/buttons';
 import l10n from './localization';
+
 
 // Load the H5P library
 H5P = H5P || {};
@@ -18,8 +18,12 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
 
         this.wrapper = null;
         this.id = contentId;
-        this.params = params;
-        this.params.l10n = l10n;
+        this.params = {
+            self: self,
+            l10n: l10n,
+            UI: UI,
+            ...params
+        }
         this.error = null;
 
         const root = document.documentElement;
@@ -59,44 +63,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             // Append elements to DOM
             container[0].appendChild(this.wrapper);
             container[0].classList.add('h5p-pyth5p');
-            
             self.$footer.appendTo(container[0]);
-            self.$checkButton = showCheckButton(displayResult, 'fa-check-circle', l10n.checkAnswer);
-            self.$checkButton.appendTo(self.$footer);
-        };
-
-        const displayResult = () => {
-            let result = 10;
-
-            const answer = $('#pyth5p-pre').html();
-
-            self.$checkButton.remove();
-            self.$feedbacks = $('<div class="feedback-container" />');
-            let scoreText = params.l10n.score;
-            scoreText = scoreText.replace('@score', result).replace('@total',
-                1);
-            self.$feedbacks.html('<div class="feedback-text">' + scoreText +
-                '</div>');
-            self.$progressBar = UI.createScoreBar(1, 'scoreBarLabel');
-            self.$progressBar.setScore(result);
-            self.$progressBar.appendTo(self.$feedbacks);
-            self.$feedbacks.appendTo(self.$footer);
-
-            if (params.behaviour) {
-                // Set the value if retry is enabled
-                self.$retryButton = createButton(self.retry, 'fa-repeat',
-                    params.l10n.tryAgain);
-                self.$retryButton.appendTo(self.$footer);
-            }
-
-            var completedEvent = self.createXAPIEventTemplate('completed');
-            completedEvent.setScoredResult(result, 1, self, true,
-                result === 1);
-            self.trigger(completedEvent);
-            console.log(completedEvent);
-            // Set focus on the first button in the footer
-            self.$footer.children('button').first().focus();
-            self.trigger('resize');
         };
 
     }
