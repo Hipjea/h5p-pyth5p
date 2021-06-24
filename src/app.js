@@ -35,8 +35,6 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             codeFont: this.params.displaySettings.codeFont
         };
 
-        self.$footer = $('<div class="footer-container"/>');
-
         const createElements = () => {
             const wrapper = document.createElement('div');
             wrapper.classList.add('h5p-pyth5p-wrapper');
@@ -63,6 +61,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             // Append elements to DOM
             container[0].appendChild(this.wrapper);
             container[0].classList.add('h5p-pyth5p');
+            self.$footer = $('<div class="footer-container"/>');
             self.$footer.appendTo(container[0]);
         };
 

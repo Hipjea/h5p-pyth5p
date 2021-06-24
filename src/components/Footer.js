@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
-import './button.css';
-import { Results } from './Results';
+import Feedback from './Feedback';
+
 
 jQuery = H5P.jQuery;
 
 export default function Footer({...props}) {
     const UI = props.UI;
     const [checkBtn, toggleCheckBtn] = useState([]);
+    const [correction, setCheckCode] = useState(null);
+    const [answers, setAnswers] = useState([]);
 
     const result = 1;
 
+    function checkCode() {
+        setCheckCode(props.contentType.correction.correctionCode);
+        setAnswers(props.contentType.correction.answers);
+    };
+
     function displayResult() {
+        checkCode();
         toggleCheckBtn(!checkBtn);
-        let $footer = jQuery('.footer-container');
+        const $footer = jQuery('.footer-container');
         const $progressBar = UI.createScoreBar(1, 'scoreBarLabel');
         $progressBar.setScore(result);
         $progressBar.appendTo($footer);
@@ -27,6 +35,8 @@ export default function Footer({...props}) {
         props.self.trigger('resize');
     }
 
+    const listAnswers = answers.map((answer, i) => <li key={i}>{answer.text}</li>);
+
     return (
         <footer>
             { checkBtn
@@ -35,10 +45,13 @@ export default function Footer({...props}) {
                         className="h5p-joubelui-button"
                         onClick={() => displayResult()}
                     >
-                        <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>&nbsp; {props.l10n.checkAnswer}
+                        <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
+                        &nbsp; {props.l10n.checkAnswer}
                     </button>
                 : null
             }
+            <Feedback correction={correction} {...props} />
+            { listAnswers ? <ul>{listAnswers}</ul> : null }
         </footer>
     );
 }

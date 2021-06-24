@@ -2,7 +2,6 @@ import React, { useContext, useState, useRef, useEffect, useLayoutEffect } from 
 import { PythonCodeContext } from '../PythonCodeContext';
 import { decodeHtmlEntities } from '../utils/utils';
 import Button from './Button';
-import Feedback from './Feedback';
 import { Preview } from './Preview';
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
@@ -26,8 +25,6 @@ function Snippet(props) {
     const defaultVal = decodeHtmlEntities(props.code);
     const [out, setOuttext] = useState([]);
     const [localCode, setCode] = useState(defaultVal);
-    const [correction, setCheckCode] = useState(null);
-    const [answers, setAnswers] = useState([]);
 
     const onChangeChecking = (props.behaviour.onChangeChecking === 'true');
     const editorOptions = {
@@ -48,12 +45,6 @@ function Snippet(props) {
         runit(localCode);
     }, [localCode]);
 
-    function checkCode() {
-        console.log("h", props.contentType.correction)
-        setCheckCode(props.contentType.correction.correctionCode);
-        setAnswers(props.contentType.correction.answers);
-    };
-
     function purgePreContent() {
         setOuttext([]);
     }
@@ -72,7 +63,7 @@ function Snippet(props) {
     
     function runit(val) {
         if (val != undefined && onChangeChecking) {
-            checkCode();
+            // checkCode();
         } else {
             purgePreContent();
             const value = val ?? localCode;
@@ -92,7 +83,6 @@ function Snippet(props) {
         }
     }
 
-    const listAnswers = answers.map((answer, i) => <li key={i}>{answer.text}</li>);
 
     return (
         <section 
@@ -112,8 +102,6 @@ function Snippet(props) {
             />
             <Button visible={!onChangeChecking} onLaunchAction={() => runit()} {...props} />
             <Preview ref={ref} out={out} {...props} />
-            <Feedback correction={correction} {...props} />
-            { listAnswers ? <ul>{listAnswers}</ul> : null }
         </section>
     );
 }
