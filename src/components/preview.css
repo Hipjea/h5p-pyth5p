@@ -1,0 +1,40 @@
+.pyth5p-pre-wrapper {
+    font-family: Helvetica, Arial, sans-serif;
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.pyth5p-pre-wrapper .pre-labbel-wrapper {
+    display: inline-block;
+    width: 100%;
+    background-color: #303030;
+    border-bottom: 1px solid rgb(63, 63, 63);
+    border-radius: 3px 3px 0 0;
+}
+.pyth5p-pre-wrapper .pre-labbel-wrapper label {
+    display: inline-block;
+    padding: 6px 10px 2px 14px;
+    color: #2f8af4;
+    font-weight: 100;
+    text-transform: uppercase;
+    font-size: .8em;
+}
+.pyth5p-pre-wrapper pre {
+    margin-top: 0;
+    background-color: #303030;
+    color: white;
+    font-family: Monaco, Helvetica;
+    border-radius: 0 0 3px 3px;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    padding: 15px;
+    white-space: pre-wrap;
+    font-size: 0.85em;
+}
+.pyth5p-pre::before {
+    content: "\279C";
+    margin-right: 10px;
+    color: #2f8af4;
+    font-size: 1em;
+}

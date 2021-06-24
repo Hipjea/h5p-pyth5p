@@ -1,6 +1,6 @@
 import React from 'react';
 import Snippet from './Snippet';
-
+import Footer from './Footer';
 
 export default function Main(props) {
     function createMarkup() {
@@ -17,6 +17,7 @@ export default function Main(props) {
                     {...props}
                 />
             </div>
+            <Footer {...props} />
         </div>
     );
 }

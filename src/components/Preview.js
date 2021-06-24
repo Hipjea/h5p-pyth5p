@@ -1,17 +1,21 @@
 import React from 'react';
+import './preview.css';
+
 
 export const Preview = React.forwardRef((props, ref) => {
-    const { pre, canvas } = ref;
+    const {pre, canvas} = ref;
 
     return (
         <>
             <div className="pyth5p-pre-wrapper">
-                <label>{props.l10n.output}</label>
-                <pre id="pyth5p-pre" ref={pre}>
+                <div className="pre-labbel-wrapper">
+                    <label>{props.l10n.output}</label>
+                </div>
+                <pre className="pyth5p-pre" ref={pre}>
                     {props.out}
                 </pre>
             </div>
-            <div ref={canvas}></div>
+            <div ref={canvas} />
         </>
     );
 });

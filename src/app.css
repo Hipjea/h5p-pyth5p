@@ -28,55 +28,7 @@
 .h5p-pyth5p-code {
     width: 100%;
 }
-#pyth5p-pre::before {
-    content: "\279C";
-    margin-right: 10px;
-    color: #2f8af4;
-    font-size: 1em;
-}
-.pyth5p-run-btn {
-    background-color: #303030;
-    color: white;
-    margin-top: 10px;
-    padding: 7px 10px;
-    border: none;
-    border-radius: 3px;
-}
-.pyth5p-run-btn:hover {
-    cursor: pointer;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-.pyth5p-run-btn i {
-    color: #0ebf43;
-    padding-left: 6px;
-    padding-right: 6px;
-}
-.pyth5p-run-btn:hover i {
-    color: #09f04e;
-}
-.pyth5p-pre-wrapper {
-    margin-top: 20px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-.pyth5p-pre-wrapper label {
-    background-color: #303030;
-    border-radius: 3px 3px 0 0;
-    padding: 6px 10px 2px 14px;
-    color: #2f8af4;
-    font-weight: 100;
-    text-transform: uppercase;
-    font-size: .8em;
-    border-bottom: 1px solid rgb(63, 63, 63);
-}
-.pyth5p-pre-wrapper pre {
-    margin-top: 0;
-    background-color: #303030;
-    color: white;
-    font-family: Monaco, Helvetica;
-    border-radius: 0 0 3px 3px;
-    display: flex;
-    align-items: stretch;
-}
+
 .h5p-pyth5p .feedback-text {
     display: block;
     color: #1a73d9;

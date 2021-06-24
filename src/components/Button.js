@@ -1,11 +1,20 @@
 import React from 'react';
+import './button.css';
+import PropTypes from 'prop-types';
 
-export default function Button(props) {
+export default function Button({visible, onLaunchAction, ...props}) {
     return (
-        props.visible
-            ? <button role="button" className="pyth5p-run-btn" onClick={props.action}>
-                <i className="fa fa-play"></i> {props.l10n.run}
+        visible
+            ? <button role="button" className="pyth5p-run-btn" onClick={onLaunchAction}>
+                <i className="play"></i> {props.l10n.run}
               </button>
             : null
     );
 }
+
+Button.propTypes = {
+    /** Visibility state of the button */
+    visible: PropTypes.bool.isRequired,
+    /** Event to perform the code check */
+    onLaunchAction: PropTypes.func,
+};
