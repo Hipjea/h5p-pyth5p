@@ -1,6 +1,6 @@
 import React from 'react';
 import './preview.css';
-
+import PropTypes from 'prop-types';
 
 export const Preview = React.forwardRef((props, ref) => {
     const {pre, canvas} = ref;
@@ -19,3 +19,10 @@ export const Preview = React.forwardRef((props, ref) => {
         </>
     );
 });
+
+Preview.propTypes = {
+    /** The app localization strings */
+    l10n: PropTypes.array.isRequired,
+    /** The output of the program */
+    out: PropTypes.string.isRequired,
+};

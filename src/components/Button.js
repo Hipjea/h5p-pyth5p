@@ -13,6 +13,8 @@ export default function Button({visible, onLaunchAction, ...props}) {
 }
 
 Button.propTypes = {
+    /** The app localization strings */
+    l10n: PropTypes.array.isRequired,
     /** Visibility state of the button */
     visible: PropTypes.bool.isRequired,
     /** Event to perform the code check */

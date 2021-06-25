@@ -7,6 +7,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-github";
 const Sk = require('skulpt');
+import PropTypes from 'prop-types';
 
 
 function Snippet(props) {
@@ -86,5 +87,17 @@ function Snippet(props) {
         </section>
     );
 }
+
+Snippet.propTypes = {
+    /** The code editor settings */
+    editorOptions: PropTypes.array.isRequired,
+    /** The app localization strings */
+    l10n: PropTypes.array.isRequired,
+    /** The code of the program */
+    code: PropTypes.string.isRequired,
+    /** The settings defining the type of the activity ; isExercise enables H5P checking features */
+    contentType: PropTypes.array.isRequired,
+};
+
 
 export default Snippet;
