@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Feedback from './Feedback';
+import { usePythonCodeContext } from '../PythonCodeContext';
 
-
-jQuery = H5P.jQuery;
 
 export default function Footer({...props}) {
-    const UI = props.UI;
     const [checkBtn, toggleCheckBtn] = useState([]);
     const [correction, setCheckCode] = useState(null);
     const [answers, setAnswers] = useState([]);
-
+    const context = usePythonCodeContext();
+    
+    console.log("context : ", context.trigger); 
     const result = 1;
 
     function checkCode() {
@@ -20,25 +20,25 @@ export default function Footer({...props}) {
     function displayResult() {
         checkCode();
         toggleCheckBtn(!checkBtn);
-        const $footer = jQuery('.footer-container');
-        const $progressBar = UI.createScoreBar(1, 'scoreBarLabel');
+
+        const $footer = H5P.jQuery('.footer-container');
+        const $progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
         $progressBar.setScore(result);
         $progressBar.appendTo($footer);
 
-        var completedEvent = props.self.createXAPIEventTemplate('completed');
-        completedEvent.setScoredResult(result, 1, self, true,
-            result === 1);
-        props.self.trigger(completedEvent);
-        console.log(completedEvent);
+        const completedEvent = context.createXAPIEventTemplate('completed');
+        completedEvent.setScoredResult(result, 1, self, true, result === 1);
+        context.trigger(completedEvent);
+        console.log("completedEvent", completedEvent);
         // Set focus on the first button in the footer
-        props.self.$footer.children('button').first().focus();
-        props.self.trigger('resize');
+        $footer.children('button').first().focus();
+        context.trigger('resize');
     }
 
     const listAnswers = answers.map((answer, i) => <li key={i}>{answer.text}</li>);
 
     return (
-        <footer>
+        <footer className="footer-container">
             { checkBtn
                 ? <button 
                         title="Submit"

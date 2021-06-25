@@ -19,9 +19,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
         this.wrapper = null;
         this.id = contentId;
         this.params = {
-            self: self,
             l10n: l10n,
-            UI: UI,
             ...params
         }
         this.error = null;
@@ -61,8 +59,6 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             // Append elements to DOM
             container[0].appendChild(this.wrapper);
             container[0].classList.add('h5p-pyth5p');
-            self.$footer = $('<div class="footer-container"/>');
-            self.$footer.appendTo(container[0]);
         };
 
     }

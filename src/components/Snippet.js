@@ -1,5 +1,5 @@
-import React, { useContext, useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { PythonCodeContext } from '../PythonCodeContext';
+import React, { useState, useRef, useEffect } from 'react';
+import { usePythonCodeContext } from '../PythonCodeContext';
 import { decodeHtmlEntities } from '../utils/utils';
 import Button from './Button';
 import { Preview } from './Preview';
@@ -10,7 +10,7 @@ const Sk = require('skulpt');
 
 
 function Snippet(props) {
-    const context = useContext(PythonCodeContext);
+    const context = usePythonCodeContext();
     const { customSettings } = context;
 
     const pre = React.createRef();
