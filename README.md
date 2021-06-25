@@ -13,5 +13,5 @@ yarn build
 ## Create the h5p export :
 
 ```
-zip -r -D -X pyth5p.h5p .*
+h5p pack H5P.PytH5P
 ```

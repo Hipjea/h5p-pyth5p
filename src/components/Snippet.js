@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { decodeHtmlEntities } from '../utils/utils';
 import Button from './Button';
 import { Preview } from './Preview';
+import './snippet.css';
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-github";
@@ -20,7 +21,8 @@ function Snippet(props) {
     const defaultVal = decodeHtmlEntities(props.code);
     const [out, setOuttext] = useState([]);
     const [localCode, setCode] = useState(defaultVal);
-    const onChangeChecking = (props.behaviour.onChangeChecking === 'true');
+    const onChangeChecking = (props.behaviour.onChangeChecking === 'true' || 
+                                props.behaviour.onChangeChecking === true);
 
     useEffect(() => {
         runit(localCode);
@@ -63,7 +65,7 @@ function Snippet(props) {
     return (
         <section 
             id={`code-${props.id}`}
-            className={"h5p-pyth5p-code"}
+            className="h5p-pyth5p-code"
         >
             <AceEditor
                 ref={prog}
