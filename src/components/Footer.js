@@ -8,7 +8,7 @@ export default function Footer({...props}) {
     const [correction, setCheckCode] = useState(null);
     const [answers, setAnswers] = useState([]);
     const context = usePythonCodeContext();
-    const isExercise = (props.contentType.isExercise === 'true');
+    const isExercise = (props.contentType.isExercise === 'true' || props.contentType.isExercise === true);
 
     const result = 1;
 
