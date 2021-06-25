@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { usePythonCodeContext } from '../PythonCodeContext';
 import { decodeHtmlEntities } from '../utils/utils';
 import Button from './Button';
 import { Preview } from './Preview';
@@ -10,9 +9,6 @@ const Sk = require('skulpt');
 
 
 function Snippet(props) {
-    const context = usePythonCodeContext();
-    const { customSettings } = context;
-
     const pre = React.createRef();
     const canvas = React.createRef();
     const ref = {
@@ -21,25 +17,10 @@ function Snippet(props) {
     }
 
     const prog = useRef(null);
-
     const defaultVal = decodeHtmlEntities(props.code);
     const [out, setOuttext] = useState([]);
     const [localCode, setCode] = useState(defaultVal);
-
     const onChangeChecking = (props.behaviour.onChangeChecking === 'true');
-    const editorOptions = {
-        enableBasicAutocompletion: false,
-        enableLiveAutocompletion: false,
-        tabSize: 4,
-        fontSize: 13,
-        showGutter: true,
-        readOnly: props.isEditable ? true : false,
-        behavioursEnabled: true,
-        wrapBehavioursEnabled: true,
-        maxLines: "Infinity",
-        minLines: 5,
-        fontFamily: customSettings.codeFont
-    }
 
     useEffect(() => {
         runit(localCode);
@@ -60,29 +41,24 @@ function Snippet(props) {
         return Sk.builtinFiles["files"][x];
     }
 
-    
     function runit(val) {
-        if (val != undefined && onChangeChecking) {
-            // checkCode();
-        } else {
-            purgePreContent();
-            const value = val ?? localCode;
-            Sk.pre = pre.current;
-            Sk.configure({ output: setPreContent, read: builtinRead, __future__: Sk.python3 }); 
-            (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvas.current;
-            const SkPromise = Sk.misceval.asyncToPromise(function() {
-                return Sk.importMainWithBody("<stdin>", false, value, true);
-            });
-            SkPromise.then(function(mod) {
-                console.log('success');
-            },
-            function(err) {
-                console.log(err.toString());
-                setPreContent(err.toString())
-            });
-        }
+        // if (val != undefined && onChangeChecking) {
+        purgePreContent();
+        const value = val ?? localCode;
+        Sk.pre = pre.current;
+        Sk.configure({ output: setPreContent, read: builtinRead, __future__: Sk.python3 }); 
+        (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvas.current;
+        const SkPromise = Sk.misceval.asyncToPromise(function() {
+            return Sk.importMainWithBody("<stdin>", false, value, true);
+        });
+        SkPromise.then(function(mod) {
+            console.log('success');
+        },
+        function(err) {
+            console.log(err.toString());
+            setPreContent(err.toString())
+        });
     }
-
 
     return (
         <section 
@@ -97,10 +73,13 @@ function Snippet(props) {
                 defaultValue={defaultVal}
                 name="pyth5p-code-editor"
                 width="100%"
-                setOptions={editorOptions}
+                setOptions={props.editorOptions}
                 editorProps={{ $blockScrolling: true }}
             />
-            <Button visible={!onChangeChecking} onLaunchAction={() => runit()} {...props} />
+            <Button 
+                visible={!onChangeChecking} 
+                onLaunchAction={() => runit()} {...props} 
+            />
             <Preview ref={ref} out={out} {...props} />
         </section>
     );

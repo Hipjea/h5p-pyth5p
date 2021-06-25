@@ -16,22 +16,35 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
         // Initialize event inheritance
         EventDispatcher.call(this);
 
+        const root = document.documentElement;
+        const codeWidthVal = params.displaySettings.codeWidth;
+        const codeWidthUnit = params.displaySettings.codeWidthUnit;
+
+        const customSettings = {
+            codeWidth: `${codeWidthVal}${codeWidthUnit}`,
+            codeFont: params.displaySettings.codeFont
+        };
+
         this.wrapper = null;
         this.id = contentId;
         this.params = {
             l10n: l10n,
+            editorOptions: {
+                enableBasicAutocompletion: false,
+                enableLiveAutocompletion: false,
+                tabSize: 4,
+                fontSize: 13,
+                showGutter: true,
+                readOnly: params.isEditable ? true : false,
+                behavioursEnabled: true,
+                wrapBehavioursEnabled: true,
+                maxLines: "Infinity",
+                minLines: 5,
+                fontFamily: customSettings.codeFont
+            },
             ...params
         }
         this.error = null;
-
-        const root = document.documentElement;
-        const codeWidthVal = this.params.displaySettings.codeWidth;
-        const codeWidthUnit = this.params.displaySettings.codeWidthUnit;
-
-        this.customSettings = {
-            codeWidth: `${codeWidthVal}${codeWidthUnit}`,
-            codeFont: this.params.displaySettings.codeFont
-        };
 
         const createElements = () => {
             const wrapper = document.createElement('div');
@@ -55,7 +68,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             if (!this.wrapper) {
                 createElements();
             }
-            root.style.setProperty('--code-width', this.customSettings.codeWidth);
+            root.style.setProperty('--code-width', customSettings.codeWidth);
             // Append elements to DOM
             container[0].appendChild(this.wrapper);
             container[0].classList.add('h5p-pyth5p');

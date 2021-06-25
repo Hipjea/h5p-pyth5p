@@ -8,8 +8,8 @@ export default function Footer({...props}) {
     const [correction, setCheckCode] = useState(null);
     const [answers, setAnswers] = useState([]);
     const context = usePythonCodeContext();
-    
-    console.log("context : ", context.trigger); 
+    const isExercise = (props.contentType.isExercise === 'true');
+
     const result = 1;
 
     function checkCode() {
@@ -39,7 +39,7 @@ export default function Footer({...props}) {
 
     return (
         <footer className="footer-container">
-            { checkBtn
+            { checkBtn && isExercise
                 ? <button 
                         title="Submit"
                         className="h5p-joubelui-button"
