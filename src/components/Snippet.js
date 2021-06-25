@@ -1,8 +1,6 @@
-import React, { useContext, useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { PythonCodeContext } from '../PythonCodeContext';
+import React, { useState, useRef, useEffect } from 'react';
 import { decodeHtmlEntities } from '../utils/utils';
 import Button from './Button';
-import Feedback from './Feedback';
 import { Preview } from './Preview';
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
@@ -11,9 +9,6 @@ const Sk = require('skulpt');
 
 
 function Snippet(props) {
-    const context = useContext(PythonCodeContext);
-    const { customSettings } = context;
-
     const pre = React.createRef();
     const canvas = React.createRef();
     const ref = {
@@ -22,37 +17,14 @@ function Snippet(props) {
     }
 
     const prog = useRef(null);
-
     const defaultVal = decodeHtmlEntities(props.code);
     const [out, setOuttext] = useState([]);
     const [localCode, setCode] = useState(defaultVal);
-    const [correction, setCheckCode] = useState(null);
-    const [answers, setAnswers] = useState([]);
-
     const onChangeChecking = (props.behaviour.onChangeChecking === 'true');
-    const editorOptions = {
-        enableBasicAutocompletion: false,
-        enableLiveAutocompletion: false,
-        tabSize: 4,
-        fontSize: 13,
-        showGutter: true,
-        readOnly: props.isEditable ? true : false,
-        behavioursEnabled: true,
-        wrapBehavioursEnabled: true,
-        maxLines: "Infinity",
-        minLines: 5,
-        fontFamily: customSettings.codeFont
-    }
 
     useEffect(() => {
         runit(localCode);
     }, [localCode]);
-
-    function checkCode() {
-        console.log("h", props.contentType.correction)
-        setCheckCode(props.contentType.correction.correctionCode);
-        setAnswers(props.contentType.correction.answers);
-    };
 
     function purgePreContent() {
         setOuttext([]);
@@ -69,30 +41,24 @@ function Snippet(props) {
         return Sk.builtinFiles["files"][x];
     }
 
-    
     function runit(val) {
-        if (val != undefined && onChangeChecking) {
-            checkCode();
-        } else {
-            purgePreContent();
-            const value = val ?? localCode;
-            Sk.pre = pre.current;
-            Sk.configure({ output: setPreContent, read: builtinRead, __future__: Sk.python3 }); 
-            (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvas.current;
-            const SkPromise = Sk.misceval.asyncToPromise(function() {
-                return Sk.importMainWithBody("<stdin>", false, value, true);
-            });
-            SkPromise.then(function(mod) {
-                console.log('success');
-            },
-            function(err) {
-                console.log(err.toString());
-                setPreContent(err.toString())
-            });
-        }
+        // if (val != undefined && onChangeChecking) {
+        purgePreContent();
+        const value = val ?? localCode;
+        Sk.pre = pre.current;
+        Sk.configure({ output: setPreContent, read: builtinRead, __future__: Sk.python3 }); 
+        (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvas.current;
+        const SkPromise = Sk.misceval.asyncToPromise(function() {
+            return Sk.importMainWithBody("<stdin>", false, value, true);
+        });
+        SkPromise.then(function(mod) {
+            console.log('success');
+        },
+        function(err) {
+            console.log(err.toString());
+            setPreContent(err.toString())
+        });
     }
-
-    const listAnswers = answers.map((answer, i) => <li key={i}>{answer.text}</li>);
 
     return (
         <section 
@@ -107,13 +73,14 @@ function Snippet(props) {
                 defaultValue={defaultVal}
                 name="pyth5p-code-editor"
                 width="100%"
-                setOptions={editorOptions}
+                setOptions={props.editorOptions}
                 editorProps={{ $blockScrolling: true }}
             />
-            <Button visible={!onChangeChecking} onLaunchAction={() => runit()} {...props} />
+            <Button 
+                visible={!onChangeChecking} 
+                onLaunchAction={() => runit()} {...props} 
+            />
             <Preview ref={ref} out={out} {...props} />
-            <Feedback correction={correction} {...props} />
-            { listAnswers ? <ul>{listAnswers}</ul> : null }
         </section>
     );
 }

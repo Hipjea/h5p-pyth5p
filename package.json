@@ -40,7 +40,7 @@
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook --static-dir ./src/stories/static -p 6006",
     "build-storybook": "build-storybook"
   }
 }

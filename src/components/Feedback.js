@@ -1,9 +1,8 @@
 import React from 'react';
-import './button.css';
+import './feedback.css';
 import PropTypes from 'prop-types';
 
 export default function Feedback({correction, ...props}) {
-    console.log(correction);
     return (
         <div className="feedback">
             <div className="correction">{correction}</div>
@@ -13,5 +12,5 @@ export default function Feedback({correction, ...props}) {
 
 Feedback.propTypes = {
     /** The correction specified in the settings */
-    correction: PropTypes.string,
+    correction: PropTypes.string
 };
