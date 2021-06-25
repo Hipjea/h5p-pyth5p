@@ -2,6 +2,7 @@ import l10n from '../../src/localization';
 
 export const defaultContext = {
     l10n: l10n,
+    code: 'print("Hello world !")',
     contentType: {
         isExercise: true,
         correction: {
@@ -30,5 +31,9 @@ export const defaultContext = {
                 }
             ]
         }
+    },
+    displaySettings: {
+        codeWidth: '100',
+        codeWidthUnit: '%'
     }
 }
