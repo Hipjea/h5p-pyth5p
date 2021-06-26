@@ -18,7 +18,12 @@ const TemplateDefault = (args) => (
 );
 
 export const Default = TemplateDefault.bind({});
-Default.args = { ...defaultEditorContext, ...defaultContext, ...behaviourManual };
+Default.args = { 
+    id: 1, 
+    ...defaultEditorContext, 
+    ...defaultContext, 
+    ...behaviourManual 
+};
 
 const TemplateUneditable = (args) => (
     <Main {...args}>
@@ -27,4 +32,9 @@ const TemplateUneditable = (args) => (
 );
 
 export const Uneditable = TemplateUneditable.bind({});
-Uneditable.args = { ...uneditableEditorContext, ...defaultContext, ...behaviourUneditable };
+Uneditable.args = { 
+    id: 2,
+    ...uneditableEditorContext, 
+    ...defaultContext, 
+    ...behaviourUneditable 
+};

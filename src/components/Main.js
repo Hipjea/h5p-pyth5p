@@ -2,7 +2,7 @@ import React from 'react';
 import Snippet from './Snippet';
 import Footer from './Footer';
 
-export default function Main(props) {
+export default function Main({id, error, ...props}) {
     function createMarkup() {
         return {__html: props.statement};
     }
@@ -12,8 +12,10 @@ export default function Main(props) {
             <p className="statement" dangerouslySetInnerHTML={createMarkup()}></p>
             <div className="h5p-pyth5p-code-wrapper">
                 <Snippet
-                    id={props.id}
+                    id={id}
                     code={props.code}
+                    isEditable={props.behaviour.isEditable}
+                    checkOnEdit={props.behaviour.checkOnEdit}
                     {...props}
                 />
             </div>
