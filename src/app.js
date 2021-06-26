@@ -56,7 +56,6 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                     <Main
                         id={contentId}
                         error={this.error}
-                        customSettings={this.customSettings}
                         {...this.params}
                     />
                 </PythonCodeContextProvider>,

@@ -155,7 +155,7 @@
       },
       {
         "label": "Enable code evaluation on change",
-        "name": "onChangeChecking",
+        "name": "checkOnEdit",
         "type": "select",
         "widget": "radioGroup",
         "alignment": "horizontal",

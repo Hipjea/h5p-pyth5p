@@ -10,7 +10,7 @@ const Sk = require('skulpt');
 import PropTypes from 'prop-types';
 
 
-function Snippet(props) {
+function Snippet({id, code, isEditable, checkOnEdit, ...props}) {
     const pre = React.createRef();
     const canvas = React.createRef();
     const ref = {
@@ -19,11 +19,10 @@ function Snippet(props) {
     }
 
     const prog = useRef(null);
-    const defaultVal = decodeHtmlEntities(props.code);
+    const defaultVal = decodeHtmlEntities(code);
     const [out, setOuttext] = useState([]);
     const [localCode, setCode] = useState(defaultVal);
-    const onChangeChecking = (props.behaviour.onChangeChecking === 'true' || 
-                                props.behaviour.onChangeChecking === true);
+    const onChangeCheck = (checkOnEdit === 'true' || checkOnEdit === true);
 
     useEffect(() => {
         runit(localCode);
@@ -45,7 +44,7 @@ function Snippet(props) {
     }
 
     function runit(val) {
-        // if (val != undefined && onChangeChecking) {
+        // if (val != undefined && onChangeCheck) {
         purgePreContent();
         const value = val ?? localCode;
         Sk.pre = pre.current;
@@ -65,14 +64,14 @@ function Snippet(props) {
 
     return (
         <section 
-            id={`code-${props.id}`}
+            id={`code-${id}`}
             className="h5p-pyth5p-code"
         >
             <AceEditor
                 ref={prog}
                 mode="python"
                 theme="github"
-                onChange={ val => onChangeChecking ? runit(val) : setCode(val) }
+                onChange={ val => onChangeCheck ? runit(val) : setCode(val) }
                 defaultValue={defaultVal}
                 name="pyth5p-code-editor"
                 width="100%"
@@ -80,7 +79,7 @@ function Snippet(props) {
                 editorProps={{ $blockScrolling: true }}
             />
             <Button 
-                visible={!onChangeChecking} 
+                visible={!onChangeCheck} 
                 onLaunchAction={() => runit()} {...props} 
             />
             <Preview ref={ref} out={out} {...props} />
@@ -89,14 +88,22 @@ function Snippet(props) {
 }
 
 Snippet.propTypes = {
+    /** Id */
+    id: PropTypes.number.isRequired,
     /** The code editor settings */
-    editorOptions: PropTypes.array.isRequired,
-    /** The app localization strings */
-    l10n: PropTypes.array.isRequired,
+    editorOptions: PropTypes.object.isRequired,
     /** The code of the program */
     code: PropTypes.string.isRequired,
-    /** The settings defining the type of the activity ; isExercise enables H5P checking features */
-    contentType: PropTypes.array.isRequired,
+    /** isEditable allows snippet code modification */ 
+    isEditable: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool
+    ]),
+    /** checkOnEdit enables the editor listener for changes */
+    checkOnEdit: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool
+    ])
 };
 
 

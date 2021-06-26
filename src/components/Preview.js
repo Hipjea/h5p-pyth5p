@@ -22,7 +22,7 @@ export const Preview = React.forwardRef((props, ref) => {
 
 Preview.propTypes = {
     /** The app localization strings */
-    l10n: PropTypes.array.isRequired,
+    l10n: PropTypes.object.isRequired,
     /** The output of the program */
-    out: PropTypes.string.isRequired,
+    out: PropTypes.array.isRequired,
 };

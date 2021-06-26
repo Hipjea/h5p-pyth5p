@@ -2,7 +2,6 @@ import React from 'react';
 import Snippet from '../components/Snippet';
 import Button from '../components/Button';
 import { defaultContext } from '../../.storybook/config/context';
-import { behaviourEditable, behaviourUneditable, behaviourManual } from '../../.storybook/config/behaviourContext';
 import { defaultEditorContext, uneditableEditorContext } from '../../.storybook/config/editorContext';
 
 import { Visible, Invisible } from './Button.stories';
@@ -20,10 +19,24 @@ const Template = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = { ...defaultEditorContext, ...defaultContext, ...behaviourManual };
+Default.args = { 
+    id: 1, 
+    code: 'print("Hello world !")',
+    isEditable: true, 
+    checkOnEdit: true,
+    ...defaultEditorContext, 
+    ...defaultContext
+};
 
 export const Uneditable = Template.bind({});
-Uneditable.args = { ...uneditableEditorContext, ...defaultContext, ...behaviourUneditable };
+Uneditable.args = { 
+    id: 2, 
+    code: 'print("Hello world !")',
+    isEditable: false, 
+    checkOnEdit: false,
+    ...uneditableEditorContext, 
+    ...defaultContext
+};
 
 const TemplateWithoutButton = (args) => (
     <Snippet {...args}>
@@ -32,4 +45,11 @@ const TemplateWithoutButton = (args) => (
 );
 
 export const WithoutButton = TemplateWithoutButton.bind({});
-WithoutButton.args = { ...defaultEditorContext, ...defaultContext, ...behaviourEditable };
+WithoutButton.args = {
+    id: 3, 
+    code: 'print("Hello world !")',
+    isEditable: true, 
+    checkOnEdit: true,
+    ...defaultEditorContext, 
+    ...defaultContext 
+};
