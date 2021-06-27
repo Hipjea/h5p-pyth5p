@@ -58,8 +58,9 @@ const TemplateUneditable = (args) => (
             checkOnEdit={behaviourUneditable.checkOnEdit}
             setOutText={changeOutText} 
             clearOutText={changeOutText} 
-            {...Uneditable.args} 
+            {...Uneditable.args}
         />
+        <Preview ref={ref} {...Filled.args} />
     </Main>
 );
 

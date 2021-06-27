@@ -3,6 +3,7 @@ import Snippet from '../components/Snippet';
 import Button from '../components/Button';
 import { defaultContext } from '../../.storybook/config/context';
 import { defaultEditorContext, uneditableEditorContext } from '../../.storybook/config/editorContext';
+import { behaviourEditable } from '../../.storybook/config/behaviourContext';
 import { Visible, Invisible } from './Button.stories';
 import { action } from '@storybook/addon-actions';
 
@@ -25,9 +26,14 @@ const changeOutText = () => {
 
 const Template = (args) => (
     <Snippet 
+        ref={ref} 
+        id={defaultContext.id}
+        code={defaultContext.code}
+        isEditable={behaviourEditable.isEditable}
+        checkOnEdit={behaviourEditable.checkOnEdit}
         setOutText={changeOutText} 
         clearOutText={changeOutText} 
-        ref={ref} {...args}>
+        {...args}>
         <Visible {...Visible.args} 
     />
     </Snippet>
@@ -55,9 +61,14 @@ Uneditable.args = {
 
 const TemplateWithoutButton = (args) => (
     <Snippet 
+        ref={ref} 
+        id={defaultContext.id}
+        code={defaultContext.code}
+        isEditable={behaviourEditable.isEditable}
+        checkOnEdit={behaviourEditable.checkOnEdit}
         setOutText={changeOutText} 
         clearOutText={changeOutText} 
-        ref={ref} {...args}>
+        {...args}>
         <Invisible {...Invisible.args} 
     />
     </Snippet>

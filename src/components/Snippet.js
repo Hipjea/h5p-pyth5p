@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { decodeHtmlEntities } from '../utils/utils';
 import Button from './Button';
-import { Preview } from './Preview';
 import './snippet.css';
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
@@ -72,30 +71,23 @@ export const Snippet = React.forwardRef(({id, code, isEditable, checkOnEdit, set
     );
 });
 
+Snippet.displayName = 'Snippet'
+
 Snippet.propTypes = {
     /** Id */
     id: PropTypes.number.isRequired,
-    /** The code editor settings */
-    editorOptions: PropTypes.object.isRequired,
     /** The code of the program */
     code: PropTypes.string.isRequired,
     /** isEditable allows snippet code modification */ 
     isEditable: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.bool
-    ]),
+    ]).isRequired,
     /** checkOnEdit enables the editor listener for changes */
     checkOnEdit: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.bool
-    ]),
-    /** The app localization strings */
-    l10n: PropTypes.object.isRequired,
-    /** The settings defining the type of the activity ; isExercise enables H5P checking features */
-    contentType: PropTypes.object.isRequired,
-    /** The settings for display purposes based on CSS vars */
-    displaySettings: PropTypes.object.isRequired
+    ]).isRequired
 };
-
 
 export default Snippet;
