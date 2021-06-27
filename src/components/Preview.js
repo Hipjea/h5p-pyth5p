@@ -3,7 +3,7 @@ import './preview.css';
 import PropTypes from 'prop-types';
 
 export const Preview = React.forwardRef((props, ref) => {
-    const {pre, canvas} = ref;
+    const { pre, canvas } = ref;
 
     return (
         <>
@@ -24,5 +24,8 @@ Preview.propTypes = {
     /** The app localization strings */
     l10n: PropTypes.object.isRequired,
     /** The output of the program */
-    out: PropTypes.array.isRequired,
+    out: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array
+    ])
 };
