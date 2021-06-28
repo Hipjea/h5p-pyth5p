@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import Feedback from './Feedback';
 import { usePythonCodeContext } from '../PythonCodeContext';
-import { createPreservedMarkup } from '../utils/utils';
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/theme-github";
+import { feedbackEditorSettings } from '../utils/editorSettings';
+import { decodeHTML } from '../utils/utils';
 
 
 export default function Footer({out, ...props}) {
@@ -38,7 +42,13 @@ export default function Footer({out, ...props}) {
     }
 
     const listAnswers = answers.map((answer, i) => (
-        <li key={i} dangerouslySetInnerHTML={createPreservedMarkup(answer.text)} />
+        <AceEditor
+            key={i}
+            defaultValue={decodeHTML(answer.text)}
+            setOptions={props.editorOptions}
+            readOnly={true}
+            { ...feedbackEditorSettings }
+        />
     ));
 
     return (

@@ -24,3 +24,20 @@ export const defaultEditorSettings = {
         fontFamily: "Monaco"
     }
 }
+
+export const feedbackEditorSettings = {
+    ...sharedOptions,
+    editorOptions: {
+        enableBasicAutocompletion: false,
+        enableLiveAutocompletion: false,
+        tabSize: 4,
+        fontSize: 13,
+        showGutter: true,
+        readOnly: true,
+        behavioursEnabled: true,
+        wrapBehavioursEnabled: true,
+        maxLines: "Infinity",
+        minLines: 0,
+        fontFamily: "Monaco"
+    }
+}

@@ -11,7 +11,13 @@ export function createMarkup(text) {
 export function createPreservedMarkup(text) {
     return {
         __html: text ? text.replace(/\r\n|\r|\n/g, '</br>')
-                    .replace(/ /g, '&nbsp;')
+                            .replace(/ /g, '&nbsp;')
                 : ''
     };
+}
+
+export function decodeHTML(html) {
+	var txt = document.createElement('textarea');
+	txt.innerHTML = html;
+	return txt.value;
 }
