@@ -6,19 +6,14 @@ import { defaultContext } from '../../.storybook/config/context';
 import { behaviourEditable, behaviourUneditable, behaviourManual } from '../../.storybook/config/behaviourContext';
 import { defaultEditorContext, uneditableEditorContext } from '../../.storybook/config/editorContext';
 import { Filled } from './Preview.stories';
+import { ref } from '../../.storybook/config/refs';
+
 
 export default {
   title: 'Scenes/Main',
   component: Main,
   subcomponents: { Snippet, Preview }
 };
-
-const pre = React.createRef();
-const canvas = React.createRef();
-const ref = {
-    pre: pre,
-    canvas: canvas
-}
 
 const changeOutText = () => {
     action('Changed!')

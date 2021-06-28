@@ -6,19 +6,14 @@ import { defaultEditorContext, uneditableEditorContext } from '../../.storybook/
 import { behaviourEditable } from '../../.storybook/config/behaviourContext';
 import { Visible, Invisible } from './Button.stories';
 import { action } from '@storybook/addon-actions';
+import { ref } from '../../.storybook/config/refs';
+
 
 export default {
   title: 'Components/Snippet',
   component: Snippet,
   subcomponents: { Button }
 };
-
-const pre = React.createRef();
-const canvas = React.createRef();
-const ref = {
-    pre: pre,
-    canvas: canvas
-}
 
 const changeOutText = () => {
     action('Changed!')

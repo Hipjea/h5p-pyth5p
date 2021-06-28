@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from '../components/Footer';
 import { defaultContext } from '../../.storybook/config/context';
 
+
 export default {
   title: 'Components/Footer',
   component: Footer,
