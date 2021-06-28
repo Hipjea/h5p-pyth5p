@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
 import Footer from './Footer';
+import { createMarkup } from '../utils/utils';
+
 
 export default function Main({id, error, ...props}) {
     const pre = React.createRef();
@@ -13,10 +15,6 @@ export default function Main({id, error, ...props}) {
 
     const [out, setOutText] = useState([]);
 
-    function createMarkup() {
-        return {__html: props.statement};
-    }
-
     function clearOutCallback() {
         setOutText([]);
     }
@@ -27,7 +25,7 @@ export default function Main({id, error, ...props}) {
 
     return (
         <div className="h5p-pyth5p-main">
-            <p className="statement" dangerouslySetInnerHTML={createMarkup()}></p>
+            <p className="statement" dangerouslySetInnerHTML={createMarkup(props.statement)}></p>
             <div className="h5p-pyth5p-code-wrapper">
                 <Snippet
                     ref={ref}
@@ -45,7 +43,7 @@ export default function Main({id, error, ...props}) {
                     {...props} 
                 />
             </div>
-            <Footer {...props} />
+            <Footer out={out} {...props} />
         </div>
     );
 }
