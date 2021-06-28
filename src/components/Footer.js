@@ -42,13 +42,16 @@ export default function Footer({out, ...props}) {
     }
 
     const listAnswers = answers.map((answer, i) => (
-        <AceEditor
-            key={i}
-            defaultValue={decodeHTML(answer.text)}
-            setOptions={props.editorOptions}
-            readOnly={true}
-            { ...feedbackEditorSettings }
-        />
+        <div className="feedback">
+            <AceEditor
+                key={i}
+                defaultValue={decodeHTML(answer.text)}
+                setOptions={props.editorOptions}
+                readOnly={true}
+                { ...feedbackEditorSettings }
+            />
+            <div className="feedback-separator" />
+        </div>
     ));
 
     return (
@@ -65,7 +68,13 @@ export default function Footer({out, ...props}) {
                 :   null
             }
             <Feedback correction={correction} {...props} />
-            { listAnswers ? <ul>{listAnswers}</ul> : null }
+            { listAnswers 
+                ?   <>
+                        <p className="solution-text">{props.l10n.answers}</p>
+                        <ul>{listAnswers}</ul> 
+                    </>
+                :   null 
+            }
         </footer>
     );
 }

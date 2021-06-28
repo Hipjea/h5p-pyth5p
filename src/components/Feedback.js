@@ -9,7 +9,7 @@ export default function Feedback({correction, ...props}) {
         <div className="feedback">
             { correction
                 ? <>
-                    <p className="solution-title">{props.l10n.solution}</p>
+                    <p className="solution-text">{props.l10n.solution}</p>
                     <div className="feedback-text correction" 
                         dangerouslySetInnerHTML={createMarkup(correction, true)} />
                 </>
