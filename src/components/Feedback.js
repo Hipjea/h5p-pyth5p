@@ -7,7 +7,14 @@ import { createMarkup } from '../utils/utils';
 export default function Feedback({correction, ...props}) {
     return (
         <div className="feedback">
-            <div className="correction" dangerouslySetInnerHTML={createMarkup(correction)} />
+            { correction
+                ? <>
+                    <p className="solution-title">{props.l10n.solution}</p>
+                    <div className="feedback-text correction" 
+                        dangerouslySetInnerHTML={createMarkup(correction, true)} />
+                </>
+                : null
+            }
         </div>
     );
 }

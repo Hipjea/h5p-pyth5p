@@ -1,6 +1,19 @@
+.h5p-pyth5p .solution-title {
+    display: block;
+    color: #1a73d9;
+    font-weight: bold;
+    margin-bottom: 0.8em;
+}
+
 .h5p-pyth5p .feedback-text {
     display: block;
     color: #1a73d9;
     font-weight: bold;
     margin-bottom: 0.8em;
+    background: #b6e4ce;
+    border-color: #b6e4ce;
+    color: #255c41;
+    box-shadow: 0 .1em 0 #a2bdb0;
+    padding: .25em .75em .25em 2.1em;
+    border-radius: .3em;
 }

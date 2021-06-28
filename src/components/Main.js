@@ -25,7 +25,7 @@ export default function Main({id, error, ...props}) {
 
     return (
         <div className="h5p-pyth5p-main">
-            <p className="statement" dangerouslySetInnerHTML={createMarkup(props.statement)}></p>
+            <p className="statement" dangerouslySetInnerHTML={createMarkup(props.statement, false)}></p>
             <div className="h5p-pyth5p-code-wrapper">
                 <Snippet
                     ref={ref}
