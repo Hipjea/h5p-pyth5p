@@ -39,7 +39,7 @@ Default.args = {
     id: 1, 
     code: defaultContext.code,
     isEditable: true, 
-    checkOnEdit: true,
+    checkOnEdit: false,
     ...defaultEditorContext, 
     ...defaultContext
 };

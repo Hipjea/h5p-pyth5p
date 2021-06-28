@@ -1,8 +1,14 @@
-import { sharedOptions, defaultEditorSettings } from '../../src/utils/editorSettings';
+const sharedOptions = {
+    mode: "python",
+    theme: "github",
+    name: "pyth5p-code-editor",
+    width: "100%",
+    editorProps: {
+        $blockScrolling: true
+    }
+}
 
-export const defaultEditorContext = defaultEditorSettings;
-
-export const uneditableEditorContext = {
+export const defaultEditorSettings = {
     ...sharedOptions,
     editorOptions: {
         enableBasicAutocompletion: false,
@@ -10,7 +16,7 @@ export const uneditableEditorContext = {
         tabSize: 4,
         fontSize: 13,
         showGutter: true,
-        readOnly: true,
+        readOnly: false,
         behavioursEnabled: true,
         wrapBehavioursEnabled: true,
         maxLines: "Infinity",

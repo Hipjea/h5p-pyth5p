@@ -7,6 +7,7 @@ import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-github";
 const Sk = require('skulpt');
 import PropTypes from 'prop-types';
+import { defaultEditorSettings } from '../utils/editorSettings';
 
 
 export const Snippet = React.forwardRef(({id, code, isEditable, checkOnEdit, setOutText, clearOutText, ...props}, ref) => {
@@ -53,14 +54,10 @@ export const Snippet = React.forwardRef(({id, code, isEditable, checkOnEdit, set
         >
             <AceEditor
                 ref={prog}
-                mode="python"
-                theme="github"
                 onChange={ val => onChangeCheck ? runit(val) : setCode(val) }
                 defaultValue={defaultVal}
-                name="pyth5p-code-editor"
-                width="100%"
                 setOptions={props.editorOptions}
-                editorProps={{ $blockScrolling: true }}
+                { ...defaultEditorSettings }
             />
             <Button 
                 visible={!onChangeCheck} 
