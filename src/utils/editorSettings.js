@@ -1,4 +1,4 @@
-const sharedOptions = {
+export const sharedOptions = {
     mode: "python",
     theme: "github",
     name: "pyth5p-code-editor",
