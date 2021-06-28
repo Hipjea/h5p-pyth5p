@@ -1,6 +1,8 @@
 import React from 'react';
 import { Preview } from '../components/Preview';
 import { defaultContext } from '../../.storybook/config/context';
+import { ref } from '../../.storybook/config/refs';
+
 
 export default {
   title: 'Components/Preview',
@@ -8,13 +10,6 @@ export default {
 };
 
 const Template = (args) => <Preview ref={ref} {...args} />;
-
-const pre = React.createRef();
-const canvas = React.createRef();
-const ref = {
-    pre: pre,
-    canvas: canvas
-}
 
 export const Empty = Template.bind({});
 Empty.args = {

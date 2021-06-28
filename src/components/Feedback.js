@@ -1,11 +1,20 @@
 import React from 'react';
 import './feedback.css';
 import PropTypes from 'prop-types';
+import { createMarkup } from '../utils/utils';
+
 
 export default function Feedback({correction, ...props}) {
     return (
         <div className="feedback">
-            <div className="correction">{correction}</div>
+            { correction
+                ? <>
+                    <p className="solution-text">{props.l10n.solution}</p>
+                    <div className="feedback-text correction" 
+                        dangerouslySetInnerHTML={createMarkup(correction, true)} />
+                </>
+                : null
+            }
         </div>
     );
 }

@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import Feedback from './Feedback';
 import { usePythonCodeContext } from '../PythonCodeContext';
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/theme-github";
+import { feedbackEditorSettings } from '../utils/editorSettings';
+import { decodeHTML } from '../utils/utils';
 
 
-export default function Footer({...props}) {
+export default function Footer({out, ...props}) {
+    const isExercise = (props.contentType.isExercise === 'true' || 
+                        props.contentType.isExercise === true);
     const [checkBtn, toggleCheckBtn] = useState([]);
     const [correction, setCheckCode] = useState(null);
     const [answers, setAnswers] = useState([]);
     const context = usePythonCodeContext();
-    const isExercise = (props.contentType.isExercise === 'true' || props.contentType.isExercise === true);
 
     const result = 1;
 
@@ -35,12 +41,23 @@ export default function Footer({...props}) {
         context.trigger('resize');
     }
 
-    const listAnswers = answers.map((answer, i) => <li key={i}>{answer.text}</li>);
+    const listAnswers = answers.map((answer, i) => (
+        <div className="feedback">
+            <AceEditor
+                key={i}
+                defaultValue={decodeHTML(answer.text)}
+                setOptions={props.editorOptions}
+                readOnly={true}
+                { ...feedbackEditorSettings }
+            />
+            <div className="feedback-separator" />
+        </div>
+    ));
 
     return (
         <footer className="footer-container">
             { checkBtn && isExercise
-                ? <button 
+                ?   <button 
                         title="Submit"
                         className="h5p-joubelui-button"
                         onClick={() => displayResult()}
@@ -48,10 +65,16 @@ export default function Footer({...props}) {
                         <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
                         &nbsp; {props.l10n.checkAnswer}
                     </button>
-                : null
+                :   null
             }
             <Feedback correction={correction} {...props} />
-            { listAnswers ? <ul>{listAnswers}</ul> : null }
+            { listAnswers 
+                ?   <>
+                        <p className="solution-text">{props.l10n.answers}</p>
+                        <ul>{listAnswers}</ul> 
+                    </>
+                :   null 
+            }
         </footer>
     );
 }

@@ -1,40 +1,25 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { decodeHtmlEntities } from '../utils/utils';
 import Button from './Button';
-import { Preview } from './Preview';
 import './snippet.css';
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-github";
 const Sk = require('skulpt');
 import PropTypes from 'prop-types';
+import { defaultEditorSettings } from '../utils/editorSettings';
 
 
-function Snippet({id, code, isEditable, checkOnEdit, ...props}) {
-    const pre = React.createRef();
-    const canvas = React.createRef();
-    const ref = {
-        pre: pre,
-        canvas: canvas
-    }
-
+export const Snippet = React.forwardRef(({id, code, isEditable, checkOnEdit, setOutText, clearOutText, ...props}, ref) => {
+    const { pre, canvas } = ref;
     const prog = useRef(null);
     const defaultVal = decodeHtmlEntities(code);
-    const [out, setOuttext] = useState([]);
     const [localCode, setCode] = useState(defaultVal);
     const onChangeCheck = (checkOnEdit === 'true' || checkOnEdit === true);
 
     useEffect(() => {
         runit(localCode);
     }, [localCode]);
-
-    function purgePreContent() {
-        setOuttext([]);
-    }
-
-    function setPreContent(text) {
-        setOuttext(old => [...old, text]);
-    }
 
     function builtinRead(x) {
         if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
@@ -45,10 +30,10 @@ function Snippet({id, code, isEditable, checkOnEdit, ...props}) {
 
     function runit(val) {
         // if (val != undefined && onChangeCheck) {
-        purgePreContent();
+        clearOutText();
         const value = val ?? localCode;
         Sk.pre = pre.current;
-        Sk.configure({ output: setPreContent, read: builtinRead, __future__: Sk.python3 }); 
+        Sk.configure({ output: setOutText, read: builtinRead, __future__: Sk.python3 }); 
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvas.current;
         const SkPromise = Sk.misceval.asyncToPromise(function() {
             return Sk.importMainWithBody("<stdin>", false, value, true);
@@ -58,7 +43,7 @@ function Snippet({id, code, isEditable, checkOnEdit, ...props}) {
         },
         function(err) {
             console.log(err.toString());
-            setPreContent(err.toString())
+            setOutText(err.toString())
         });
     }
 
@@ -69,42 +54,37 @@ function Snippet({id, code, isEditable, checkOnEdit, ...props}) {
         >
             <AceEditor
                 ref={prog}
-                mode="python"
-                theme="github"
                 onChange={ val => onChangeCheck ? runit(val) : setCode(val) }
                 defaultValue={defaultVal}
-                name="pyth5p-code-editor"
-                width="100%"
                 setOptions={props.editorOptions}
-                editorProps={{ $blockScrolling: true }}
+                { ...defaultEditorSettings }
             />
             <Button 
                 visible={!onChangeCheck} 
                 onLaunchAction={() => runit()} {...props} 
             />
-            <Preview ref={ref} out={out} {...props} />
+            
         </section>
     );
-}
+});
+
+Snippet.displayName = 'Snippet'
 
 Snippet.propTypes = {
     /** Id */
     id: PropTypes.number.isRequired,
-    /** The code editor settings */
-    editorOptions: PropTypes.object.isRequired,
     /** The code of the program */
     code: PropTypes.string.isRequired,
     /** isEditable allows snippet code modification */ 
     isEditable: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.bool
-    ]),
+    ]).isRequired,
     /** checkOnEdit enables the editor listener for changes */
     checkOnEdit: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.bool
-    ])
+    ]).isRequired
 };
-
 
 export default Snippet;

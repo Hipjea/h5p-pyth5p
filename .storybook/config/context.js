@@ -6,7 +6,7 @@ export const defaultContext = {
     contentType: {
         isExercise: true,
         correction: {
-            correctionCode: "Correction filler",
+            correctionCode: "print(\"Correction filler\")",
             answers: [
                 {
                     text: "Answer 1",

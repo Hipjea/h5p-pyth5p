@@ -1,7 +1,9 @@
 export default {
+    answers: 'Answers',
     checkAnswer: 'Check',
+    output: 'Output',
     run: 'Run',
     score: 'Score',
     showSolutionButton: 'Show solution',
-    output: 'Output'
+    solution: 'Solution'
 };
