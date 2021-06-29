@@ -1,20 +1,20 @@
-.h5p-pyth5p .solution-text {
+.h5p-pyth5p-solution-text {
     display: block;
     color: #1a73d9;
     font-weight: bold;
     margin-bottom: 0.8em;
 }
 
-.h5p-pyth5p .feedback-text {
+.h5p-pyth5p-feedback-text {
     display: block;
     color: #1a73d9;
     font-weight: bold;
     margin-bottom: 0.8em;
 }
-.h5p-pyth5p .feedback {
+.h5p-pyth5p-feedback {
     margin-top: 10px;
 }
-.h5p-pyth5p .feedback .feedback-separator {
+.h5p-pyth5p-feedback .feedback-separator {
     padding-bottom: 10px;
     border-bottom: 2px solid #eee;
 }
