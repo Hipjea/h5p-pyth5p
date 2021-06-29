@@ -6,11 +6,11 @@ import { createMarkup } from '../utils/utils';
 
 export default function Feedback({correction, ...props}) {
     return (
-        <div className="feedback">
+        <div className="h5p-pyth5p-feedback">
             { correction
                 ? <>
-                    <p className="solution-text">{props.l10n.solution}</p>
-                    <div className="feedback-text correction" 
+                    <p className="h5p-pyth5p-solution-text">{props.l10n.solution}</p>
+                    <div className="h5p-pyth5p-feedback-text correction" 
                         dangerouslySetInnerHTML={createMarkup(correction, true)} />
                 </>
                 : null
