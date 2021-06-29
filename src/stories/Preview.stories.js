@@ -20,5 +20,5 @@ Empty.args = {
 export const Filled = Template.bind({});
 Filled.args = {
   l10n: defaultContext.l10n,
-  out: 'print("Hello world !")'
+  out: defaultContext.code
 };

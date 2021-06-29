@@ -2,7 +2,7 @@ import React from 'react';
 import './preview.css';
 import PropTypes from 'prop-types';
 
-export const Preview = React.forwardRef((props, ref) => {
+export const Preview = React.forwardRef(({out, ...props}, ref) => {
     const { pre, canvas } = ref;
 
     return (
@@ -11,8 +11,8 @@ export const Preview = React.forwardRef((props, ref) => {
                 <div className="pre-labbel-wrapper">
                     <label>{props.l10n.output}</label>
                 </div>
-                <pre className="pyth5p-pre" ref={pre}>
-                    {props.out}
+                <pre ref={pre} role="pre" className="pyth5p-pre">
+                    {out}
                 </pre>
             </div>
             <div ref={canvas} />

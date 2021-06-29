@@ -21,7 +21,9 @@ it('renders the button in the invisible state', () => {
 
 describe('when the button is clicked', () => {
   const mockCallback = jest.fn();
-  const wrapper = shallow((<Button onLaunchAction={mockCallback} visible={true} {...defaultContext} />)); 
+  const wrapper = shallow((
+    <Button onLaunchAction={mockCallback} visible={true} {...defaultContext} />
+  )); 
 
   beforeAll(() => wrapper.find('button').simulate('click'));
 
