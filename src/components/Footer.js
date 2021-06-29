@@ -42,9 +42,8 @@ export default function Footer({out, ...props}) {
     }
 
     const listAnswers = answers.map((answer, i) => (
-        <div className="feedback">
+        <div key={i} className="h5p-pyth5p-feedback">
             <AceEditor
-                key={i}
                 defaultValue={decodeHTML(answer.text)}
                 setOptions={props.editorOptions}
                 readOnly={true}

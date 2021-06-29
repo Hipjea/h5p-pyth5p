@@ -72,19 +72,19 @@ Snippet.displayName = 'Snippet'
 
 Snippet.propTypes = {
     /** Id */
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     /** The code of the program */
-    code: PropTypes.string.isRequired,
+    code: PropTypes.string,
     /** isEditable allows snippet code modification */ 
     isEditable: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.bool
-    ]).isRequired,
+    ]),
     /** checkOnEdit enables the editor listener for changes */
     checkOnEdit: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.bool
-    ]).isRequired
+    ])
 };
 
 export default Snippet;
