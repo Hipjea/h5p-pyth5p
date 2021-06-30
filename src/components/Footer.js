@@ -6,7 +6,7 @@ import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-github";
 import { feedbackEditorSettings } from '../utils/editorSettings';
 import { decodeHTML } from '../utils/utils';
-
+import xAPILib from '../utils/xapi';
 
 export default function Footer({out, ...props}) {
     const isExercise = (props.contentType.isExercise === 'true' || 
@@ -24,6 +24,15 @@ export default function Footer({out, ...props}) {
     };
 
     function displayResult() {
+        const attributes = {
+            "name": "PytH5P",
+            "description": "Python code",
+            "interactionType": "fill-in",
+            "correctResponsesPattern": ["print(\"Hello world !\")"]
+        }
+        const xap = new xAPILib(context, 'answered', attributes, 1, "print(\"Hello world !\")");
+        xap.build();
+        
         checkCode();
         toggleCheckBtn(!checkBtn);
 
