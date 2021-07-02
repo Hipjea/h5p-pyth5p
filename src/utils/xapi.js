@@ -15,6 +15,8 @@ export default class xAPILib {
     this.setAttribute(this.definition, 'interactionType', this.attributes.interactionType);
     this.setAttribute(this.definition, 'correctResponsesPattern', this.attributes.correctResponsesPattern);
     this.setAttribute(this.definition, 'type', 'http://adlnet.gov/expapi/activities/cmi.interaction');
+
+    return this.getXAPIData();
   }
 
   setAttribute = (obj, key, value, required) => {
@@ -30,9 +32,7 @@ export default class xAPILib {
     var xAPIEvent = this.context.createXAPIEventTemplate(this.event);
     this.addQuestionToXAPI(xAPIEvent);
     this.addResponseToXAPI(xAPIEvent);
-    return {
-      statement: xAPIEvent.data.statement
-    };
+    return xAPIEvent;
   }
 
   addQuestionToXAPI = (xAPIEvent) => {
@@ -54,9 +54,10 @@ export default class xAPILib {
     };
     definition.type = 'http://adlnet.gov/expapi/activities/cmi.interaction';
     definition.interactionType = 'fill-in';  
-    definition.correctResponsesPattern = [];
-    for (i = 0; i < this.attributes.correctResponses.length; i++) {
-      definition.correctResponsesPattern.push(this.attributes.correctResponses[i]);
+    definition.correctResponses = [];
+    let i = 0;
+    for (i = 0; i < this.attributes.correctResponsesPattern.length; i++) {
+      definition.correctResponses.push(this.attributes.correctResponsesPattern[i]);
     }
   
     return definition;

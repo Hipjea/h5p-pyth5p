@@ -25,14 +25,15 @@ export default function Footer({out, ...props}) {
 
     function displayResult() {
         const attributes = {
-            "name": "PytH5P",
-            "description": "Python code",
-            "interactionType": "fill-in",
-            "correctResponsesPattern": ["print(\"Hello world !\")"]
+            name: "PytH5P",
+            description: "Python code",
+            interactionType: "fill-in",
+            correctResponsesPattern: ["print(\"Hello world !\")"]
         }
-        const xap = new xAPILib(context, 'answered', attributes, 1, "print(\"Hello world !\")");
-        xap.build();
-        
+        const xAPI = new xAPILib(context, 'answered', attributes, 1, "print(\"Hello world !\")");
+        const completedEvent = xAPI.build();
+        context.trigger(completedEvent, completedEvent.data);
+
         checkCode();
         toggleCheckBtn(!checkBtn);
 
@@ -41,10 +42,6 @@ export default function Footer({out, ...props}) {
         $progressBar.setScore(result);
         $progressBar.appendTo($footer);
 
-        const completedEvent = context.createXAPIEventTemplate('completed');
-        completedEvent.setScoredResult(result, 1, self, true, result === 1);
-        context.trigger(completedEvent);
-        console.log("completedEvent", completedEvent);
         // Set focus on the first button in the footer
         $footer.children('button').first().focus();
         context.trigger('resize');
