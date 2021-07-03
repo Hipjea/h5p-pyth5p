@@ -137,40 +137,30 @@
       {
         "label": "Make the code editable",
         "name": "isEditable",
-        "type": "select",
-        "widget": "radioGroup",
-        "alignment": "horizontal",
+        "type": "boolean",
         "description": "If true, the code will be editable.",
-        "options": [
-          {
-            "value": "true",
-            "label": "True"
-          },
-          {
-            "value": "false",
-            "label": "False"
-          }
-        ],
-        "default": "true"
+        "default": true
       },
       {
         "label": "Enable code evaluation on change",
         "name": "checkOnEdit",
-        "type": "select",
-        "widget": "radioGroup",
-        "alignment": "horizontal",
+        "type": "boolean",
         "description": "If true, the code will be evaluated on each changes. The edition may be slow with large code.",
-        "options": [
-          {
-            "value": "true",
-            "label": "True"
-          },
-          {
-            "value": "false",
-            "label": "False"
-          }
-        ],
-        "default": "true"
+        "default": true
+      },
+      {
+        "name": "enableRetry",
+        "type": "boolean",
+        "label": "Enable \"Retry\" button",
+        "importance": "low",
+        "default": true
+      },
+      {
+        "name": "enableSolutionsButton",
+        "type": "boolean",
+        "label": "Enable \"Show Solution\" button",
+        "importance": "low",
+        "default": true
       }
     ]
   },

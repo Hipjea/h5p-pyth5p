@@ -35,7 +35,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                 tabSize: 4,
                 fontSize: 13,
                 showGutter: true,
-                readOnly: params.isEditable ? true : false,
+                readOnly: params.behaviour.isEditable === 'true' || params.behaviour.isEditable === true ? false : true,
                 behavioursEnabled: true,
                 wrapBehavioursEnabled: true,
                 maxLines: "Infinity",

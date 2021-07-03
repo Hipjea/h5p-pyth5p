@@ -30,11 +30,7 @@ export default function Footer({userCode, out, ...props}) {
         const answerTexts = props.contentType.correction.answers.map(a => createPreservedMarkup(a.text));
         const userAnswer = createPreservedMarkup(userCode);
         let score = 0;
-        answerTexts.map((answer) => {
-            if (answer == userAnswer) {
-                return score = 1;
-            }
-        });
+        answerTexts.map((answer) => answer == userAnswer ? score = 1 : null );
         return score;
     }
 
@@ -95,7 +91,7 @@ export default function Footer({userCode, out, ...props}) {
                     </button>
                 :   null
             }
-            { isExercise && showSolutionButton
+            { isExercise && showSolutionButton && props.behaviour.enableSolutionsButton
                 ?   <button 
                         title="Submit"
                         className="h5p-joubelui-button"
@@ -106,13 +102,13 @@ export default function Footer({userCode, out, ...props}) {
                     </button>
                 :   null
             }
-            { isExercise && displaySolution
+            { isExercise && displaySolution && props.behaviour.enableSolutionsButton
                 ?   <Feedback correction={correction} {...props} /> 
                 :   null 
             }
             { isExercise && listAnswers && showResults && displaySolution
                 ?   <>
-                        <h4 className="solution-text">{props.l10n.answers}</h4>
+                        <h4 className="h5p-pyth5p-solution-text">{props.l10n.answers}</h4>
                         <ul>{listAnswers}</ul> 
                     </>
                 :   null 
