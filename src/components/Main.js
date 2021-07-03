@@ -12,11 +12,15 @@ export default function Main({id, error, ...props}) {
         pre: pre,
         canvas: canvas
     }
-
+    const [userCode, setUserCode] = useState(props.code);
     const [out, setOutText] = useState([]);
 
     function clearOutCallback() {
         setOutText([]);
+    }
+
+    function setUserCodeCallback(code) {
+        setUserCode(code);
     }
 
     function outTextCallback(text) {
@@ -34,6 +38,7 @@ export default function Main({id, error, ...props}) {
                     code={props.code}
                     isEditable={props.behaviour.isEditable}
                     checkOnEdit={props.behaviour.checkOnEdit}
+                    setUserCode={setUserCodeCallback}
                     setOutText={outTextCallback}
                     clearOutText={clearOutCallback}
                     {...props}
@@ -44,7 +49,7 @@ export default function Main({id, error, ...props}) {
                     {...props} 
                 />
             </div>
-            <Footer out={out} {...props} />
+            <Footer userCode={userCode} out={out} {...props} />
         </div>
     );
 }

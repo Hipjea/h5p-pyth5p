@@ -7,5 +7,5 @@ export default {
     run: 'Run',
     score: 'Score',
     showSolutionButton: 'Show solution',
-    solution: 'Solution',   
+    solution: 'Solution'
 };

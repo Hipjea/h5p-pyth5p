@@ -5,50 +5,69 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-github";
 import { feedbackEditorSettings } from '../utils/editorSettings';
-import { decodeHTML } from '../utils/utils';
+import { decodeHTML, createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 
-export default function Footer({out, ...props}) {
+export default function Footer({userCode, out, ...props}) {
     const isExercise = (props.contentType.isExercise === 'true' || 
                         props.contentType.isExercise === true);
-    const [checkBtn, toggleCheckBtn] = useState([]);
-    const [correction, setCheckCode] = useState(null);
-    const [showResults, setShowResults] = useState(false);
-    const [answers, setAnswers] = useState([]);
-    const context = usePythonCodeContext();
+    const context = usePythonCodeContext(),
+        [checkBtn, toggleCheckBtn] = useState([]),
+        [correction, setCheckCode] = useState(null),
+        [showResults, setShowResults] = useState(false),
+        [showSolutionButton, setShowSolutionButton] = useState(false),
+        [displaySolution, setDisplaySolution] = useState(false),
+        [answers, setAnswers] = useState([]);
 
-    const result = 1;
-
-    function checkCode() {
+    const checkCode = () => {
         setShowResults(!showResults);
+        setShowSolutionButton(!showSolutionButton);
         setCheckCode(props.contentType.correction.correctionCode);
         setAnswers(props.contentType.correction.answers);
-    };
+    }
+
+    function checkUserAnswer() {
+        const answerTexts = props.contentType.correction.answers.map(a => createPreservedMarkup(a.text));
+        const userAnswer = createPreservedMarkup(userCode);
+        let score = 0;
+        answerTexts.map((answer) => {
+            if (answer == userAnswer) {
+                return score = 1;
+            }
+        });
+        return score;
+    }
 
     function displayResult() {
+        checkCode();
+        const score = checkUserAnswer();
+
         const attributes = {
             name: props.l10n.name,
             description: props.l10n.description,
             interactionType: "fill-in",
             correctResponsesPattern: props.contentType?.correction?.answers ? props.contentType.correction.answers.map(a => a.text) : []
         }
-        console.log(attributes)
-        const xAPI = new xAPILib(context, 'answered', attributes, 1, "print(\"Hello world !\")");
+        const xAPI = new xAPILib(context, 'answered', attributes, score, "print(\"Hello world !\")");
         const completedEvent = xAPI.build();
         context.trigger(completedEvent, completedEvent.data);
-        console.log("completedEvent", completedEvent);
+        //console.log("completedEvent", completedEvent);
 
-        checkCode();
         toggleCheckBtn(!checkBtn);
 
         const $footer = H5P.jQuery('.footer-container');
         const $progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
-        $progressBar.setScore(result);
+        $progressBar.setScore(score);
         $progressBar.appendTo($footer);
 
         // Set focus on the first button in the footer
         $footer.children('button').first().focus();
         context.trigger('resize');
+    }
+
+    const displaySolutionCb = () => {
+        setShowSolutionButton(!showSolutionButton);
+        setDisplaySolution(!displaySolution);
     }
 
     const listAnswers = answers.map((answer, i) => (
@@ -65,7 +84,7 @@ export default function Footer({out, ...props}) {
 
     return (
         <footer className="footer-container">
-            { checkBtn && isExercise
+            { isExercise && checkBtn
                 ?   <button 
                         title="Submit"
                         className="h5p-joubelui-button"
@@ -76,8 +95,22 @@ export default function Footer({out, ...props}) {
                     </button>
                 :   null
             }
-            <Feedback correction={correction} {...props} />
-            { listAnswers && isExercise && showResults
+            { isExercise && showSolutionButton
+                ?   <button 
+                        title="Submit"
+                        className="h5p-joubelui-button"
+                        onClick={() => displaySolutionCb()}
+                    >
+                        <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
+                        &nbsp; {props.l10n.showSolutionButton}
+                    </button>
+                :   null
+            }
+            { isExercise && displaySolution
+                ?   <Feedback correction={correction} {...props} /> 
+                :   null 
+            }
+            { isExercise && listAnswers && showResults && displaySolution
                 ?   <>
                         <h4 className="solution-text">{props.l10n.answers}</h4>
                         <ul>{listAnswers}</ul> 

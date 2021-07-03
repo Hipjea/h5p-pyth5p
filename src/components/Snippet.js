@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { defaultEditorSettings } from '../utils/editorSettings';
 
 
-export const Snippet = React.forwardRef(({id, code, isEditable, checkOnEdit, setOutText, clearOutText, ...props}, ref) => {
+export const Snippet = React.forwardRef(({id, code, isEditable, checkOnEdit, setUserCode, setOutText, clearOutText, ...props}, ref) => {
     const { pre, canvas } = ref;
     const prog = useRef(null);
     const defaultVal = decodeHtmlEntities(code);
@@ -30,8 +30,10 @@ export const Snippet = React.forwardRef(({id, code, isEditable, checkOnEdit, set
 
     function runit(val) {
         // if (val != undefined && onChangeCheck) {
-        clearOutText();
         const value = val ?? localCode;
+        clearOutText();
+        setUserCode(value);
+
         Sk.pre = pre.current;
         Sk.configure({ output: setOutText, read: builtinRead, __future__: Sk.python3 }); 
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvas.current;

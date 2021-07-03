@@ -13,11 +13,10 @@ export function createMarkup(text, replace) {
 }
 
 export function createPreservedMarkup(text) {
-    return {
-        __html: text ? text.replace(/\r\n|\r|\n/g, '</br>')
+    return text ? text.replace(/\r\n|\r|\n/g, '</br>')
                             .replace(/ /g, '&nbsp;')
-                : ''
-    };
+                            .replace(/&quot;/g, '\"')
+                : '';
 }
 
 export function decodeHTML(html) {
