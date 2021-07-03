@@ -13,26 +13,30 @@ export default function Footer({out, ...props}) {
                         props.contentType.isExercise === true);
     const [checkBtn, toggleCheckBtn] = useState([]);
     const [correction, setCheckCode] = useState(null);
+    const [showResults, setShowResults] = useState(false);
     const [answers, setAnswers] = useState([]);
     const context = usePythonCodeContext();
 
     const result = 1;
 
     function checkCode() {
+        setShowResults(!showResults);
         setCheckCode(props.contentType.correction.correctionCode);
         setAnswers(props.contentType.correction.answers);
     };
 
     function displayResult() {
         const attributes = {
-            name: "PytH5P",
-            description: "Python code",
+            name: props.l10n.name,
+            description: props.l10n.description,
             interactionType: "fill-in",
-            correctResponsesPattern: ["print(\"Hello world !\")"]
+            correctResponsesPattern: props.contentType?.correction?.answers ? props.contentType.correction.answers.map(a => a.text) : []
         }
+        console.log(attributes)
         const xAPI = new xAPILib(context, 'answered', attributes, 1, "print(\"Hello world !\")");
         const completedEvent = xAPI.build();
         context.trigger(completedEvent, completedEvent.data);
+        console.log("completedEvent", completedEvent);
 
         checkCode();
         toggleCheckBtn(!checkBtn);
@@ -73,9 +77,9 @@ export default function Footer({out, ...props}) {
                 :   null
             }
             <Feedback correction={correction} {...props} />
-            { listAnswers 
+            { listAnswers && isExercise && showResults
                 ?   <>
-                        <p className="solution-text">{props.l10n.answers}</p>
+                        <h4 className="solution-text">{props.l10n.answers}</h4>
                         <ul>{listAnswers}</ul> 
                     </>
                 :   null 
