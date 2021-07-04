@@ -10,14 +10,7 @@ export default {
 
 const Template = (args) => <Button {...args} />;
 
-export const Visible = Template.bind({});
-Visible.args = {
-  l10n: defaultContext.l10n,
-  visible: true
-};
-
-export const Invisible = Template.bind({});
-Invisible.args = {
-  l10n: defaultContext.l10n,
-  visible: false
+export const Default = Template.bind({});
+Default.args = {
+  l10n: defaultContext.l10n
 };

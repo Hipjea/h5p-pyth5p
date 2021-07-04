@@ -1,22 +1,27 @@
 import React from 'react';
 import Main from '../components/Main';
 import Snippet from '../components/Snippet';
-import Preview from '../components/Snippet';
+import Button from '../components/Button';
+import { Preview } from '../components/Preview';
 import { defaultContext } from '../../.storybook/config/context';
 import { behaviourEditable, behaviourUneditable, behaviourManual } from '../../.storybook/config/behaviourContext';
 import { defaultEditorContext, uneditableEditorContext } from '../../.storybook/config/editorContext';
-import { Filled } from './Preview.stories';
 import { ref } from '../../.storybook/config/refs';
-
+import { Default as ButtonDefault } from './Button.stories';
+import { Filled } from './Preview.stories';
 
 export default {
   title: 'Scenes/Main',
   component: Main,
-  subcomponents: { Snippet, Preview }
+  subcomponents: { Snippet, Button, Preview }
 };
 
-const changeOutText = () => {
-    action('Changed!')
+const setCode = () => {
+    action('Code is set')
+}
+
+const runCode = () => {
+    action('Code is running')
 }
 
 const TemplateDefault = (args) => (
@@ -26,11 +31,10 @@ const TemplateDefault = (args) => (
             id={defaultContext.id}
             code={defaultContext.code}
             isEditable={behaviourEditable.isEditable}
-            checkOnEdit={behaviourEditable.checkOnEdit}
-            setOutText={changeOutText} 
-            clearOutText={changeOutText} 
+            setCode={setCode} 
             {...Default.args}
         />
+        <Button onLaunchAction={() => runCode()} {...ButtonDefault.args} />
         <Preview ref={ref} {...Filled.args} />
     </Main>
 );
@@ -50,11 +54,10 @@ const TemplateUneditable = (args) => (
             id={defaultContext.id}
             code={defaultContext.code}
             isEditable={behaviourUneditable.isEditable}
-            checkOnEdit={behaviourUneditable.checkOnEdit}
-            setOutText={changeOutText} 
-            clearOutText={changeOutText} 
+            setCode={setCode} 
             {...Uneditable.args}
         />
+        <Button onLaunchAction={() => runCode()} {...ButtonDefault.args} />
         <Preview ref={ref} {...Filled.args} />
     </Main>
 );

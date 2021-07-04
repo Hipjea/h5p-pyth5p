@@ -8,6 +8,7 @@ import { feedbackEditorSettings } from '../utils/editorSettings';
 import { decodeHTML, createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 
+
 export default function Footer({userCode, out, ...props}) {
     const isExercise = (props.contentType.isExercise === 'true' || 
                         props.contentType.isExercise === true);

@@ -7,16 +7,11 @@ import Button from './Button';
 import { defaultContext } from '../../.storybook/config/context';
 
 // Imports the story for the test
-import { Visible, Invisible } from '../stories/Button.stories';
+import { Visible } from '../stories/Button.stories';
 
 it('renders the button in the visible state', () => {
   render(<Visible {...Visible.args} />);
   expect(screen.getByRole('button')).toHaveTextContent(l10n.run);
-});
-
-it('renders the button in the invisible state', () => {
-  render(<Invisible {...Invisible.args} />);
-  expect(screen.queryByRole('button')).toBeNull();
 });
 
 describe('when the button is clicked', () => {

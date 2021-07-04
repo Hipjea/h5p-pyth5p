@@ -1,8 +1,9 @@
 import React from 'react';
 import Footer from '../components/Footer';
-import { defaultContext } from '../../.storybook/config/context';
 import Feedback from '../components/Feedback';
 import { Shown } from './Feedback.stories';
+import { defaultContext } from '../../.storybook/config/context';
+import { behaviourEditable } from '../../.storybook/config/behaviourContext';
 
 
 export default {
@@ -19,7 +20,7 @@ const Template = (args) => (
   </Footer>
 );
 
-const storyContext = { ...defaultContext };
+const storyContext = { ...defaultContext, ...behaviourEditable };
 
 export const CheckAvailable = Template.bind({});
 CheckAvailable.args = storyContext;

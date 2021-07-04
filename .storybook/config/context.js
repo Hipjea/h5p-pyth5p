@@ -9,7 +9,7 @@ export const defaultContext = {
             correctionCode: "print(\"Correction filler\")",
             answers: [
                 {
-                    text: "Answer 1",
+                    text: 'print("Hello world !")',
                     bestAnswer: false,
                     tipsAndFeedback: {
                         tip: "<p>Tip answer 1</p>"

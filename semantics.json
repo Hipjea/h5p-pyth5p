@@ -142,13 +142,6 @@
         "default": true
       },
       {
-        "label": "Enable code evaluation on change",
-        "name": "checkOnEdit",
-        "type": "boolean",
-        "description": "If true, the code will be evaluated on each changes. The edition may be slow with large code.",
-        "default": true
-      },
-      {
         "name": "enableRetry",
         "type": "boolean",
         "label": "Enable \"Retry\" button",
