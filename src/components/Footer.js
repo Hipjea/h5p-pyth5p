@@ -83,6 +83,7 @@ export default function Footer({userCode, out, ...props}) {
         <footer className="footer-container">
             { isExercise && checkBtn
                 ?   <button 
+                        data-testid="checkbutton"
                         title="Submit"
                         className="h5p-joubelui-button"
                         onClick={() => displayResult()}

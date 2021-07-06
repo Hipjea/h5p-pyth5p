@@ -1,6 +1,5 @@
 import React from 'react';
 import Snippet from '../components/Snippet';
-import Button from '../components/Button';
 import { defaultContext } from '../../.storybook/config/context';
 import { defaultEditorContext, uneditableEditorContext } from '../../.storybook/config/editorContext';
 import { behaviourEditable } from '../../.storybook/config/behaviourContext';

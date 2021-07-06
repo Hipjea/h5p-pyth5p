@@ -22,8 +22,8 @@ const Template = (args) => (
 
 const storyContext = { ...defaultContext, ...behaviourEditable };
 
-export const CheckAvailable = Template.bind({});
-CheckAvailable.args = storyContext;
+export const Default = Template.bind({});
+Default.args = storyContext;
 
 export const CheckClicked = Template.bind({});
 CheckClicked.args = storyContext;
