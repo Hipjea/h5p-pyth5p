@@ -47,19 +47,19 @@ export default function Footer({userCode, out, ...props}) {
         }
         const xAPI = new xAPILib(context, 'answered', attributes, score, "print(\"Hello world !\")");
         const completedEvent = xAPI.build();
-        context.trigger(completedEvent, completedEvent.data);
-        //console.log("completedEvent", completedEvent);
+        if (completedEvent) {
+            context.trigger(completedEvent, completedEvent.data);
+            toggleCheckBtn(!checkBtn);
 
-        toggleCheckBtn(!checkBtn);
+            const $footer = H5P.jQuery('.footer-container');
+            const $progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
+            $progressBar.setScore(score);
+            $progressBar.appendTo($footer);
 
-        const $footer = H5P.jQuery('.footer-container');
-        const $progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
-        $progressBar.setScore(score);
-        $progressBar.appendTo($footer);
-
-        // Set focus on the first button in the footer
-        $footer.children('button').first().focus();
-        context.trigger('resize');
+            // Set focus on the first button in the footer
+            $footer.children('button').first().focus();
+            context.trigger('resize');
+        }
     }
 
     const displaySolutionCb = () => {
@@ -83,6 +83,7 @@ export default function Footer({userCode, out, ...props}) {
         <footer className="footer-container">
             { isExercise && checkBtn
                 ?   <button 
+                        id="pyth5p-checkbutton"
                         data-testid="checkbutton"
                         title="Submit"
                         className="h5p-joubelui-button"

@@ -29,9 +29,13 @@ export default class xAPILib {
   }
 
   getXAPIData = () => {
-    var xAPIEvent = this.context.createXAPIEventTemplate(this.event);
-    this.addQuestionToXAPI(xAPIEvent);
-    this.addResponseToXAPI(xAPIEvent);
+    if (this.context.createXAPIEventTemplate) {
+      var xAPIEvent = this.context.createXAPIEventTemplate(this.event);
+      this.addQuestionToXAPI(xAPIEvent);
+      this.addResponseToXAPI(xAPIEvent);
+    } else {
+      return null
+    }
     return xAPIEvent;
   }
 

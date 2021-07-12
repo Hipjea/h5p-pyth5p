@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../components/Footer';
 import Feedback from '../components/Feedback';
 import { Shown } from './Feedback.stories';
-import { defaultContext } from '../../.storybook/config/context';
+import { defaultContext, noExerciseContext } from '../../.storybook/config/context';
 import { behaviourEditable } from '../../.storybook/config/behaviourContext';
 
 
@@ -27,3 +27,6 @@ Default.args = storyContext;
 
 export const CheckClicked = Template.bind({});
 CheckClicked.args = storyContext;
+
+export const IsNoExercise = Template.bind({});
+IsNoExercise.args = { ...noExerciseContext, ...behaviourEditable }
