@@ -4,6 +4,7 @@ import { usePythonCodeContext } from '../PythonCodeContext';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import Snippet from './Snippet';
+import './footer.css';
 
 
 export default function Footer({userCode, out, ...props}) {
@@ -65,9 +66,11 @@ export default function Footer({userCode, out, ...props}) {
     }
 
     const listAnswers = answers.map((answer, i) => {
-        const answerClass = answer.bestAnswer ? "h5p-pyth5p-feedback best-answer" : "h5p-pyth5p-feedback";
+        console.log(answer.bestAnswer)
+        const answerClass = answer.bestAnswer ? "h5p-pyth5p-feedback-best-answer" : "h5p-pyth5p-feedback";
         return (
-            <div key={i} className={answerClass}>
+            <li key={i} className={answerClass}>
+                { answer.bestAnswer ? <h5>{props.l10n.bestAnswer}</h5> : null }
                 <Snippet
                     id={`pyth5p-answer-${i}`}
                     code={answer.text}
@@ -76,7 +79,7 @@ export default function Footer({userCode, out, ...props}) {
                     {...props}
                 />
                 <div className="feedback-separator" />
-            </div>
+            </li>
         );
     });
 

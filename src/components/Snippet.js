@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 
 export const Snippet = React.forwardRef(({id, code, isEditable, setCode, answerText, ...props}, ref) => {
     const { codeeditor } = ref || React.createRef();
-    const answer = React.createRef();
 
     const changeValue = (doc, _) => {
         setCode(doc.getValue());
     }
 
     if (codeeditor == undefined || ref == null || ref == undefined) {
+        const answer = React.createRef();
         const answerVal = decodeHtmlEntities(answerText);
         useEffect(() => {
             codemirror(answer.current, {
@@ -28,7 +28,7 @@ export const Snippet = React.forwardRef(({id, code, isEditable, setCode, answerT
             <div ref={answer} />
         );
     } else {
-        const defaultVal = decodeHtmlEntities(code);
+        const defaultVal = code != undefined ? decodeHtmlEntities(code) : '';
         useEffect(() => {
             const editor = codemirror.fromTextArea(codeeditor.current, {
                 ...props.editorOptions,
