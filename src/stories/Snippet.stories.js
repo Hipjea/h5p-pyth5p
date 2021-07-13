@@ -22,7 +22,7 @@ const Template = (args) => (
         id={defaultContext.id}
         code={defaultContext.code}
         isEditable={behaviourEditable.isEditable}
-        setCode={setCode} 
+        setCode={setCode}
         {...args}
     />
 );
@@ -31,8 +31,8 @@ export const Default = Template.bind({});
 Default.args = { 
     id: 1, 
     code: defaultContext.code,
-    isEditable: true, 
-    ...defaultEditorContext, 
+    isEditable: true,
+    ...defaultEditorContext,
     ...defaultContext
 };
 

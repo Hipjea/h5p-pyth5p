@@ -1,20 +1,35 @@
-import { sharedOptions, defaultEditorSettings } from '../../src/utils/editorSettings';
-
-export const defaultEditorContext = defaultEditorSettings;
+export const defaultEditorContext = {
+    editorOptions: {
+        mode: "python",
+        readOnly: false,
+        autofocus: true,
+        smartIndent: true,
+        indentUnit: 4,
+        indentWithTabs: true,
+        lineWrapping: true,
+        foldGutter: true,
+        autofocus: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        styleActiveLine: true,
+        lineNumbers: true
+    }
+}
 
 export const uneditableEditorContext = {
-    ...sharedOptions,
     editorOptions: {
-        enableBasicAutocompletion: false,
-        enableLiveAutocompletion: false,
-        tabSize: 4,
-        fontSize: 13,
-        showGutter: true,
+        mode: "python",
         readOnly: true,
-        behavioursEnabled: true,
-        wrapBehavioursEnabled: true,
-        maxLines: "Infinity",
-        minLines: 5,
-        fontFamily: "Monaco"
+        autofocus: true,
+        smartIndent: true,
+        indentUnit: 4,
+        indentWithTabs: true,
+        lineWrapping: true,
+        foldGutter: true,
+        autofocus: true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        styleActiveLine: true,
+        lineNumbers: true
     }
 }

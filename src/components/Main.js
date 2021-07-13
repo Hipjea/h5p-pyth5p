@@ -50,11 +50,10 @@ export default function Main({id, error, ...props}) {
         const SkPromise = Sk.misceval.asyncToPromise(function() {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
-        SkPromise.then(function(mod) {
-            console.log('success');
+        SkPromise.then(function(_) {
         },
         function(err) {
-            console.log(err.toString());
+            console.error(err.toString());
             setOutText(err.toString())
         });
     }
