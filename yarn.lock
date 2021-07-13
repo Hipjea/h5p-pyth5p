@@ -4110,11 +4110,6 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codemirror-theme-github@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/codemirror-theme-github/-/codemirror-theme-github-1.0.0.tgz#38fc48e629a0136721ece013b0bf87e51ebf3939"
-  integrity sha512-suheFec2wlI4klyqn61MOFXjjrKPZiNY7d2py0OvTd5Z+7AsNxoGKDaS/HI59y7EAG1SkkXW/JQ1Rt2gDMxHfA==
-
 codemirror@^5.62.0:
   version "5.62.0"
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.62.0.tgz#e9ecd012e6f9eaf2e05ff4a449ff750f51619e22"

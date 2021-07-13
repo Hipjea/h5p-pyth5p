@@ -4,7 +4,6 @@ import { Preview } from './Preview';
 import Footer from './Footer';
 import { createMarkup } from '../utils/utils';
 import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/monokai.css';
 import Button from './Button';
 import { decodeHtmlEntities } from '../utils/utils';
 const Sk = require('skulpt');

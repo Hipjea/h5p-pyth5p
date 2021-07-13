@@ -12,7 +12,6 @@
   ],
   "dependencies": {
     "codemirror": "^5.62.0",
-    "codemirror-theme-github": "^1.0.0",
     "core-js": "3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
