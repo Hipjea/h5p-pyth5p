@@ -67,7 +67,6 @@ export default function Footer({userCode, out, ...props}) {
     }
 
     const listAnswers = answers.map((answer, i) => {
-        console.log(answer)
         const answerClass = answer.bestAnswer ? "h5p-pyth5p-feedback-best-answer" : "h5p-pyth5p-feedback";
         return (
             <li key={i} className={answerClass}>
