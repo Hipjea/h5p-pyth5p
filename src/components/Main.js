@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
 import Footer from './Footer';
+import { usePythonCodeContext } from '../PythonCodeContext';
 import { createMarkup } from '../utils/utils';
 import 'codemirror/lib/codemirror.css';
 import Button from './Button';
@@ -10,6 +11,7 @@ const Sk = require('skulpt');
 
 
 export default function Main({id, error, ...props}) {
+    const context = usePythonCodeContext();
     const codeeditor = React.createRef();
     const pre = React.createRef();
     const canvas = React.createRef();
@@ -29,6 +31,12 @@ export default function Main({id, error, ...props}) {
 
     function outTextCallback(text) {
         setOutText(rest => [...rest, text]);
+    }
+
+    function setCodeCb(newCode) {
+        setCode(newCode);
+        // Resize the H5P container
+        context.trigger('resize');
     }
 
     function builtinRead(x) {
@@ -55,6 +63,8 @@ export default function Main({id, error, ...props}) {
             console.error(err.toString());
             setOutText(err.toString())
         });
+        // Resize the H5P container
+        context.trigger('resize');
     }
 
     return (
@@ -67,7 +77,7 @@ export default function Main({id, error, ...props}) {
                     id={id}
                     code={props.code}
                     isEditable={props.behaviour.isEditable}
-                    setCode={setCode}
+                    setCode={setCodeCb}
                     {...props}
                 />
                 <Button onLaunchAction={() => runCode()} {...props} />

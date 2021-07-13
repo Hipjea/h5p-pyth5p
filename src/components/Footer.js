@@ -64,6 +64,7 @@ export default function Footer({userCode, out, ...props}) {
     const displaySolutionCb = () => {
         setShowSolutionButton(!showSolutionButton);
         setDisplaySolution(!displaySolution);
+        context.trigger('resize');
     }
 
     const listAnswers = answers.map((answer, i) => {
