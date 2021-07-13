@@ -13,6 +13,10 @@
 .h5p-pyth5p-feedback {
     margin-top: 10px;
 }
+.h5p-pyth5p-feedback.best-answer {
+    border: 2px solid;
+    border-color: #47b47d;
+}
 .h5p-pyth5p-feedback .feedback-separator {
     padding-bottom: 10px;
     border-bottom: 2px solid #eee;

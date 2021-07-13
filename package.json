@@ -11,10 +11,10 @@
     "Pierre Duverneix <pierre.duverneix@gmail.com> (https://github.com/Hipjea/)"
   ],
   "dependencies": {
-    "ace-builds": "^1.4.12",
+    "codemirror": "^5.62.0",
+    "codemirror-theme-github": "^1.0.0",
     "core-js": "3",
     "react": "^16.13.1",
-    "react-ace": "^9.4.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {

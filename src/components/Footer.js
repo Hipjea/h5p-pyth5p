@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import Feedback from './Feedback';
 import { usePythonCodeContext } from '../PythonCodeContext';
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/theme-github";
-import { feedbackEditorSettings } from '../utils/editorSettings';
-import { decodeHTML, createPreservedMarkup } from '../utils/utils';
+import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
+import Snippet from './Snippet';
 
 
 export default function Footer({userCode, out, ...props}) {
@@ -67,17 +64,21 @@ export default function Footer({userCode, out, ...props}) {
         setDisplaySolution(!displaySolution);
     }
 
-    const listAnswers = answers.map((answer, i) => (
-        <div key={i} className="h5p-pyth5p-feedback">
-            <AceEditor
-                defaultValue={decodeHTML(answer.text)}
-                setOptions={props.editorOptions}
-                readOnly={true}
-                { ...feedbackEditorSettings }
-            />
-            <div className="feedback-separator" />
-        </div>
-    ));
+    const listAnswers = answers.map((answer, i) => {
+        const answerClass = answer.bestAnswer ? "h5p-pyth5p-feedback best-answer" : "h5p-pyth5p-feedback";
+        return (
+            <div key={i} className={answerClass}>
+                <Snippet
+                    id={`pyth5p-answer-${i}`}
+                    code={answer.text}
+                    answerText={answer.text}
+                    isEditable={props.behaviour.isEditable}
+                    {...props}
+                />
+                <div className="feedback-separator" />
+            </div>
+        );
+    });
 
     return (
         <footer className="footer-container">
