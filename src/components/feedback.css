@@ -4,15 +4,12 @@
     font-weight: bold;
     margin-bottom: 0.8em;
 }
-
 .h5p-pyth5p-feedback-text {
     display: block;
-    color: #1a73d9;
-    font-weight: bold;
     margin-bottom: 0.8em;
 }
 .h5p-pyth5p-feedback {
-    margin-top: 10px;
+    margin-top: 1.5em;
 }
 .h5p-pyth5p-feedback .feedback-separator {
     padding-bottom: 10px;

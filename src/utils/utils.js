@@ -13,7 +13,7 @@ export function createMarkup(text, replace) {
 }
 
 export function createPreservedMarkup(text) {
-    return text ? text.replace(/\r\n|\r|\n/g, '</br>')
+    return text ? text.trimEnd().replace(/\r\n|\r|\n/g, '</br>')
                             .replace(/ /g, '&nbsp;')
                             .replace(/&quot;/g, '\"')
                             .replace(/&#039;/g, '\'')

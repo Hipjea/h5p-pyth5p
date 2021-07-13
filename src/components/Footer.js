@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import Feedback from './Feedback';
 import { usePythonCodeContext } from '../PythonCodeContext';
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/theme-github";
-import { feedbackEditorSettings } from '../utils/editorSettings';
-import { decodeHTML, createPreservedMarkup } from '../utils/utils';
+import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
+import Snippet from './Snippet';
+import { createMarkup } from '../utils/utils';
+import './footer.css';
 
 
 export default function Footer({userCode, out, ...props}) {
@@ -47,19 +46,19 @@ export default function Footer({userCode, out, ...props}) {
         }
         const xAPI = new xAPILib(context, 'answered', attributes, score, "print(\"Hello world !\")");
         const completedEvent = xAPI.build();
-        context.trigger(completedEvent, completedEvent.data);
-        //console.log("completedEvent", completedEvent);
+        if (completedEvent) {
+            context.trigger(completedEvent, completedEvent.data);
+            toggleCheckBtn(!checkBtn);
 
-        toggleCheckBtn(!checkBtn);
+            const $footer = H5P.jQuery('.footer-container');
+            const $progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
+            $progressBar.setScore(score);
+            $progressBar.appendTo($footer);
 
-        const $footer = H5P.jQuery('.footer-container');
-        const $progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
-        $progressBar.setScore(score);
-        $progressBar.appendTo($footer);
-
-        // Set focus on the first button in the footer
-        $footer.children('button').first().focus();
-        context.trigger('resize');
+            // Set focus on the first button in the footer
+            $footer.children('button').first().focus();
+            context.trigger('resize');
+        }
     }
 
     const displaySolutionCb = () => {
@@ -67,22 +66,34 @@ export default function Footer({userCode, out, ...props}) {
         setDisplaySolution(!displaySolution);
     }
 
-    const listAnswers = answers.map((answer, i) => (
-        <div key={i} className="h5p-pyth5p-feedback">
-            <AceEditor
-                defaultValue={decodeHTML(answer.text)}
-                setOptions={props.editorOptions}
-                readOnly={true}
-                { ...feedbackEditorSettings }
-            />
-            <div className="feedback-separator" />
-        </div>
-    ));
+    const listAnswers = answers.map((answer, i) => {
+        const answerClass = answer.bestAnswer ? "h5p-pyth5p-feedback-best-answer" : "h5p-pyth5p-feedback";
+        return (
+            <li key={i} className={answerClass}>
+                { answer.bestAnswer ? <h5>{props.l10n.bestAnswer}</h5> : null }
+                <Snippet
+                    id={`pyth5p-answer-${i}`}
+                    code={answer.text}
+                    answerText={answer.text}
+                    isEditable={props.behaviour.isEditable}
+                    {...props}
+                />
+                { answer.tipsAndFeedback 
+                    ? <div className="h5p-pyth5p-feedback-tips"
+                        dangerouslySetInnerHTML={createMarkup(answer.tipsAndFeedback)} /> 
+                    : null 
+                }
+                <div className="feedback-separator" />
+            </li>
+        );
+    });
 
     return (
         <footer className="footer-container">
             { isExercise && checkBtn
                 ?   <button 
+                        id="pyth5p-checkbutton"
+                        data-testid="checkbutton"
                         title="Submit"
                         className="h5p-joubelui-button"
                         onClick={() => displayResult()}

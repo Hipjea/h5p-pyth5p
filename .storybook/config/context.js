@@ -37,3 +37,15 @@ export const defaultContext = {
         codeWidthUnit: '%'
     }
 }
+
+export const noExerciseContext = {
+    l10n: l10n,
+    code: 'print("Hello world !")',
+    contentType: {
+        isExercise: false
+    },
+    displaySettings: {
+        codeWidth: '100',
+        codeWidthUnit: '%'
+    }
+}

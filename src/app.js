@@ -11,8 +11,6 @@ H5P = H5P || {};
 
 H5P.PytH5P = (function (EventDispatcher, $, UI) {
     function PytH5P(params, contentId, extras = {}) {
-        var self = this;
-
         // Initialize event inheritance
         EventDispatcher.call(this);
 
@@ -30,17 +28,19 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
         this.params = {
             l10n: l10n,
             editorOptions: {
-                enableBasicAutocompletion: false,
-                enableLiveAutocompletion: false,
-                tabSize: 4,
-                fontSize: 13,
-                showGutter: true,
+                mode: "python",
                 readOnly: params.behaviour.isEditable === 'true' || params.behaviour.isEditable === true ? false : true,
-                behavioursEnabled: true,
-                wrapBehavioursEnabled: true,
-                maxLines: "Infinity",
-                minLines: 5,
-                fontFamily: customSettings.codeFont
+                autofocus: true,
+                smartIndent: true,
+                indentUnit: 4,
+                indentWithTabs: true,
+                lineWrapping: true,
+                foldGutter: true,
+                autofocus: true,
+                matchBrackets: true,
+                autoCloseBrackets: true,
+                styleActiveLine: true,
+                lineNumbers: true
             },
             ...params
         }
@@ -68,6 +68,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                 createElements();
             }
             root.style.setProperty('--code-width', customSettings.codeWidth);
+            root.style.setProperty('--code-font', customSettings.codeFont);
             // Append elements to DOM
             container[0].appendChild(this.wrapper);
             container[0].classList.add('h5p-pyth5p');

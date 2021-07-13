@@ -1,5 +1,6 @@
 export default {
     answers: 'Answers',
+    bestAnswer: 'Best answer',
     checkAnswer: 'Check',
     description: 'Python code',
     name: 'PytH5P',

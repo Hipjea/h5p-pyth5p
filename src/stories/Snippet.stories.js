@@ -1,6 +1,5 @@
 import React from 'react';
 import Snippet from '../components/Snippet';
-import Button from '../components/Button';
 import { defaultContext } from '../../.storybook/config/context';
 import { defaultEditorContext, uneditableEditorContext } from '../../.storybook/config/editorContext';
 import { behaviourEditable } from '../../.storybook/config/behaviourContext';
@@ -23,7 +22,7 @@ const Template = (args) => (
         id={defaultContext.id}
         code={defaultContext.code}
         isEditable={behaviourEditable.isEditable}
-        setCode={setCode} 
+        setCode={setCode}
         {...args}
     />
 );
@@ -32,8 +31,8 @@ export const Default = Template.bind({});
 Default.args = { 
     id: 1, 
     code: defaultContext.code,
-    isEditable: true, 
-    ...defaultEditorContext, 
+    isEditable: true,
+    ...defaultEditorContext,
     ...defaultContext
 };
 

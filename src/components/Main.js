@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
 import Footer from './Footer';
 import { createMarkup } from '../utils/utils';
+import 'codemirror/lib/codemirror.css';
 import Button from './Button';
 import { decodeHtmlEntities } from '../utils/utils';
-import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/theme-github";
 const Sk = require('skulpt');
 
 
 export default function Main({id, error, ...props}) {
+    const codeeditor = React.createRef();
     const pre = React.createRef();
     const canvas = React.createRef();
     const ref = {
+        codeeditor: codeeditor,
         pre: pre,
         canvas: canvas
     }
@@ -48,11 +49,10 @@ export default function Main({id, error, ...props}) {
         const SkPromise = Sk.misceval.asyncToPromise(function() {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
-        SkPromise.then(function(mod) {
-            console.log('success');
+        SkPromise.then(function(_) {
         },
         function(err) {
-            console.log(err.toString());
+            console.error(err.toString());
             setOutText(err.toString())
         });
     }
