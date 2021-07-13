@@ -13,7 +13,15 @@
     border-radius: 4px;
 }
 .h5p-pyth5p-feedback-best-answer h5 {
+    font-size: 1.02em;
     color: #47b47d;
     font-weight: bold;
     margin-top: 0;
+}
+.h5p-pyth5p-feedback-tips {
+    margin-top: 1em;
+    font-size: .95em;
+}
+.h5p-pyth5p-feedback-tips p {
+    margin-bottom: 0;
 }

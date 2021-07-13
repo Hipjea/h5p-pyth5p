@@ -4,6 +4,7 @@ import { usePythonCodeContext } from '../PythonCodeContext';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import Snippet from './Snippet';
+import { createMarkup } from '../utils/utils';
 import './footer.css';
 
 
@@ -66,6 +67,7 @@ export default function Footer({userCode, out, ...props}) {
     }
 
     const listAnswers = answers.map((answer, i) => {
+        console.log(answer)
         const answerClass = answer.bestAnswer ? "h5p-pyth5p-feedback-best-answer" : "h5p-pyth5p-feedback";
         return (
             <li key={i} className={answerClass}>
@@ -77,6 +79,11 @@ export default function Footer({userCode, out, ...props}) {
                     isEditable={props.behaviour.isEditable}
                     {...props}
                 />
+                { answer.tipsAndFeedback 
+                    ? <div className="h5p-pyth5p-feedback-tips"
+                        dangerouslySetInnerHTML={createMarkup(answer.tipsAndFeedback)} /> 
+                    : null 
+                }
                 <div className="feedback-separator" />
             </li>
         );

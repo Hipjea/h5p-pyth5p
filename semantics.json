@@ -61,14 +61,14 @@
             "name": "correctionCode",
             "type": "text",
             "default": "",
-            "description": "The code answer that will be shown in at vertification if the type is set on \"Exercise\".",
+            "description": "The text answer that will be shown in at vertification if the type is set on \"Exercise\".",
             "widget": "textarea"
           },
           {
             "name": "answers",
             "type": "list",
             "importance": "high",
-            "label": "Possible answers",
+            "label": "Code answers",
             "entity": "option",
             "min": 1,
             "defaultNum": 1,
@@ -82,7 +82,7 @@
                   "name": "text",
                   "type": "text",
                   "importance": "medium",
-                  "widget": "textarea",
+                  "widget": "codeSnippet",
                   "label": "Code"
                 },
                 {
