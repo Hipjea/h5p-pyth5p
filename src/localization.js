@@ -5,6 +5,7 @@ export default {
     description: 'Python code',
     name: 'PytH5P',
     output: 'Output',
+    retryButtonLabel: 'Retry',
     run: 'Run',
     score: 'Score',
     showSolutionButton: 'Show solution',

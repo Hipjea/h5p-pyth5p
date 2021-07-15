@@ -58,7 +58,7 @@
         "fields": [
           {
             "label": "Correction",
-            "name": "correctionCode",
+            "name": "correctionText",
             "type": "text",
             "default": "",
             "description": "The text answer that will be shown in at vertification if the type is set on \"Exercise\".",

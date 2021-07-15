@@ -12,7 +12,7 @@ export default {
   subcomponents: { Feedback }
 };
 
-const correction = defaultContext.contentType.correction.correctionCode;
+const correction = defaultContext.contentType.correction.correctionText;
 
 const Template = (args) => (
   <Footer {...args}>

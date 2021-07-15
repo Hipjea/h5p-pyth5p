@@ -14,16 +14,26 @@ export default function Footer({userCode, out, ...props}) {
     const context = usePythonCodeContext(),
         [checkBtn, toggleCheckBtn] = useState([]),
         [correction, setCheckCode] = useState(null),
-        [showResults, setShowResults] = useState(false),
+        [showSolutions, setShowSolutions] = useState(false),
         [showSolutionButton, setShowSolutionButton] = useState(false),
         [displayFeedback, setdisplayFeedback] = useState(false),
-        [answers, setAnswers] = useState([]);
+        [answers, setAnswers] = useState([]),
+        [score, setScore] = useState(0);
 
     const checkCode = () => {
-        setShowResults(!showResults);
+        setShowSolutions(!showSolutions);
         setShowSolutionButton(!showSolutionButton);
-        setCheckCode(props.contentType.correction.correctionCode);
+        setCheckCode(props.contentType.correction.correctionText);
         setAnswers(props.contentType.correction.answers);
+    }
+
+    const resetTask = () => {
+        setShowSolutions(false);
+        setShowSolutionButton(false);
+        setdisplayFeedback(false);
+        toggleCheckBtn(true);
+        const footer = H5P.jQuery('.footer-container');
+        footer.find('.h5p-joubelui-score-bar').remove();
     }
 
     function getScore() {
@@ -37,6 +47,7 @@ export default function Footer({userCode, out, ...props}) {
     function displayResult() {
         checkCode();
         const score = getScore();
+        setScore(score);
 
         const attributes = {
             name: props.l10n.name,
@@ -49,14 +60,13 @@ export default function Footer({userCode, out, ...props}) {
         if (completedEvent) {
             context.trigger(completedEvent, completedEvent.data);
             toggleCheckBtn(!checkBtn);
-
-            const $footer = H5P.jQuery('.footer-container');
-            const $progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
-            $progressBar.setScore(score);
-            $progressBar.appendTo($footer);
-
+            
+            const footer = H5P.jQuery('.footer-container');
+            const progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
+            progressBar.setScore(score);
+            progressBar.appendTo(footer);
             // Set focus on the first button in the footer
-            $footer.children('button').first().focus();
+            footer.children('button').first().focus();
             context.trigger('resize');
         }
     }
@@ -115,11 +125,22 @@ export default function Footer({userCode, out, ...props}) {
                     </button>
                 :   null
             }
+            { isExercise && displayFeedback && score < 1
+                ?   <button 
+                        data-testid="retrybutton"
+                        title="Submit"
+                        className="h5p-joubelui-button"
+                        onClick={() => resetTask()}
+                    >
+                        {props.l10n.retryButtonLabel}
+                    </button>
+                :   null
+            }
             { isExercise && displayFeedback && props.behaviour.enableSolutionsButton
                 ?   <Feedback correction={correction} {...props} /> 
                 :   null 
             }
-            { isExercise && listAnswers && showResults && displayFeedback
+            { isExercise && listAnswers && showSolutions && displayFeedback
                 ?   <>
                         <h4 className="h5p-pyth5p-solution-text">{props.l10n.answers}</h4>
                         <ul>{listAnswers}</ul> 
