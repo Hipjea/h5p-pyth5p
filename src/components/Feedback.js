@@ -9,7 +9,7 @@ export default function Feedback({correction, ...props}) {
         <div className="h5p-pyth5p-feedback">
             { correction
                 ? <>
-                    <p className="h5p-pyth5p-solution-text">{props.l10n.solution}</p>
+                    <p className="h5p-pyth5p-solution-text">{props.l10n.solution} :</p>
                     <div className="h5p-pyth5p-feedback-text correction" 
                         dangerouslySetInnerHTML={createMarkup(correction, true)} />
                 </>

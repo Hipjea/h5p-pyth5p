@@ -58,13 +58,14 @@ export default function Main({id, error, ...props}) {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
         SkPromise.then(function(_) {
+            // Resize the H5P container
+            context.trigger('resize');
         },
         function(err) {
             console.error(err.toString());
-            setOutText(err.toString())
+            setOutText(err.toString());
+            context.trigger('resize');
         });
-        // Resize the H5P container
-        context.trigger('resize');
     }
 
     return (

@@ -146,7 +146,7 @@ export default function Footer({userCode, out, ...props}) {
             }
             { isExercise && listAnswers && showSolutions && displayFeedback
                 ?   <>
-                        <h4 className="h5p-pyth5p-solution-text">{props.l10n.answers}</h4>
+                        <h4 className="h5p-pyth5p-solution-text">{props.l10n.answers} :</h4>
                         <ul>{listAnswers}</ul> 
                     </>
                 :   null 
