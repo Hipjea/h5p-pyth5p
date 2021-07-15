@@ -26,7 +26,7 @@ export default function Footer({userCode, out, ...props}) {
         setAnswers(props.contentType.correction.answers);
     }
 
-    function checkUserAnswer() {
+    function getScore() {
         const answerTexts = props.contentType.correction.answers.map(a => createPreservedMarkup(a.text));
         const userAnswer = createPreservedMarkup(userCode);
         let score = 0;
@@ -36,7 +36,7 @@ export default function Footer({userCode, out, ...props}) {
 
     function displayResult() {
         checkCode();
-        const score = checkUserAnswer();
+        const score = getScore();
 
         const attributes = {
             name: props.l10n.name,
