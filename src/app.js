@@ -68,7 +68,6 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                 createElements();
             }
             root.style.setProperty('--code-width', customSettings.codeWidth);
-            root.style.setProperty('--code-font', customSettings.codeFont);
             // Append elements to DOM
             container[0].appendChild(this.wrapper);
             container[0].classList.add('h5p-pyth5p');

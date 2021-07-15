@@ -163,35 +163,6 @@
     "importance": "low",
     "fields": [
       {
-        "label": "Code font",
-        "name": "codeFont",
-        "type": "select",
-        "description": "The font used to display the code.",
-        "options": [
-          {
-            "value": "monaco",
-            "label": "Monaco"
-          },
-          {
-            "value": "UbuntuMono",
-            "label": "UbuntuMono"
-          },
-          {
-            "value": "FiraCode, monospace",
-            "label": "FiraCode"
-          },
-          {
-            "value": "IBMPlexMon",
-            "label": "IBMPlexMon"
-          },
-          {
-            "value": "SourceCodePro",
-            "label": "SourceCodePro"
-          }
-        ],
-        "default": "monaco"
-      },
-      {
         "label": "Code width",
         "name": "codeWidth",
         "type": "number",
