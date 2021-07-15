@@ -15,13 +15,9 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
         EventDispatcher.call(this);
 
         const root = document.documentElement;
-        const codeWidthVal = params.displaySettings.codeWidth;
-        const codeWidthUnit = params.displaySettings.codeWidthUnit;
-
-        const customSettings = {
-            codeWidth: `${codeWidthVal}${codeWidthUnit}`,
-            codeFont: params.displaySettings.codeFont
-        };
+        const codeWidthVal = params.displaySettings.codeWidth,
+              codeWidthUnit = params.displaySettings.codeWidthUnit,
+              codeWidth = `${codeWidthVal}${codeWidthUnit}`;
 
         this.wrapper = null;
         this.id = contentId;
@@ -67,7 +63,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             if (!this.wrapper) {
                 createElements();
             }
-            root.style.setProperty('--code-width', customSettings.codeWidth);
+            root.style.setProperty('--code-width', codeWidth);
             // Append elements to DOM
             container[0].appendChild(this.wrapper);
             container[0].classList.add('h5p-pyth5p');
