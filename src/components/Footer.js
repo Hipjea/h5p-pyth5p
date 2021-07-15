@@ -31,6 +31,9 @@ export default function Footer({userCode, out, ...props}) {
         setShowSolutionButton(!showSolutionButton);
         setCheckCode(props.contentType.correction.correctionText);
         setAnswers(props.contentType.correction.answers);
+        const score = getScore();
+        setScore(score);
+        return score;
     }
 
     const resetTask = () => {
@@ -51,10 +54,7 @@ export default function Footer({userCode, out, ...props}) {
     }
 
     function checkResults() {
-        checkCode();
-        const score = getScore();
-        setScore(score);
-
+        const score = checkCode();
         const attributes = {
             name: props.l10n.name,
             description: props.l10n.description,
