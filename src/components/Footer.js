@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Feedback from './Feedback';
 import { usePythonCodeContext } from '../PythonCodeContext';
 import { createPreservedMarkup } from '../utils/utils';
@@ -19,6 +19,12 @@ export default function Footer({userCode, out, ...props}) {
         [displayFeedback, setdisplayFeedback] = useState(false),
         [answers, setAnswers] = useState([]),
         [score, setScore] = useState(0);
+    let footer, progressBar = null;
+
+    useEffect(() => {
+        footer = H5P.jQuery('.footer-container');
+        progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
+    });
 
     const checkCode = () => {
         setShowSolutions(!showSolutions);
@@ -32,8 +38,8 @@ export default function Footer({userCode, out, ...props}) {
         setShowSolutionButton(false);
         setdisplayFeedback(false);
         toggleCheckBtn(true);
-        const footer = H5P.jQuery('.footer-container');
         footer.find('.h5p-joubelui-score-bar').remove();
+        context.trigger('resize');
     }
 
     function getScore() {
@@ -60,9 +66,7 @@ export default function Footer({userCode, out, ...props}) {
         if (completedEvent) {
             context.trigger(completedEvent, completedEvent.data);
             toggleCheckBtn(!checkBtn);
-            
-            const footer = H5P.jQuery('.footer-container');
-            const progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
+
             progressBar.setScore(score);
             progressBar.appendTo(footer);
             // Set focus on the first button in the footer
