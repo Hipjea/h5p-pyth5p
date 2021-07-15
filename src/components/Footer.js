@@ -61,7 +61,7 @@ export default function Footer({userCode, out, ...props}) {
             interactionType: "fill-in",
             correctResponsesPattern: props.contentType?.correction?.answers ? props.contentType.correction.answers.map(a => a.text) : []
         }
-        const xAPI = new xAPILib(context, 'answered', attributes, score, "print(\"Hello world !\")");
+        const xAPI = new xAPILib(context, 'answered', attributes, score, userCode);
         const completedEvent = xAPI.build();
         if (completedEvent) {
             context.trigger(completedEvent, completedEvent.data);
