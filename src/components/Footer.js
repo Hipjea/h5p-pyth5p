@@ -121,7 +121,7 @@ export default function Footer({userCode, out, ...props}) {
                         onClick={() => displayFeedbackCb()}
                     >
                         <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
-                        &nbsp; {props.l10n.showSolutionButton}
+                        &nbsp; {props.l10n.showSolutionButtonLabel}
                     </button>
                 :   null
             }

@@ -8,6 +8,6 @@ export default {
     retryButtonLabel: 'Retry',
     run: 'Run',
     score: 'Score',
-    showSolutionButton: 'Show solution',
+    showSolutionButtonLabel: 'Show solution',
     solution: 'Solution'
 };

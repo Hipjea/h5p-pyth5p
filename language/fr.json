@@ -1,0 +1,96 @@
+{
+  "semantics": [
+    {
+      "label": "Énoncé",
+      "default": "Écrire le contenu de l'énoncé",
+      "description": "Énoncé affiché au dessus de la zone de code."
+    },
+    {
+      "label": "Code",
+      "description": "The code that will be shown in the editor."
+    },
+    {
+      "label": "Content type",
+      "fields": [
+        {
+          "label": "Is an exercise ?",
+          "description": "The activity is an exercise."
+        },
+        {
+          "label": "Correction",
+          "fields": [
+            {
+              "label": "Correction",
+              "description": "La correction qui sera affichée lors de la vérification si l'activité est de type \"Exercice\"."
+            },
+            {
+              "label": "Code de correction",
+              "entity": "option",
+              "field": {
+                "label": "Option",
+                "fields": [
+                  {
+                    "label": "Code"
+                  },
+                  {
+                    "label": "Meilleure réponse"
+                  },
+                  {
+                    "label": "Conseils et feedbacks",
+                    "fields": [
+                      {
+                        "label": "Conseil",
+                        "description": "Conseil qui sera affiché sous le code de correction."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Paramètres comportementaux",
+      "description": "Ces options vous permettront de contrôler comment l'activité doit se comporter.",
+      "fields": [
+        {
+          "label": "Rendre le code éditable",
+          "description": "Si coché, le code sera modifiable."
+        },
+        {
+          "label": "Afficher le bouton \"Réessayer\""
+        },
+        {
+          "label": "Afficher le bouton \"Voir la solution\""
+        }
+      ]
+    },
+    {
+      "label": "Paramètres d'affichage",
+      "fields": [
+        {
+          "label": "Largeur de la zone de code",
+          "default": "100",
+          "description": "La valeur CSS de largeur de la zone du code."
+        },
+        {
+          "label": "Unité de largeur de la zone de code",
+          "description": "L'unité de largeur CSS de la zone du code.",
+          "options": [
+            {
+              "label": "%"
+            },
+            {
+              "label": "px"
+            },
+            {
+              "label": "em"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

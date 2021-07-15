@@ -4,7 +4,7 @@
     "name": "statement",
     "type": "text",
     "default": "Write the statement here",
-    "description": "The statement displayed above the code code.",
+    "description": "The statement displayed above the code area.",
     "optional": true,
     "widget": "html",
     "tags": [
@@ -60,8 +60,7 @@
             "label": "Correction",
             "name": "correctionText",
             "type": "text",
-            "default": "",
-            "description": "The text answer that will be shown in at vertification if the type is set on \"Exercise\".",
+            "description": "The text answer that will be shown at vertification if the type is set on \"Exercise\".",
             "widget": "textarea"
           },
           {
