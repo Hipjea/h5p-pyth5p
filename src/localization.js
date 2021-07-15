@@ -7,6 +7,7 @@ export default {
     output: 'Output',
     retryButtonLabel: 'Retry',
     run: 'Run',
+    runBeforeCheck: 'Run your code before checking',
     score: 'Score',
     showSolutionButtonLabel: 'Show solution',
     solution: 'Solution'

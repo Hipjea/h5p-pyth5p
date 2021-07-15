@@ -15,3 +15,11 @@
 .h5p-pyth5p-feedback-tips p {
     margin-bottom: 0;
 }
+.footer-container .check-indication {
+    font-size: .8em;
+    padding-left: .5em;
+}
+#pyth5p-checkbutton:disabled,
+#pyth5p-checkbutton[disabled] {
+    opacity: .75;
+}

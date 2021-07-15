@@ -8,7 +8,7 @@ import { createMarkup } from '../utils/utils';
 import './footer.css';
 
 
-export default function Footer({userCode, out, ...props}) {
+export default function Footer({userCode, out, isCodeRun, retry, ...props}) {
     const isExercise = (props.contentType.isExercise === 'true' || 
                         props.contentType.isExercise === true);
     const context = usePythonCodeContext(),
@@ -41,6 +41,7 @@ export default function Footer({userCode, out, ...props}) {
         setShowSolutionButton(false);
         setdisplayFeedback(false);
         toggleCheckBtn(true);
+        retry();
         footer.find('.h5p-joubelui-score-bar').remove();
         context.trigger('resize');
     }
@@ -66,7 +67,6 @@ export default function Footer({userCode, out, ...props}) {
         if (completedEvent) {
             context.trigger(completedEvent, completedEvent.data);
             toggleCheckBtn(!checkBtn);
-
             progressBar.setScore(score);
             progressBar.appendTo(footer);
             // Set focus on the first button in the footer
@@ -106,16 +106,22 @@ export default function Footer({userCode, out, ...props}) {
     return (
         <footer className="footer-container">
             { isExercise && checkBtn
-                ?   <button 
-                        id="pyth5p-checkbutton"
-                        data-testid="checkbutton"
-                        title="Submit"
-                        className="h5p-joubelui-button"
-                        onClick={() => checkResults()}
-                    >
-                        <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
-                        &nbsp; {props.l10n.checkAnswer}
-                    </button>
+                ?   <>
+                        <button 
+                            id="pyth5p-checkbutton"
+                            data-testid="checkbutton"
+                            title="Submit"
+                            className="h5p-joubelui-button"
+                            onClick={() => checkResults()}
+                            disabled={!isCodeRun}
+                        >
+                            <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
+                            &nbsp; {props.l10n.checkAnswer}
+                        </button>
+                        <span className="check-indication">
+                            {!isCodeRun ? props.l10n.runBeforeCheck : ""}
+                        </span>
+                    </>
                 :   null
             }
             { isExercise && showSolutionButton && props.behaviour.enableSolutionsButton

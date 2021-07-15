@@ -20,11 +20,12 @@ export default function Main({id, error, ...props}) {
         pre: pre,
         canvas: canvas
     }
+    const defaultVal = decodeHtmlEntities(props.code);
     const [userCode, setUserCode] = useState(props.code);
     const [out, setOutText] = useState([]);
-    const defaultVal = decodeHtmlEntities(props.code);
     const [localCode, setCode] = useState(defaultVal);
-
+    const [isCodeRun, setIsCodeRun] = useState(false);
+    
     function clearOutText() {
         setOutText([]);
     }
@@ -35,8 +36,13 @@ export default function Main({id, error, ...props}) {
 
     function setCodeCb(newCode) {
         setCode(newCode);
+        setIsCodeRun(false);
         // Resize the H5P container
         context.trigger('resize');
+    }
+
+    function retryCb() {
+        setIsCodeRun(false);
     }
 
     function builtinRead(x) {
@@ -50,6 +56,7 @@ export default function Main({id, error, ...props}) {
         const value = val ?? localCode;
         clearOutText();
         setUserCode(value);
+        setIsCodeRun(true);
 
         Sk.pre = pre.current;
         Sk.configure({ output: outTextCallback, read: builtinRead, __future__: Sk.python3 }); 
@@ -88,7 +95,13 @@ export default function Main({id, error, ...props}) {
                     {...props} 
                 />
             </div>
-            <Footer userCode={userCode} out={out} {...props} />
+            <Footer 
+                userCode={userCode} 
+                out={out} 
+                isCodeRun={isCodeRun}
+                retry={retryCb}
+                {...props} 
+            />
         </div>
     );
 }
