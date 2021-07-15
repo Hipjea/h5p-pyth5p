@@ -16,7 +16,7 @@ export default function Footer({userCode, out, ...props}) {
         [correction, setCheckCode] = useState(null),
         [showResults, setShowResults] = useState(false),
         [showSolutionButton, setShowSolutionButton] = useState(false),
-        [displaySolution, setDisplaySolution] = useState(false),
+        [displayFeedback, setdisplayFeedback] = useState(false),
         [answers, setAnswers] = useState([]);
 
     const checkCode = () => {
@@ -61,9 +61,9 @@ export default function Footer({userCode, out, ...props}) {
         }
     }
 
-    const displaySolutionCb = () => {
+    const displayFeedbackCb = () => {
         setShowSolutionButton(!showSolutionButton);
-        setDisplaySolution(!displaySolution);
+        setdisplayFeedback(!displayFeedback);
         context.trigger('resize');
     }
 
@@ -108,18 +108,18 @@ export default function Footer({userCode, out, ...props}) {
                 ?   <button 
                         title="Submit"
                         className="h5p-joubelui-button"
-                        onClick={() => displaySolutionCb()}
+                        onClick={() => displayFeedbackCb()}
                     >
                         <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
                         &nbsp; {props.l10n.showSolutionButton}
                     </button>
                 :   null
             }
-            { isExercise && displaySolution && props.behaviour.enableSolutionsButton
+            { isExercise && displayFeedback && props.behaviour.enableSolutionsButton
                 ?   <Feedback correction={correction} {...props} /> 
                 :   null 
             }
-            { isExercise && listAnswers && showResults && displaySolution
+            { isExercise && listAnswers && showResults && displayFeedback
                 ?   <>
                         <h4 className="h5p-pyth5p-solution-text">{props.l10n.answers}</h4>
                         <ul>{listAnswers}</ul> 
