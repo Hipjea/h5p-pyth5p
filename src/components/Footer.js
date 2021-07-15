@@ -50,7 +50,7 @@ export default function Footer({userCode, out, ...props}) {
         return score;
     }
 
-    function displayResult() {
+    function checkResults() {
         checkCode();
         const score = getScore();
         setScore(score);
@@ -111,7 +111,7 @@ export default function Footer({userCode, out, ...props}) {
                         data-testid="checkbutton"
                         title="Submit"
                         className="h5p-joubelui-button"
-                        onClick={() => displayResult()}
+                        onClick={() => checkResults()}
                     >
                         <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
                         &nbsp; {props.l10n.checkAnswer}
