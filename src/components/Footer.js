@@ -22,7 +22,7 @@ export default function Footer({userCode, out, isCodeRun, performRetry, ...props
 
     useEffect(() => {
         footer = H5P.jQuery('.footer-container');
-        progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
+        progressBar = H5P?.JoubelUI?.createScoreBar(1, 'scoreBarLabel') || null;
     });
 
     const checkCode = () => {

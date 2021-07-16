@@ -7,17 +7,17 @@ import Button from './Button';
 import { defaultContext } from '../../.storybook/config/context';
 
 // Imports the story for the test
-import { Default } from '../stories/Button.stories';
+import { Default, RunButton } from '../stories/Button.stories';
 
 it('renders the button in the visible state', () => {
-  render(<Default {...Default.args} />);
+  render(<RunButton {...RunButton.args} />);
   expect(screen.getByRole('button')).toHaveTextContent(l10n.run);
 });
 
 describe('when the button is clicked', () => {
   const mockCallback = jest.fn();
   const wrapper = shallow((
-    <Button onLaunchAction={mockCallback} visible={true} {...defaultContext} />
+    <Button onLaunchAction={mockCallback} {...defaultContext} {...Default.args} />
   )); 
 
   beforeAll(() => wrapper.find('button').simulate('click'));
