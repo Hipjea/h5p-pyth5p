@@ -1,52 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Feedback from './Feedback';
 import { usePythonCodeContext } from '../PythonCodeContext';
-import { createPreservedMarkup } from '../utils/utils';
+import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import Snippet from './Snippet';
-import { createMarkup } from '../utils/utils';
+import { createMarkup } from '../utils/utils';
 import './footer.css';
 
 
-export default function Footer({userCode, out, isCodeRun, retry, ...props}) {
+export default function Footer({userCode, out, ...props}) {
     const isExercise = (props.contentType.isExercise === 'true' || 
                         props.contentType.isExercise === true);
     const context = usePythonCodeContext(),
         [checkBtn, toggleCheckBtn] = useState([]),
         [correction, setCheckCode] = useState(null),
-        [showSolutions, setShowSolutions] = useState(false),
+        [showResults, setShowResults] = useState(false),
         [showSolutionButton, setShowSolutionButton] = useState(false),
-        [displayFeedback, setdisplayFeedback] = useState(false),
-        [answers, setAnswers] = useState([]),
-        [score, setScore] = useState(0);
-    let footer, progressBar = null;
-
-    useEffect(() => {
-        footer = H5P.jQuery('.footer-container');
-        progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
-    });
+        [displaySolution, setDisplaySolution] = useState(false),
+        [answers, setAnswers] = useState([]);
 
     const checkCode = () => {
-        setShowSolutions(!showSolutions);
+        setShowResults(!showResults);
         setShowSolutionButton(!showSolutionButton);
-        setCheckCode(props.contentType.correction.correctionText);
+        setCheckCode(props.contentType.correction.correctionCode);
         setAnswers(props.contentType.correction.answers);
-        const score = getScore();
-        setScore(score);
-        return score;
     }
 
-    const resetTask = () => {
-        setShowSolutions(false);
-        setShowSolutionButton(false);
-        setdisplayFeedback(false);
-        toggleCheckBtn(true);
-        retry();
-        footer.find('.h5p-joubelui-score-bar').remove();
-        context.trigger('resize');
-    }
-
-    function getScore() {
+    function checkUserAnswer() {
         const answerTexts = props.contentType.correction.answers.map(a => createPreservedMarkup(a.text));
         const userAnswer = createPreservedMarkup(userCode);
         let score = 0;
@@ -54,30 +34,36 @@ export default function Footer({userCode, out, isCodeRun, retry, ...props}) {
         return score;
     }
 
-    function checkResults() {
-        const score = checkCode();
+    function displayResult() {
+        checkCode();
+        const score = checkUserAnswer();
+
         const attributes = {
             name: props.l10n.name,
             description: props.l10n.description,
             interactionType: "fill-in",
             correctResponsesPattern: props.contentType?.correction?.answers ? props.contentType.correction.answers.map(a => a.text) : []
         }
-        const xAPI = new xAPILib(context, 'answered', attributes, score, userCode);
+        const xAPI = new xAPILib(context, 'answered', attributes, score, "print(\"Hello world !\")");
         const completedEvent = xAPI.build();
         if (completedEvent) {
             context.trigger(completedEvent, completedEvent.data);
             toggleCheckBtn(!checkBtn);
-            progressBar.setScore(score);
-            progressBar.appendTo(footer);
+
+            const $footer = H5P.jQuery('.footer-container');
+            const $progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel');
+            $progressBar.setScore(score);
+            $progressBar.appendTo($footer);
+
             // Set focus on the first button in the footer
-            footer.children('button').first().focus();
+            $footer.children('button').first().focus();
             context.trigger('resize');
         }
     }
 
-    const displayFeedbackCb = () => {
+    const displaySolutionCb = () => {
         setShowSolutionButton(!showSolutionButton);
-        setdisplayFeedback(!displayFeedback);
+        setDisplaySolution(!displaySolution);
         context.trigger('resize');
     }
 
@@ -106,53 +92,36 @@ export default function Footer({userCode, out, isCodeRun, retry, ...props}) {
     return (
         <footer className="footer-container">
             { isExercise && checkBtn
-                ?   <>
-                        <button 
-                            id="pyth5p-checkbutton"
-                            data-testid="checkbutton"
-                            title="Submit"
-                            className="h5p-joubelui-button"
-                            onClick={() => checkResults()}
-                            disabled={!isCodeRun}
-                        >
-                            <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
-                            &nbsp; {props.l10n.checkAnswer}
-                        </button>
-                        <span className="check-indication">
-                            {!isCodeRun ? props.l10n.runBeforeCheck : ""}
-                        </span>
-                    </>
+                ?   <button 
+                        id="pyth5p-checkbutton"
+                        data-testid="checkbutton"
+                        title="Submit"
+                        className="h5p-joubelui-button"
+                        onClick={() => displayResult()}
+                    >
+                        <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
+                        &nbsp; {props.l10n.checkAnswer}
+                    </button>
                 :   null
             }
             { isExercise && showSolutionButton && props.behaviour.enableSolutionsButton
                 ?   <button 
                         title="Submit"
                         className="h5p-joubelui-button"
-                        onClick={() => displayFeedbackCb()}
+                        onClick={() => displaySolutionCb()}
                     >
                         <span><i className="fa fa-check-circle" aria-hidden="true"></i></span>
-                        &nbsp; {props.l10n.showSolutionButtonLabel}
+                        &nbsp; {props.l10n.showSolutionButton}
                     </button>
                 :   null
             }
-            { isExercise && displayFeedback && score < 1
-                ?   <button 
-                        data-testid="retrybutton"
-                        title="Submit"
-                        className="h5p-joubelui-button"
-                        onClick={() => resetTask()}
-                    >
-                        {props.l10n.retryButtonLabel}
-                    </button>
-                :   null
-            }
-            { isExercise && displayFeedback && props.behaviour.enableSolutionsButton
+            { isExercise && displaySolution && props.behaviour.enableSolutionsButton
                 ?   <Feedback correction={correction} {...props} /> 
                 :   null 
             }
-            { isExercise && listAnswers && showSolutions && displayFeedback
+            { isExercise && listAnswers && showResults && displaySolution
                 ?   <>
-                        <h4 className="h5p-pyth5p-solution-text">{props.l10n.answers} :</h4>
+                        <h4 className="h5p-pyth5p-solution-text">{props.l10n.answers}</h4>
                         <ul>{listAnswers}</ul> 
                     </>
                 :   null 

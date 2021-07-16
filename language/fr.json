@@ -7,7 +7,7 @@
     },
     {
       "label": "Code",
-      "description": "The code that will be shown in the editor."
+      "description": "Le code qui sera affiché dans l'éditeur."
     },
     {
       "label": "Content type",

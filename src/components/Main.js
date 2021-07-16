@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Snippet from './Snippet';
-import { Preview } from './Preview';
+import { Preview } from './Preview';
 import Footer from './Footer';
 import { usePythonCodeContext } from '../PythonCodeContext';
-import { createMarkup } from '../utils/utils';
+import { createMarkup } from '../utils/utils';
 import 'codemirror/lib/codemirror.css';
 import Button from './Button';
-import { decodeHtmlEntities } from '../utils/utils';
+import { decodeHtmlEntities } from '../utils/utils';
 const Sk = require('skulpt');
 
 
@@ -20,12 +20,11 @@ export default function Main({id, error, ...props}) {
         pre: pre,
         canvas: canvas
     }
-    const defaultVal = decodeHtmlEntities(props.code);
     const [userCode, setUserCode] = useState(props.code);
     const [out, setOutText] = useState([]);
+    const defaultVal = decodeHtmlEntities(props.code);
     const [localCode, setCode] = useState(defaultVal);
-    const [isCodeRun, setIsCodeRun] = useState(false);
-    
+
     function clearOutText() {
         setOutText([]);
     }
@@ -34,15 +33,10 @@ export default function Main({id, error, ...props}) {
         setOutText(rest => [...rest, text]);
     }
 
-    function setCodeCb(newCode) {
+    function setCodeCb(newCode) {
         setCode(newCode);
-        setIsCodeRun(false);
         // Resize the H5P container
         context.trigger('resize');
-    }
-
-    function retryCb() {
-        setIsCodeRun(false);
     }
 
     function builtinRead(x) {
@@ -56,7 +50,6 @@ export default function Main({id, error, ...props}) {
         const value = val ?? localCode;
         clearOutText();
         setUserCode(value);
-        setIsCodeRun(true);
 
         Sk.pre = pre.current;
         Sk.configure({ output: outTextCallback, read: builtinRead, __future__: Sk.python3 }); 
@@ -65,14 +58,13 @@ export default function Main({id, error, ...props}) {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
         SkPromise.then(function(_) {
-            // Resize the H5P container
-            context.trigger('resize');
         },
         function(err) {
             console.error(err.toString());
-            setOutText(err.toString());
-            context.trigger('resize');
+            setOutText(err.toString())
         });
+        // Resize the H5P container
+        context.trigger('resize');
     }
 
     return (
@@ -95,13 +87,7 @@ export default function Main({id, error, ...props}) {
                     {...props} 
                 />
             </div>
-            <Footer 
-                userCode={userCode} 
-                out={out} 
-                isCodeRun={isCodeRun}
-                retry={retryCb}
-                {...props} 
-            />
+            <Footer userCode={userCode} out={out} {...props} />
         </div>
     );
 }

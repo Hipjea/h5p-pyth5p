@@ -3,6 +3,10 @@
 }
 .CodeMirror {
     font-family: monospace;
-    height: 100% !important;
-    min-height: 100px;
+    height: auto !important;
+}
+.CodeMirror-scroll {
+    height: auto !important;
+    overflow-y: hidden;
+    overflow-x: auto;
 }

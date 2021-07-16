@@ -3,7 +3,7 @@
   "description": "Python code activity",
   "majorVersion": 1,
   "minorVersion": 0,
-  "patchVersion": 4,
+  "patchVersion": 8,
   "runnable": 1,
   "author": "Pierre Duverneix",
   "license": "MIT",
@@ -28,7 +28,12 @@
 			"machineName": "jQuery.ui",
 			"majorVersion": 1,
 			"minorVersion": 10
-		}
+		},
+    {
+      "machineName": "H5P.Question",
+      "majorVersion": 1,
+      "minorVersion": 4
+    }
   ],
   "editorDependencies": [
     {
