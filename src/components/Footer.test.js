@@ -27,7 +27,7 @@ describe('when the check button is clicked', () => {
   const handleClick = jest.spyOn(React, "useState");
   handleClick.mockImplementation(showSolutionButton => [showSolutionButton, setShowSolutionButton]);
 
-  beforeAll(() => wrapper.find('#pyth5p-checkbutton').simulate('click'));
+  beforeAll(() => wrapper.find('.h5p-question-check-answer').simulate('click'));
   
   it('triggers a click event', () => {
     expect(setShowSolutionButton).toBeTruthy();
