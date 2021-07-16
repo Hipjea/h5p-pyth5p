@@ -6,28 +6,17 @@ export const defaultContext = {
     contentType: {
         isExercise: true,
         correction: {
-            correctionCode: "print(\"Correction filler\")",
+            correctionText: "print(\"Correction filler\")",
             answers: [
                 {
-                    text: 'print("Hello world !")',
+                    text: 'print("Hello world")',
                     bestAnswer: false,
-                    tipsAndFeedback: {
-                        tip: "<p>Tip answer 1</p>"
-                    }
+                    tipsAndFeedback: "<p>Tips...</p>"
                 },
                 {
-                    text: "Answer 2",
+                    text: 'print("Best answer code")',
                     bestAnswer: true,
-                    tipsAndFeedback: {
-                        tip: "<p>Tip answer 2</p>"
-                    }
-                },
-                {
-                    text: "Answer 3",
-                    bestAnswer: false,
-                    tipsAndFeedback: {
-                        tip: "<p>Tip answer 3</p>"
-                    }
+                    tipsAndFeedback: "<p>This is the best answer</p>"
                 }
             ]
         }

@@ -29,7 +29,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
             l10n: l10n,
             editorOptions: {
                 mode: "python",
-                readOnly: params.behaviour.isEditable === 'true' || params.behaviour.isEditable === true ? false : true,
+                readOnly: params.behaviour.isEditable === 'true' || params.behaviour.isEditable === true ? false : true,
                 autofocus: true,
                 smartIndent: true,
                 indentUnit: 4,

@@ -1,0 +1,96 @@
+{
+  "semantics": [
+    {
+      "label": "Statement",
+      "default": "Write the statement here",
+      "description": "The statement displayed above the code area."
+    },
+    {
+      "label": "Code",
+      "description": "Le code qui sera affiché dans l'éditeur de code."
+    },
+    {
+      "label": "Content type",
+      "fields": [
+        {
+          "label": "Est un exercice ?",
+          "description": "L'activité est un exercice."
+        },
+        {
+          "label": "Correction",
+          "fields": [
+            {
+              "label": "Correction",
+              "description": "The text answer that will be shown at vertification if the type is set on \"Exercise\"."
+            },
+            {
+              "label": "Code answers",
+              "entity": "option",
+              "field": {
+                "label": "Option",
+                "fields": [
+                  {
+                    "label": "Code"
+                  },
+                  {
+                    "label": "Best answer"
+                  },
+                  {
+                    "label": "Tips and feedback",
+                    "fields": [
+                      {
+                        "label": "Tip text",
+                        "description": "Hint for the user that will appear under the correction."
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Behavioural settings",
+      "description": "These options will let you control how the task behaves.",
+      "fields": [
+        {
+          "label": "Make the code editable",
+          "description": "If true, the code will be editable."
+        },
+        {
+          "label": "Enable \"Retry\" button"
+        },
+        {
+          "label": "Enable \"Show Solution\" button"
+        }
+      ]
+    },
+    {
+      "label": "Display settings",
+      "fields": [
+        {
+          "label": "Code width",
+          "default": "100",
+          "description": "The CSS value of the code width."
+        },
+        {
+          "label": "Code width unit",
+          "description": "The CSS unit of value of the code width.",
+          "options": [
+            {
+              "label": "%"
+            },
+            {
+              "label": "px"
+            },
+            {
+              "label": "em"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

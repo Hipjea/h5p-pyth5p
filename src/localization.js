@@ -5,8 +5,10 @@ export default {
     description: 'Python code',
     name: 'PytH5P',
     output: 'Output',
+    retryButtonLabel: 'Retry',
     run: 'Run',
+    runBeforeCheck: 'Run your code before checking',
     score: 'Score',
-    showSolutionButton: 'Show solution',
+    showSolutionButtonLabel: 'Show solution',
     solution: 'Solution'
 };

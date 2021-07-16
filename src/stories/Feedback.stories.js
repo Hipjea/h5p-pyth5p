@@ -4,11 +4,11 @@ import { defaultContext } from '../../.storybook/config/context';
 
 
 export default {
-  title: 'Components/Feedback',
+  title: 'Feedback',
   component: Feedback
 };
 
-const correction = defaultContext.contentType.correction.correctionCode;
+const correction = defaultContext.contentType.correction.correctionText;
 const Template = (args) => <Feedback correction={correction} {...args} />;
 const TemplateHidden = (args) => <Feedback correction={null} {...args} />;
 
