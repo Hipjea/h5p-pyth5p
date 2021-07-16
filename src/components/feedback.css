@@ -9,11 +9,11 @@
     margin-bottom: 0.8em;
 }
 .h5p-pyth5p-feedback {
-    margin-top: 1.5em;
+    margin-top: .75em;
 }
 .h5p-pyth5p-feedback .feedback-separator {
-    padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
+    padding-top: 10px;
+    border-top: 2px solid #eee;
 }
 .h5p-pyth5p-feedback-best-answer {
     border: 2px solid #47b47d;

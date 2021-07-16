@@ -19,7 +19,3 @@
     font-size: .8em;
     padding-left: .5em;
 }
-#pyth5p-checkbutton:disabled,
-#pyth5p-checkbutton[disabled] {
-    opacity: .75;
-}

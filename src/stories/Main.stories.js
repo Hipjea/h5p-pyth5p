@@ -11,7 +11,7 @@ import { Default as ButtonDefault } from './Button.stories';
 import { Filled } from './Preview.stories';
 
 export default {
-  title: 'Scenes/Main',
+  title: 'Main',
   component: Main,
   subcomponents: { Snippet, Button, Preview }
 };

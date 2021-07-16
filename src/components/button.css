@@ -10,7 +10,7 @@
     cursor: pointer;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-.pyth5p-run-btn i.play {
+i.play-icon {
     background-image: url('../../assets/images/play.svg'), none;
     background-repeat: no-repeat;
     background-position: 0 50%;
@@ -18,6 +18,10 @@
     margin-right: 6px;
     opacity: 0.85;
 }
-.pyth5p-run-btn:hover i.play {
+.pyth5p-run-btn:hover i.play-icon {
     opacity: 1;
+}
+.h5p-joubelui-button:disabled,
+.h5p-joubelui-button[disabled] {
+    opacity: .75;
 }

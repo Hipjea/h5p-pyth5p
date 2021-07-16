@@ -4,7 +4,7 @@ import { defaultContext } from '../../.storybook/config/context';
 
 
 export default {
-  title: 'Components/Feedback',
+  title: 'Feedback',
   component: Feedback
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import './preview.css';
 import PropTypes from 'prop-types';
 
+
 export const Preview = React.forwardRef(({out, ...props}, ref) => {
     const { pre, canvas } = ref;
 

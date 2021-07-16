@@ -8,7 +8,7 @@ import { ref } from '../../.storybook/config/refs';
 
 
 export default {
-  title: 'Components/Snippet',
+  title: 'Snippet',
   component: Snippet
 };
 

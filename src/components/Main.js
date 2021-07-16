@@ -7,26 +7,23 @@ import { createMarkup } from '../utils/utils';
 import 'codemirror/lib/codemirror.css';
 import Button from './Button';
 import { decodeHtmlEntities } from '../utils/utils';
-const Sk = require('skulpt');
+import Sk from 'skulpt';
 
 
 export default function Main({id, error, ...props}) {
     const context = usePythonCodeContext();
-    const codeeditor = React.createRef();
-    const pre = React.createRef();
-    const canvas = React.createRef();
-    const ref = {
-        codeeditor: codeeditor,
-        pre: pre,
-        canvas: canvas
-    }
-    const [userCode, setUserCode] = useState(props.code);
-    const [out, setOutText] = useState([]);
+    const codeeditor = React.createRef(),
+        pre = React.createRef(),
+        canvas = React.createRef();
+    const ref = { codeeditor, pre, canvas };
     const defaultVal = decodeHtmlEntities(props.code);
-    const [localCode, setCode] = useState(defaultVal);
-
+    const [userCode, setUserCode] = useState(props.code),
+        [out, setOutText] = useState([]),
+        [localCode, setCode] = useState(defaultVal),
+        [isCodeRun, setIsCodeRun] = useState(false);
+    
     function clearOutText() {
-        setOutText([]);
+        setOutText([]); // Clear preview
     }
 
     function outTextCallback(text) {
@@ -35,8 +32,13 @@ export default function Main({id, error, ...props}) {
 
     function setCodeCb(newCode) {
         setCode(newCode);
-        // Resize the H5P container
-        context.trigger('resize');
+        setIsCodeRun(false);
+        context.trigger('resize'); // Resize the H5P container
+    }
+
+    function retryCb() {
+        setIsCodeRun(false);
+        clearOutText();
     }
 
     function builtinRead(x) {
@@ -50,6 +52,7 @@ export default function Main({id, error, ...props}) {
         const value = val ?? localCode;
         clearOutText();
         setUserCode(value);
+        setIsCodeRun(true);
 
         Sk.pre = pre.current;
         Sk.configure({ output: outTextCallback, read: builtinRead, __future__: Sk.python3 }); 
@@ -58,19 +61,18 @@ export default function Main({id, error, ...props}) {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
         SkPromise.then(function(_) {
+            context.trigger('resize');
         },
         function(err) {
             console.error(err.toString());
-            setOutText(err.toString())
+            setOutText(err.toString());
+            context.trigger('resize');
         });
-        // Resize the H5P container
-        context.trigger('resize');
     }
 
     return (
         <div className="h5p-pyth5p-main">
-            <p className="statement" 
-               dangerouslySetInnerHTML={createMarkup(props.statement, false)} />
+            <p className="statement" dangerouslySetInnerHTML={ createMarkup(props.statement, false) } />
             <div className="h5p-pyth5p-code-wrapper">
                 <Snippet
                     ref={ref}
@@ -80,14 +82,27 @@ export default function Main({id, error, ...props}) {
                     setCode={setCodeCb}
                     {...props}
                 />
-                <Button onLaunchAction={() => runCode()} {...props} />
+                <Button 
+                    title="Run code button"
+                    cls="pyth5p-run-btn"
+                    onLaunchAction={() => runCode()} 
+                    icon={<i className="play-icon"></i>}
+                    text={props.l10n.run}
+                    {...props} 
+                />
                 <Preview 
                     ref={ref} 
                     out={out} 
                     {...props} 
                 />
             </div>
-            <Footer userCode={userCode} out={out} {...props} />
+            <Footer 
+                userCode={userCode} 
+                out={out} 
+                isCodeRun={isCodeRun}
+                performRetry={retryCb}
+                {...props} 
+            />
         </div>
     );
 }
