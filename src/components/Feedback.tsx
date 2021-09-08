@@ -1,10 +1,14 @@
 import React from 'react';
+import type { L10n } from '../types/l10n';
 import './feedback.css';
-import PropTypes from 'prop-types';
 import { createMarkup } from '../utils/utils';
 
+type Props = {
+    correction: string;
+    l10n: L10n;
+};
 
-export default function Feedback({correction, ...props}) {
+export default function Feedback({correction, ...props}: Props) {
     return (
         <div className="h5p-pyth5p-feedback">
             { correction
@@ -18,8 +22,3 @@ export default function Feedback({correction, ...props}) {
         </div>
     );
 }
-
-Feedback.propTypes = {
-    /** The correction specified in the settings */
-    correction: PropTypes.string
-};

@@ -2,23 +2,37 @@ import React, { useEffect, useState } from 'react';
 import Feedback from './Feedback';
 import Button from './Button';
 import Answer from './Answer';
+import type { ContentType } from '../types/contentType';
+import type { Behaviour } from '../types/behaviour';
+import type { Answer as TAnswer } from '../types/answer';
+import type { L10n } from '../types/l10n';
 import { usePythonCodeContext } from '../PythonCodeContext';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import './footer.css';
 
+type Props = {
+    userCode: string;
+    out: string;
+    isCodeRun: boolean;
+    performRetry: () => void;
+    l10n: L10n;
+    contentType: ContentType;
+    behaviour: Behaviour
+};
 
-export default function Footer({userCode, out, isCodeRun, performRetry, ...props}) {
-    const isExercise = (props.contentType.isExercise === 'true' || 
-                        props.contentType.isExercise === true);
+export default function Footer({userCode, out, isCodeRun, performRetry, ...props}: Props) {
+    const isExercise = props.contentType.isExercise === true;
+
     const context = usePythonCodeContext(),
-        [checkBtn, toggleCheckBtn] = useState([]),
-        [correction, setCheckCode] = useState(null),
-        [showSolutions, setShowSolutions] = useState(false),
-        [showSolutionButton, setShowSolutionButton] = useState(false),
-        [answers, setAnswers] = useState([]),
-        [score, setScore] = useState(0);
-    let footer, progressBar = null;
+        [checkBtn, toggleCheckBtn] = useState<boolean>(true),
+        [correction, setCheckCode] = useState<string>(''),
+        [showSolutions, setShowSolutions] = useState<boolean>(false),
+        [showSolutionButton, setShowSolutionButton] = useState<boolean>(false),
+        [answers, setAnswers] = useState<Array<TAnswer>>([]),
+        [score, setScore] = useState<number>(0);
+
+    let footer: JQuery, progressBar: any; // must use 'any' to tweak the missing h5p types (setScore)
 
     useEffect(() => {
         footer = H5P.jQuery('.footer-container');
@@ -26,7 +40,7 @@ export default function Footer({userCode, out, isCodeRun, performRetry, ...props
     });
 
     const checkCode = () => {
-        setShowSolutionButton(!showSolutionButton);
+        setShowSolutionButton(true);
         setCheckCode(props.contentType.correction.correctionText);
         setAnswers(props.contentType.correction.answers);
         const score = getScore();
@@ -79,7 +93,7 @@ export default function Footer({userCode, out, isCodeRun, performRetry, ...props
     }
 
     const listAnswers = answers.map((answer, i) => {
-        return <Answer key={i} id={i} answer={answer} {...props} />;
+        return <Answer key={i} id={`${i}`} answer={answer} {...props} />;
     });
 
     return (
@@ -94,7 +108,6 @@ export default function Footer({userCode, out, isCodeRun, performRetry, ...props
                         disabled={!isCodeRun}
                         testid="checkbutton"
                         text={props.l10n.checkAnswer}
-                        {...props}
                     />
                     <span className="check-indication">{!isCodeRun ? props.l10n.runBeforeCheck : ""}</span>
                 </> : null
@@ -105,7 +118,6 @@ export default function Footer({userCode, out, isCodeRun, performRetry, ...props
                     cls="h5p-joubelui-button h5p-question-show-solution"
                     onLaunchAction={() => showSolutionCb()}
                     text={props.l10n.showSolutionButtonLabel}
-                    {...props}
                 /> : null
             }
             { isExercise && !checkBtn && score < 1 ?   
@@ -115,7 +127,6 @@ export default function Footer({userCode, out, isCodeRun, performRetry, ...props
                     onLaunchAction={() => resetTask()}
                     testid="retrybutton"
                     text={props.l10n.retryButtonLabel}
-                    {...props}
                 /> : null
             }
             { isExercise && showSolutions && props.behaviour.enableSolutionsButton ?   

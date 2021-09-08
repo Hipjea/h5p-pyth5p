@@ -36,7 +36,6 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                 indentWithTabs: true,
                 lineWrapping: true,
                 foldGutter: true,
-                autofocus: true,
                 matchBrackets: true,
                 autoCloseBrackets: true,
                 styleActiveLine: true,

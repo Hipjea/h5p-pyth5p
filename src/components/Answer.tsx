@@ -1,10 +1,18 @@
 import React from 'react';
 import Snippet from './Snippet';
+import type { Behaviour } from '../types/behaviour';
+import type { Answer as TAnswer } from '../types/answer';
+import type { L10n } from '../types/l10n';
 import { createMarkup } from '../utils/utils';
-import PropTypes from 'prop-types';
 
+type Props = {
+    id: string;
+    answer: TAnswer;
+    l10n: L10n;
+    behaviour: Behaviour
+};
 
-export default function Answer({id, answer, ...props}) {
+export default function Answer({id, answer, ...props}: Props) {
     const answerClass = answer.bestAnswer ? "h5p-pyth5p-feedback-best-answer" : "h5p-pyth5p-feedback";
     return (
         <li className={answerClass}>
@@ -15,6 +23,7 @@ export default function Answer({id, answer, ...props}) {
                 code={answer.text}
                 answerText={answer.text}
                 isEditable={props.behaviour.isEditable}
+                setCode={() => answer.text}
                 {...props}
             />
             { answer.tipsAndFeedback 
@@ -24,11 +33,4 @@ export default function Answer({id, answer, ...props}) {
             }
         </li>
     );
-};
-
-Answer.propTypes = {
-    /** The key id passed by the parent loop */
-    id: PropTypes.number.isRequired,
-    /** The answer object */
-    answer: PropTypes.object.isRequired
 };
