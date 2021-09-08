@@ -1,10 +1,14 @@
 import React from 'react';
+import type { L10n } from '../types/l10n';
 import './preview.css';
-import PropTypes from 'prop-types';
 
+type Props = {
+    out: string;
+    l10n: L10n;
+};
 
-export const Preview = React.forwardRef(({out, ...props}, ref) => {
-    const { pre, canvas } = ref;
+export const Preview = React.forwardRef(({out, ...props}: Props, ref) => {
+    const { pre, canvas }: any = ref;
 
     return (
         <>
@@ -20,13 +24,3 @@ export const Preview = React.forwardRef(({out, ...props}, ref) => {
         </>
     );
 });
-
-Preview.propTypes = {
-    /** The app localization strings */
-    l10n: PropTypes.object.isRequired,
-    /** The output of the program */
-    out: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.array
-    ])
-};

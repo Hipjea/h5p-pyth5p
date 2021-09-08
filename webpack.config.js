@@ -6,7 +6,7 @@ const stylesHandler = 'style-loader';
 
 
 const config = {
-    entry: './src/app.js',
+    entry: './src/App.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'pyth5p.js'
@@ -21,6 +21,13 @@ const config = {
                 }
             },
             {
+                test: /\.ts(x)?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'ts-loader'
+                }
+            },
+            {
                 test: /\.css$/i,
                 use: [stylesHandler, 'css-loader']
             },
@@ -28,8 +35,11 @@ const config = {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
                 type: 'asset'
             }
-        ],
+        ]
     },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', 'jsx']
+    }
 };
 
 module.exports = () => {
