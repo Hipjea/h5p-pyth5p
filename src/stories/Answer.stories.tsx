@@ -4,7 +4,6 @@ import { defaultContext } from '../../.storybook/config/context';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
 
-
 export default {
   title: 'Answer',
   component: Answer,

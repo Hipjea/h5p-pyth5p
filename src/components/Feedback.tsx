@@ -3,7 +3,7 @@ import type { L10n } from '../types/l10n';
 import './feedback.css';
 import { createMarkup } from '../utils/utils';
 
-type Props = {
+export type Props = {
     correction: string;
     l10n: L10n;
 };
