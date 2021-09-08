@@ -1,14 +1,14 @@
 import React from 'react';
 import './button.css';
 
-type Props = {
+export type Props = {
     id?: string;
     title: string;
     cls: string;
     onLaunchAction: () => void;
     disabled?: boolean;
     testid?: string;
-    icon?: HTMLElement;
+    icon?: HTMLElement|any;
     text: string;
 };
 

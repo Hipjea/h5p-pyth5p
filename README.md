@@ -1,5 +1,7 @@
 # H5P Python activity 
 
+[![Actions Status](https://github.com/Hipjea/h5p-pyth5p/workflows/Tests/badge.svg)](https://github.com/Hipjea/h5p-pyth5p/actions)
+
 Add runnable Python code snippet. 
 
 PytH5P also allows the snippet to be an exercise with feedbacks provided as a solution.
@@ -14,7 +16,7 @@ PytH5P also allows the snippet to be an exercise with feedbacks provided as a so
 
 ### Dependencies :
 
-This package relies on [Skupt](https://github.com/skulpt/skulpt) for the Python interpretor, [CodeMirror](https://github.com/codemirror/CodeMirror) for the code editor part and [React](https://github.com/facebook/react) for the frontend application.
+This package relies on [Skupt](https://github.com/skulpt/skulpt) for the Python interpretor, [CodeMirror](https://github.com/codemirror/CodeMirror) for the code editor part, [React](https://github.com/facebook/react) and [Typescript](https://www.typescriptlang.org) on the frontend application.
 
 ---
 

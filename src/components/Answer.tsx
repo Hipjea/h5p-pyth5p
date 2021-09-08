@@ -5,7 +5,7 @@ import type { Answer as TAnswer } from '../types/answer';
 import type { L10n } from '../types/l10n';
 import { createMarkup } from '../utils/utils';
 
-type Props = {
+export type Props = {
     id: string;
     answer: TAnswer;
     l10n: L10n;
