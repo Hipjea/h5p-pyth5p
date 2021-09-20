@@ -1,6 +1,12 @@
 export default class xAPILib {
+  context: any;
+  event: any;
+  attributes: any;
+  score: number;
+  userAnswer: string;
+  definition: {};
 
-  constructor(context, event, attributes, score, userAnswer) {
+  constructor(context: any, event: any, attributes: any, score: number, userAnswer: string) {
     this.context = context;
     this.event = event;
     this.attributes = attributes;
@@ -19,7 +25,7 @@ export default class xAPILib {
     return this.getXAPIData();
   }
 
-  setAttribute = (obj, key, value, required) => {
+  setAttribute = (obj: any, key: string, value: string, required?: boolean) => {
     if (typeof value !== 'undefined') {
       obj[key] = value;
     }
@@ -39,12 +45,12 @@ export default class xAPILib {
     return xAPIEvent;
   }
 
-  addQuestionToXAPI = (xAPIEvent) => {
+  addQuestionToXAPI = (xAPIEvent: any) => {
     const definition = xAPIEvent.getVerifiedStatementValue(['object', 'definition']);
     this.definition = { ...definition, definition: this.getXAPIDefinition() };
   }
 
-  addResponseToXAPI = (xAPIEvent) => {
+  addResponseToXAPI = (xAPIEvent: any) => {
     const maxScore = 1;
     const success = this.score == maxScore ? true : false;
     xAPIEvent.setScoredResult(this.score, maxScore, this, true, success);
@@ -52,7 +58,7 @@ export default class xAPILib {
   }
 
   getXAPIDefinition = () => {
-    const definition = {};
+    const definition = {} as any;
     definition.description = {
       'en-US': 'Python code'
     };
@@ -66,5 +72,4 @@ export default class xAPILib {
   
     return definition;
   };
-
 }

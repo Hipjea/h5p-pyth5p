@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { PythonCodeContextProvider } from './PythonCodeContext';
+import { PythonCodeContextProvider } from './utils/PythonCodeContext';
 import './app.css';
 import Main from './components/Main';
 import l10n from './localization';
@@ -11,6 +11,7 @@ H5P = H5P || {};
 
 H5P.PytH5P = (function (EventDispatcher, $, UI) {
     function PytH5P(params, contentId, extras = {}) {
+
         // Initialize event inheritance
         EventDispatcher.call(this);
 
@@ -42,8 +43,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                 lineNumbers: true
             },
             ...params
-        }
-        this.error = null;
+        };
 
         const createElements = () => {
             const wrapper = document.createElement('div');
@@ -54,7 +54,6 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                 <PythonCodeContextProvider value={this}>
                     <Main
                         id={contentId}
-                        error={this.error}
                         {...this.params}
                     />
                 </PythonCodeContextProvider>,

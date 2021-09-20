@@ -5,18 +5,18 @@ import './snippet.css';
 import codemirror from 'codemirror';
 import 'codemirror/mode/python/python';
 
-type Props = {
+export type Props = {
     id: string | number;
     code: string;
     isEditable: boolean;
-    setCode: (value: string) => string;
+    setCode: (value: string) => void;
     answerText: string;
     editorOptions?: EditorOptions;
 };
 
-export const Snippet = React.forwardRef(({id, code, isEditable, setCode, answerText, ...props}: Props, ref) => {
-    const { codeeditor }: any = ref || React.createRef();
-
+export const Snippet = React.forwardRef(({id, isEditable, setCode, answerText, ...props}: Props, ref) => {
+    const codeeditor: any = ref || React.createRef();
+    
     const changeValue = (doc: CodeMirror.Editor, _: any) => {
         setCode(doc.getValue());
     }
@@ -36,7 +36,7 @@ export const Snippet = React.forwardRef(({id, code, isEditable, setCode, answerT
         }, []);
         return ( <div ref={answer} /> );
     } else {
-        const defaultVal = code != undefined ? decodeHtmlEntities(code) : '';
+        const defaultVal = props.code != undefined ? decodeHtmlEntities(props.code) : '';
         useEffect(() => {
             const editor = codemirror.fromTextArea(codeeditor.current, {
                 ...props.editorOptions,

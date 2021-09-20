@@ -1,10 +1,10 @@
-export function decodeHtmlEntities(html) {
-    let txt = document.createElement('textarea');
+export function decodeHtmlEntities(html: string) : string {
+    let txt = document.createElement('textarea') as HTMLTextAreaElement;
     txt.innerHTML = html;
     return txt.value;
 }
 
-export function createMarkup(text, replace) {
+export function createMarkup(text: string, replace?: boolean): { __html: string } {
     if (replace === true) {
         return {__html: text ? text.replace(/\r\n|\r|\n/g, '</br>') : ''};
     } else {
@@ -12,16 +12,10 @@ export function createMarkup(text, replace) {
     }
 }
 
-export function createPreservedMarkup(text) {
+export function createPreservedMarkup(text: string) : string {
     return text ? text.trimEnd().replace(/\r\n|\r|\n/g, '</br>')
                             .replace(/ /g, '&nbsp;')
                             .replace(/&quot;/g, '\"')
                             .replace(/&#039;/g, '\'')
                 : '';
-}
-
-export function decodeHTML(html) {
-	var txt = document.createElement('textarea');
-	txt.innerHTML = html;
-	return txt.value;
 }

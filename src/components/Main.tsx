@@ -1,36 +1,48 @@
 import React, { useState } from 'react';
-import Snippet from './Snippet.tsx';
-import { Preview } from './Preview.tsx';
-import Footer from './Footer.tsx';
-import { usePythonCodeContext } from '../PythonCodeContext';
+import Snippet from './Snippet';
+import { Preview } from './Preview';
+import Footer from './Footer';
+import { usePythonCodeContext } from '../utils/PythonCodeContext';
 import { createMarkup } from '../utils/utils';
 import 'codemirror/lib/codemirror.css';
 import Button from './Button';
 import { decodeHtmlEntities } from '../utils/utils';
 import Sk from 'skulpt';
+import type { Behaviour } from '../types/behaviour';
+import type { ContentType } from '../types/contentType';
+import type { L10n } from '../types/l10n';
 
+export type Props = {
+    id: string,
+    code: string,
+    statement: string,
+    behaviour: Behaviour,
+    contentType: ContentType,
+    answerText: string,
+    l10n: L10n
+};
 
-export default function Main({id, error, ...props}) {
+export default function Main({id, ...props}: Props) {
     const context = usePythonCodeContext();
-    const codeeditor = React.createRef(),
-        pre = React.createRef(),
-        canvas = React.createRef();
-    const ref = { codeeditor, pre, canvas };
+    const codeeditor = React.createRef<HTMLInputElement>(),
+        pre = React.createRef<HTMLInputElement>(),
+        canvas = React.createRef<HTMLInputElement>();
+    const previewRefs: any = { pre, canvas };
     const defaultVal = decodeHtmlEntities(props.code);
     const [userCode, setUserCode] = useState(props.code),
-        [out, setOutText] = useState([]),
+        [out, setOutText] = useState<string>(''),
         [localCode, setCode] = useState(defaultVal),
         [isCodeRun, setIsCodeRun] = useState(false);
     
     function clearOutText() {
-        setOutText([]); // Clear preview
+        setOutText(''); // Clear preview
     }
 
-    function outTextCallback(text) {
-        setOutText(rest => [...rest, text]);
+    function outTextCallback(text: string) {
+        setOutText(rest => rest + text);
     }
 
-    function setCodeCb(newCode) {
+    function setCodeCb(newCode: string) {
         setCode(newCode);
         setIsCodeRun(false);
         context.trigger('resize'); // Resize the H5P container
@@ -41,14 +53,14 @@ export default function Main({id, error, ...props}) {
         clearOutText();
     }
 
-    function builtinRead(x) {
+    function builtinRead(x: string) {
         if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
             throw "File not found: '" + x + "'";
         }
         return Sk.builtinFiles["files"][x];
     }
 
-    function runCode(val) {
+    function runCode(val?: string) {
         const value = val ?? localCode;
         clearOutText();
         setUserCode(value);
@@ -60,10 +72,10 @@ export default function Main({id, error, ...props}) {
         const SkPromise = Sk.misceval.asyncToPromise(function() {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
-        SkPromise.then(function(_) {
+        SkPromise.then(function(_: any) {
             context.trigger('resize');
         },
-        function(err) {
+        function(err: any) {
             console.error(err.toString());
             setOutText(err.toString());
             context.trigger('resize');
@@ -75,9 +87,8 @@ export default function Main({id, error, ...props}) {
             <p className="statement" dangerouslySetInnerHTML={ createMarkup(props.statement, false) } />
             <div className="h5p-pyth5p-code-wrapper">
                 <Snippet
-                    ref={ref}
+                    ref={codeeditor}
                     id={id}
-                    code={props.code}
                     isEditable={props.behaviour.isEditable}
                     setCode={setCodeCb}
                     {...props}
@@ -91,14 +102,13 @@ export default function Main({id, error, ...props}) {
                     {...props} 
                 />
                 <Preview 
-                    ref={ref} 
+                    ref={previewRefs} 
                     out={out} 
                     {...props} 
                 />
             </div>
             <Footer 
                 userCode={userCode} 
-                out={out} 
                 isCodeRun={isCodeRun}
                 performRetry={retryCb}
                 {...props} 

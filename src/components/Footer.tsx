@@ -6,14 +6,13 @@ import type { ContentType } from '../types/contentType';
 import type { Behaviour } from '../types/behaviour';
 import type { Answer as TAnswer } from '../types/answer';
 import type { L10n } from '../types/l10n';
-import { usePythonCodeContext } from '../PythonCodeContext';
+import { usePythonCodeContext } from '../utils/PythonCodeContext';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import './footer.css';
 
-type Props = {
+export type Props = {
     userCode: string;
-    out: string;
     isCodeRun: boolean;
     performRetry: () => void;
     l10n: L10n;
@@ -21,7 +20,7 @@ type Props = {
     behaviour: Behaviour
 };
 
-export default function Footer({userCode, out, isCodeRun, performRetry, ...props}: Props) {
+export default function Footer({userCode, isCodeRun, performRetry, ...props}: Props) {
     const isExercise = props.contentType.isExercise === true;
 
     const context = usePythonCodeContext(),
