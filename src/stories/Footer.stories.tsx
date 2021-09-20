@@ -2,7 +2,6 @@ import React from 'react';
 import Footer, { Props as FooterProps } from '../components/Footer';
 import Feedback from '../components/Feedback';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { defaultContext } from '../../.storybook/config/context';
 import l10n from '../../src/localization';
 import { action } from '@storybook/addon-actions';
 

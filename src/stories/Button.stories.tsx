@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Button',
-  component: Button,
+  component: Button
 } as ComponentMeta<typeof Button>;
 
 const defaultArgs: ButtonProps = {

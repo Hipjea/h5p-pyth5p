@@ -1,20 +1,17 @@
 export const behaviourEditable = {
-    behaviour: {
-        isEditable: true,
-        enableSolutionsButton: true
-    }
+    isEditable: true,
+    enableRetry: true,
+    enableSolutionsButton: true
 };
 
 export const behaviourUneditable = {
-    behaviour: {
-        isEditable: false,
-        enableSolutionsButton: true
-    }
+    isEditable: false,
+    enableRetry: true,
+    enableSolutionsButton: true
 };
 
 export const behaviourManual = {
-    behaviour: {
-        isEditable: true,
-        enableSolutionsButton: true
-    }
+    isEditable: true,
+    enableRetry: true,
+    enableSolutionsButton: true
 };

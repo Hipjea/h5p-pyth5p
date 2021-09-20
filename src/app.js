@@ -42,8 +42,7 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                 lineNumbers: true
             },
             ...params
-        }
-        this.error = null;
+        };
 
         const createElements = () => {
             const wrapper = document.createElement('div');
@@ -54,7 +53,6 @@ H5P.PytH5P = (function (EventDispatcher, $, UI) {
                 <PythonCodeContextProvider value={this}>
                     <Main
                         id={contentId}
-                        error={this.error}
                         {...this.params}
                     />
                 </PythonCodeContextProvider>,
