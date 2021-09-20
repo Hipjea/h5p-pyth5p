@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
 import Footer from './Footer';
-import { usePythonCodeContext } from '../PythonCodeContext';
+import { usePythonCodeContext } from '../utils/PythonCodeContext';
 import { createMarkup } from '../utils/utils';
 import 'codemirror/lib/codemirror.css';
 import Button from './Button';

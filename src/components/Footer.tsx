@@ -6,7 +6,7 @@ import type { ContentType } from '../types/contentType';
 import type { Behaviour } from '../types/behaviour';
 import type { Answer as TAnswer } from '../types/answer';
 import type { L10n } from '../types/l10n';
-import { usePythonCodeContext } from '../PythonCodeContext';
+import { usePythonCodeContext } from '../utils/PythonCodeContext';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import './footer.css';
