@@ -2,7 +2,7 @@ import type { Answer } from './answer';
 
 export type ContentType = {
     isExercise: boolean;
-    correction: {
+    correction?: {
         correctionText: string;
         answers: Array<Answer>;
     }

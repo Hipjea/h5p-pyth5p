@@ -11,7 +11,7 @@ export default {
 const defaultArgs: PreviewProps = {
   out: '',
   l10n: l10n
-}
+};
 
 const ref = React.createRef<HTMLInputElement>();
 

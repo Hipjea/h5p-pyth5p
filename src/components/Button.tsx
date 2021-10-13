@@ -12,7 +12,7 @@ export type Props = {
     text: string;
 };
 
-export default function Button({id, title, cls, onLaunchAction, disabled = false, testid, icon, text}: Props) {
+const Button = ({id, title, cls, onLaunchAction, disabled = false, testid, icon, text}: Props) => {
     return (
         <button 
             id={id}
@@ -28,3 +28,5 @@ export default function Button({id, title, cls, onLaunchAction, disabled = false
         </button>
     );
 }
+
+export default Button;

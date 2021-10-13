@@ -21,7 +21,6 @@ export default class xAPILib {
     this.setAttribute(this.definition, 'interactionType', this.attributes.interactionType);
     this.setAttribute(this.definition, 'correctResponsesPattern', this.attributes.correctResponsesPattern);
     this.setAttribute(this.definition, 'type', 'http://adlnet.gov/expapi/activities/cmi.interaction');
-
     return this.getXAPIData();
   }
 

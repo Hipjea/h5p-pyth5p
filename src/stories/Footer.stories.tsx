@@ -4,6 +4,7 @@ import Feedback from '../components/Feedback';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
 import { action } from '@storybook/addon-actions';
+import { h5p } from '../../.storybook/preview';
 
 export default {
   title: 'Footer',
@@ -20,6 +21,7 @@ const defaultArgs: FooterProps = {
   userCode: 'print("hello")',
   isCodeRun: false,
   performRetry: action('retry'),
+  fn: h5p,
   l10n: l10n,
   contentType: {
     isExercise: true,

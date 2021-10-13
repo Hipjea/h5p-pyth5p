@@ -3,10 +3,11 @@ import Main, { Props as MainProps } from '../components/Main';
 import Snippet from '../components/Snippet';
 import Button, { Props as ButtonProps } from '../components/Button';
 import { Preview, Props as PreviewProps } from '../components/Preview';
-import { behaviourEditable, behaviourUneditable } from '../../.storybook/config/behaviourContext';
+import { behaviourUneditable } from '../../.storybook/config/behaviourContext';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
 import { action } from '@storybook/addon-actions';
+import { h5p, previewArgs } from '../../.storybook/preview';
 
 export default {
   title: 'Main',
@@ -15,39 +16,12 @@ export default {
 } as ComponentMeta<typeof Main>;
 
 const setCode = () => {
-    action('Code is set')
+  action('Code is set')
 }
 
-/*
-const runCode = () => {
-    action('Code is running')
-}
-*/
 const defaultArgs: MainProps = {
-    id: '1',
-    code: 'print("Hello world")',
-    statement: 'Run this code',
-    contentType: {
-      isExercise: true,
-      correction: {
-        correctionText: "print(\"Correction filler\")",
-        answers: [
-          {
-            text: 'print("Hello world")',
-            bestAnswer: false,
-            tipsAndFeedback: "<p>Tips...</p>"
-          },
-          {
-            text: 'print("Best answer code")',
-            bestAnswer: true,
-            tipsAndFeedback: "<p>This is the best answer</p>"
-          }
-        ]
-      }
-    },
-    behaviour: behaviourEditable,
-    answerText: 'answer text',
-    l10n: l10n
+  ...previewArgs,
+  fn: h5p
 };
 
 const buttonArgs: ButtonProps = {
@@ -59,7 +33,7 @@ const buttonArgs: ButtonProps = {
   text: 'Button text'
 };
 
-const previewArgs: PreviewProps = {
+const previewStoryArgs: PreviewProps = {
   out: '',
   l10n: l10n
 };
@@ -76,7 +50,7 @@ export const Empty: ComponentStory<typeof Main> = () => {
             {...args}
           />
           <Button {...buttonArgs} />
-          <Preview ref={ref} {...previewArgs} />
+          <Preview ref={ref} {...previewStoryArgs} />
         </Main>
 }
 
@@ -90,6 +64,6 @@ export const Uneditable: ComponentStory<typeof Main> = () => {
             {...args}
           />
           <Button {...buttonArgs} />
-          <Preview ref={ref} {...previewArgs} />
+          <Preview ref={ref} {...previewStoryArgs} />
         </Main>
 }
