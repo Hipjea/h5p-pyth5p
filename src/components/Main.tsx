@@ -93,7 +93,7 @@ export default function Main({id, fn, ...props}: Props) {
                 />
                 <Button 
                     title="Run code button"
-                    cls="pyth5p-run-btn"
+                    klass="pyth5p-run-btn"
                     onLaunchAction={() => runCode()} 
                     icon={<i className="play-icon"></i>}
                     text={props.l10n.run}

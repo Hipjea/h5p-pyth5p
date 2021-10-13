@@ -11,7 +11,7 @@ export default {
 const defaultArgs: ButtonProps = {
   id: '1',
   title: 'button title',
-  cls: 'h5p-joubelui-button h5p-question-check-answer',
+  klass: 'h5p-joubelui-button h5p-question-check-answer',
   onLaunchAction: action('Button is clicked'),
   disabled: false,
   text: 'Button text'
@@ -30,7 +30,7 @@ export const Disabled: ComponentStory<typeof Button> = () => {
 export const RunButton: ComponentStory<typeof Button> = () => {
   const args: ButtonProps = { 
     ...defaultArgs, 
-    cls: "pyth5p-run-btn", 
+    klass: "pyth5p-run-btn", 
     icon: React.createElement('i', { className: "play-icon" }, ""),
     onLaunchAction: action('Code is running'),
     text: "Run"

@@ -4,7 +4,7 @@ import './button.css';
 export type Props = {
     id?: string;
     title: string;
-    cls: string;
+    klass: string;
     onLaunchAction: () => void;
     disabled?: boolean;
     testid?: string;
@@ -12,13 +12,22 @@ export type Props = {
     text: string;
 };
 
-const Button = ({id, title, cls, onLaunchAction, disabled = false, testid, icon, text}: Props) => {
+const Button = ({
+    id, 
+    title, 
+    klass, 
+    onLaunchAction, 
+    disabled = false, 
+    testid, 
+    icon, 
+    text
+}: Props) => {
     return (
         <button 
             id={id}
             role="button" 
             title={title || ""} 
-            className={cls} 
+            className={klass} 
             onClick={onLaunchAction}
             data-testid={testid || null}
             disabled={disabled}

@@ -104,7 +104,7 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
                     <Button
                         id="pyth5p-checkbutton"
                         title="Submit"
-                        cls="h5p-joubelui-button h5p-question-check-answer"
+                        klass="h5p-joubelui-button h5p-question-check-answer"
                         onLaunchAction={() => checkResults()}
                         disabled={!isCodeRun}
                         testid="checkbutton"
@@ -116,7 +116,7 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
             { isExercise && showSolutionButton && props.behaviour.enableSolutionsButton ?   
                 <Button
                     title="Submit"
-                    cls="h5p-joubelui-button h5p-question-show-solution"
+                    klass="h5p-joubelui-button h5p-question-show-solution"
                     onLaunchAction={() => showSolutionCb()}
                     text={props.l10n.showSolutionButtonLabel}
                 /> : null
@@ -124,7 +124,7 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
             { isExercise && !checkBtn && score < 1 ?   
                 <Button
                     title="Submit"
-                    cls="h5p-joubelui-button h5p-question-try-again"
+                    klass="h5p-joubelui-button h5p-question-try-again"
                     onLaunchAction={() => resetTask()}
                     testid="retrybutton"
                     text={props.l10n.retryButtonLabel}

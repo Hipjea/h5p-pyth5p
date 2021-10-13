@@ -27,7 +27,7 @@ const defaultArgs: MainProps = {
 const buttonArgs: ButtonProps = {
   id: '1',
   title: 'button title',
-  cls: 'h5p-joubelui-button h5p-question-check-answer',
+  klass: 'h5p-joubelui-button h5p-question-check-answer',
   onLaunchAction: action('Button is clicked'),
   disabled: false,
   text: 'Button text'
