@@ -5,7 +5,7 @@ import Main from './Main';
 export type AppProps = {
     params: any;
     contentId: any;
-    fn: any;
+    fn: ReturnType<() => {}>;
 };
 
 const App: React.FC<AppProps> = ({ params, contentId, fn }) => {
