@@ -3,21 +3,30 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import l10n from '../localization'; 
 import { shallow } from 'enzyme';
-import Button from './Button';
-import { defaultContext } from '../../.storybook/config/context';
+import Button, { Props as ButtonProps } from './Button';
+import { defaultContext } from '../../.storybook/config/context';
 
 // Imports the story for the test
-import { Default, RunButton } from '../stories/Button.stories';
+import { RunButton } from '../stories/Button.stories';
+
+const defaultArgs : ButtonProps = {
+  id: '1',
+  title: 'button title',
+  cls: 'h5p-joubelui-button h5p-question-check-answer',
+  onLaunchAction: jest.fn(),
+  disabled: false,
+  text: 'Button text'
+};
 
 it('renders the button in the visible state', () => {
-  render(<RunButton {...RunButton.args} />);
+  render(<RunButton {...defaultArgs} />);
   expect(screen.getByRole('button')).toHaveTextContent(l10n.run);
 });
 
 describe('when the button is clicked', () => {
   const mockCallback = jest.fn();
   const wrapper = shallow((
-    <Button onLaunchAction={mockCallback} {...defaultContext} {...Default.args} />
+    <Button {...defaultContext} {...defaultArgs} />
   )); 
 
   beforeAll(() => wrapper.find('button').simulate('click'));

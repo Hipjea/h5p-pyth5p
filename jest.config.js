@@ -6,4 +6,10 @@ module.exports = {
         '\\.(css|less|scss)$': 'identity-obj-proxy',
     },
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+    preset: "ts-jest",
+    transform: {
+        "^.+\\.jsx?$": "babel-jest",
+        "^.+\\.tsx?$": "ts-jest"
+    },
+    moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
 };

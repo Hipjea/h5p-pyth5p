@@ -1,3 +1,4 @@
+import { ContentType } from '../../src/types/contentType';
 import l10n from '../../src/localization';
 
 export const defaultContext = {
@@ -20,7 +21,7 @@ export const defaultContext = {
                 }
             ]
         }
-    },
+    } as ContentType,
     displaySettings: {
         codeWidth: '100',
         codeWidthUnit: '%'
@@ -32,7 +33,7 @@ export const noExerciseContext = {
     code: 'print("Hello world !")',
     contentType: {
         isExercise: false
-    },
+    } as ContentType,
     displaySettings: {
         codeWidth: '100',
         codeWidthUnit: '%'

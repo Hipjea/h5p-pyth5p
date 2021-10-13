@@ -4,7 +4,7 @@ import './feedback.css';
 import { createMarkup } from '../utils/utils';
 
 export type Props = {
-    correction: string;
+    correction: string | undefined;
     l10n: L10n;
 };
 

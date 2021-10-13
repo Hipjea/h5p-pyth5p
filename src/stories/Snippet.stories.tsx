@@ -27,4 +27,3 @@ export const Uneditable: ComponentStory<typeof Snippet> = () => {
     const args: SnippetProps = { ...defaultArgs, isEditable: false };
     return <Snippet ref={ref} { ...args } />;
 }
-

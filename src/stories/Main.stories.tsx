@@ -18,11 +18,6 @@ const setCode = () => {
     action('Code is set')
 }
 
-/*
-const runCode = () => {
-    action('Code is running')
-}
-*/
 const defaultArgs: MainProps = {
     id: '1',
     code: 'print("Hello world")',

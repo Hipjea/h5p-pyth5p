@@ -25,10 +25,10 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Pr
 
     const context = usePythonCodeContext(),
         [checkBtn, toggleCheckBtn] = useState<boolean>(true),
-        [correction, setCheckCode] = useState<string>(''),
+        [correction, setCheckCode] = useState<string | undefined>(''),
         [showSolutions, setShowSolutions] = useState<boolean>(false),
         [showSolutionButton, setShowSolutionButton] = useState<boolean>(false),
-        [answers, setAnswers] = useState<Array<TAnswer>>([]),
+        [answers, setAnswers] = useState<Array<TAnswer> | undefined>([]),
         [score, setScore] = useState<number>(0);
 
     let footer: JQuery, progressBar: any; // must use 'any' to tweak the missing h5p types (setScore)
@@ -40,8 +40,8 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Pr
 
     const checkCode = () => {
         setShowSolutionButton(true);
-        setCheckCode(props.contentType.correction.correctionText);
-        setAnswers(props.contentType.correction.answers);
+        setCheckCode(props.contentType?.correction?.correctionText);
+        setAnswers(props.contentType?.correction?.answers);
         const score = getScore();
         setScore(score);
         return score;
@@ -57,10 +57,12 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Pr
     }
 
     function getScore() {
-        const answerTexts = props.contentType.correction.answers.map(a => createPreservedMarkup(a.text));
+        const answerTexts = props.contentType?.correction?.answers.map(a => createPreservedMarkup(a.text));
         const userAnswer = createPreservedMarkup(userCode);
         let score = 0;
-        answerTexts.map((answer) => answer == userAnswer ? score = 1 : null );
+        if (answerTexts) {
+            answerTexts.map((answer) => answer == userAnswer ? score = 1 : null );
+        }
         return score;
     }
 
@@ -91,9 +93,9 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Pr
         context.trigger('resize');
     }
 
-    const listAnswers = answers.map((answer, i) => {
+    const listAnswers = answers ? answers.map((answer, i) => {
         return <Answer key={i} id={`${i}`} answer={answer} {...props} />;
-    });
+    }) : null;
 
     return (
         <footer className="footer-container">

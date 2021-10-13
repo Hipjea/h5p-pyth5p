@@ -9,9 +9,12 @@ export default {
   component: Answer,
 } as ComponentMeta<typeof Answer>;
 
+const answerOne = defaultContext.contentType.correction!.answers[0];
+const answerTwo = defaultContext.contentType.correction!.answers[1];
+
 const defaultArgs: AnswerProps = {
   id: "1",
-  answer: defaultContext.contentType.correction.answers[0],
+  answer: answerOne,
   l10n: l10n,
   behaviour: {
     enableRetry: true,
@@ -28,7 +31,7 @@ export const Default: ComponentStory<typeof Answer> = () => {
 export const BestAnswer: ComponentStory<typeof Answer> = () => {
   const args: AnswerProps = { 
     ...defaultArgs,
-    answer: defaultContext.contentType.correction.answers[1],
+    answer: answerTwo,
   };
   return <Answer { ...args } />;
 }

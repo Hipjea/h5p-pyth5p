@@ -27,44 +27,42 @@ export default function Main({id, ...props}: Props) {
     const codeeditor = React.createRef<HTMLInputElement>(),
         pre = React.createRef<HTMLInputElement>(),
         canvas = React.createRef<HTMLInputElement>();
+
     const previewRefs: any = { pre, canvas };
-    const defaultVal = decodeHtmlEntities(props.code);
-    const [userCode, setUserCode] = useState(props.code),
+    const defaultVal: string = decodeHtmlEntities(props.code);
+
+    const [userCode, setUserCode] = useState<string>(props.code),
         [out, setOutText] = useState<string>(''),
-        [localCode, setCode] = useState(defaultVal),
-        [isCodeRun, setIsCodeRun] = useState(false);
+        [localCode, setCode] = useState<string>(defaultVal),
+        [isCodeRun, setIsCodeRun] = useState<boolean>(false);
     
-    function clearOutText() {
+    const clearOutText = (): ReturnType<(s: string) => void> => {
         setOutText(''); // Clear preview
     }
 
-    function outTextCallback(text: string) {
+    const outTextCallback = (text: string): ReturnType<(s: string) => void> => {
         setOutText(rest => rest + text);
     }
 
-    function setCodeCb(newCode: string) {
-        setCode(newCode);
-        setIsCodeRun(false);
+    const setCodeCb = (newCode: string): ReturnType<(s: string) => void> => {
+        setCode(newCode), setIsCodeRun(false);
         context.trigger('resize'); // Resize the H5P container
     }
 
-    function retryCb() {
-        setIsCodeRun(false);
-        clearOutText();
+    const retryCb = (): ReturnType<() => void> => {
+        setIsCodeRun(false), clearOutText();
     }
 
-    function builtinRead(x: string) {
+    const builtinRead = (x: string) => {
         if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
             throw "File not found: '" + x + "'";
         }
         return Sk.builtinFiles["files"][x];
     }
 
-    function runCode(val?: string) {
+    const runCode = (val?: string) => {
         const value = val ?? localCode;
-        clearOutText();
-        setUserCode(value);
-        setIsCodeRun(true);
+        clearOutText(), setUserCode(value), setIsCodeRun(true);
 
         Sk.pre = pre.current;
         Sk.configure({ output: outTextCallback, read: builtinRead, __future__: Sk.python3 }); 
@@ -72,12 +70,13 @@ export default function Main({id, ...props}: Props) {
         const SkPromise = Sk.misceval.asyncToPromise(function() {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
-        SkPromise.then(function(_: any) {
+
+        SkPromise.then((_: any) => {
             context.trigger('resize');
-        },
-        function(err: any) {
-            console.error(err.toString());
-            setOutText(err.toString());
+        }, (err: string): ReturnType<(s: string) => void> => {
+            const errStr = err.toString();
+            console.error(errStr);
+            setOutText(errStr);
             context.trigger('resize');
         });
     }
