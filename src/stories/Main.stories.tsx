@@ -1,5 +1,6 @@
 import React from 'react';
-import Main, { Props as MainProps } from '../components/Main';
+import Main from '../components/Main';
+import type { Main as MainProps } from '../types/Main';
 import Snippet from '../components/Snippet';
 import Button from '../components/Button';
 import { Button as ButtonProps } from '../types/Button';
