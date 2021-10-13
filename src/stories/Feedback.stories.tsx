@@ -1,6 +1,6 @@
 import React from 'react';
 import Feedback from '../components/Feedback';
-import { Feedback as FeedbackProps } from '../types/Feedback';
+import type { Feedback as FeedbackProps } from '../types/Feedback';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
 
