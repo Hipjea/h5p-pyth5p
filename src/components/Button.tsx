@@ -26,10 +26,10 @@ const Button = ({
         <button 
             id={id}
             role="button" 
-            title={title || ""} 
+            title={title ?? ""} 
             className={klass} 
             onClick={onLaunchAction}
-            data-testid={testid || null}
+            data-testid={testid ?? ""}
             disabled={disabled}
         >
             {icon} 
