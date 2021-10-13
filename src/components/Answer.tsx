@@ -1,9 +1,10 @@
 import React from 'react';
 import Snippet from './Snippet';
-import type { Behaviour } from '../types/behaviour';
-import type { Answer as TAnswer } from '../types/answer';
+import type { Behaviour } from '../types/editor/behaviour';
+import type { Answer as TAnswer } from '../types/editor/answer';
 import type { L10n } from '../types/l10n';
 import { createMarkup } from '../utils/utils';
+
 
 export type Props = {
     id: string;

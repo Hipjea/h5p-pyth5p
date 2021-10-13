@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Feedback from './Feedback';
 import Button from './Button';
 import Answer from './Answer';
-import type { Answer as TAnswer } from '../types/answer';
+import type { Answer as TAnswer } from '../types/editor/answer';
 import type { Footer as FooterProps } from '../types/Footer';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
@@ -43,11 +43,11 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
     }
 
     const getScore = (): number => {
-        const answerTexts = props.contentType?.correction?.answers.map(a => createPreservedMarkup(a.text));
+        const answerTexts = props.contentType?.correction?.answers.map((a: TAnswer) => createPreservedMarkup(a.text));
         const userAnswer = createPreservedMarkup(userCode);
         let score = 0;
         if (answerTexts) {
-            answerTexts.map((answer) => answer == userAnswer ? score = 1 : null );
+            answerTexts.map((answer: string) => answer == userAnswer ? score = 1 : null );
         }
         return score;
     }
@@ -58,7 +58,9 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
             name: props.l10n.name,
             description: props.l10n.description,
             interactionType: "fill-in",
-            correctResponsesPattern: props.contentType?.correction?.answers ? props.contentType.correction.answers.map(a => a.text) : []
+            correctResponsesPattern: props.contentType?.correction?.answers 
+                ? props.contentType.correction.answers.map((a: TAnswer) => a.text) 
+                : []
         }
 
         const xAPI = new xAPILib(fn, 'answered', attributes, score, userCode);
