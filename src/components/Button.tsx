@@ -1,6 +1,7 @@
 import React from 'react';
 import './button.css';
-import { Button as ButtonType } from '../types/Button';
+import type { Button as ButtonType } from '../types/Button';
+
 
 const Button = ({
     id, 

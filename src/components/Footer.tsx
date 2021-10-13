@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Feedback from './Feedback';
 import Button from './Button';
 import Answer from './Answer';
-import type { Answer as TAnswer } from '../types/editor/answer';
+import type { EditorAnswer } from '../types/editor/answer';
 import type { Footer as FooterProps } from '../types/Footer';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
@@ -14,7 +14,7 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
         [correction, setCheckCode] = useState<string | undefined>(''),
         [showSolutions, setShowSolutions] = useState<boolean>(false),
         [showSolutionButton, setShowSolutionButton] = useState<boolean>(false),
-        [answers, setAnswers] = useState<Array<TAnswer> | undefined>([]),
+        [answers, setAnswers] = useState<Array<EditorAnswer> | undefined>([]),
         [score, setScore] = useState<number>(0);
 
     let footer: JQuery, progressBar: any; // must use 'any' to tweak the missing h5p types (setScore)
@@ -43,7 +43,7 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
     }
 
     const getScore = (): number => {
-        const answerTexts = props.contentType?.correction?.answers.map((a: TAnswer) => createPreservedMarkup(a.text));
+        const answerTexts = props.contentType?.correction?.answers.map((a: EditorAnswer) => createPreservedMarkup(a.text));
         const userAnswer = createPreservedMarkup(userCode);
         let score = 0;
         if (answerTexts) {
@@ -59,7 +59,7 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
             description: props.l10n.description,
             interactionType: "fill-in",
             correctResponsesPattern: props.contentType?.correction?.answers 
-                ? props.contentType.correction.answers.map((a: TAnswer) => a.text) 
+                ? props.contentType.correction.answers.map((a: EditorAnswer) => a.text) 
                 : []
         }
 
