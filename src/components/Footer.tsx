@@ -2,25 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Feedback from './Feedback';
 import Button from './Button';
 import Answer from './Answer';
-import type { ContentType } from '../types/contentType';
-import type { Behaviour } from '../types/behaviour';
 import type { Answer as TAnswer } from '../types/answer';
-import type { L10n } from '../types/l10n';
+import type { Footer as FooterProps } from '../types/Footer';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import './footer.css';
 
-export type Props = {
-    userCode: string;
-    isCodeRun: boolean;
-    performRetry: () => void;
-    fn: any;
-    l10n: L10n;
-    contentType: ContentType;
-    behaviour: Behaviour
-};
-
-export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}: Props) {
+export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}: FooterProps) {
     const isExercise = props.contentType.isExercise === true;
     const [checkBtn, toggleCheckBtn] = useState<boolean>(true),
         [correction, setCheckCode] = useState<string | undefined>(''),

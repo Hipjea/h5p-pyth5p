@@ -1,5 +1,6 @@
 import React from 'react';
-import Footer, { Props as FooterProps } from '../components/Footer';
+import Footer from '../components/Footer';
+import type { Footer as FooterProps } from '../types/Footer';
 import Feedback from '../components/Feedback';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
