@@ -19,21 +19,15 @@ export const Snippet = React.forwardRef(({id, isEditable, setCode, answerText, .
         useEffect(() => {
             if (answer) { // overcomes React 'current' property assignment on mount
                 const answerNode = answer.current as HTMLElement;
-                codemirror(answerNode, {
-                    ...props.editorOptions,
-                    readOnly: true,
-                    value: answerVal
-                });
+                codemirror(answerNode, { ...props.editorOptions, readOnly: true, value: answerVal });
             }
         }, []);
         return ( <div ref={answer} /> );
-    } else {
+    }
+    else {
         const defaultVal = props.code != undefined ? decodeHtmlEntities(props.code) : '';
         useEffect(() => {
-            const editor = codemirror.fromTextArea(codeeditor.current, {
-                ...props.editorOptions,
-                readOnly: !isEditable
-            });
+            const editor = codemirror.fromTextArea(codeeditor.current, { ...props.editorOptions, readOnly: !isEditable });
             editor.on('change', changeValue);
         }, []);
         return (

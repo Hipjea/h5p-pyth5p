@@ -8,6 +8,7 @@ import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import './footer.css';
 
+
 export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}: FooterProps) {
     const isExercise = props.contentType.isExercise === true;
     const [checkBtn, toggleCheckBtn] = useState<boolean>(true),

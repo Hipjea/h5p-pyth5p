@@ -3,6 +3,7 @@ import './feedback.css';
 import { createMarkup } from '../utils/utils';
 import type { Feedback as FeedbackProps } from '../types/Feedback';
 
+
 const Feedback = ({correction, ...props}: FeedbackProps) => {
     return (
         <div className="h5p-pyth5p-feedback">

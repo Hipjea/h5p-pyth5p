@@ -1,13 +1,9 @@
 import React from 'react';
-import type { L10n } from '../types/l10n';
+import type { Preview as PreviewProps } from '../types/Preview';
 import './preview.css';
 
-export type Props = {
-    out: string;
-    l10n: L10n;
-};
 
-export const Preview = React.forwardRef<HTMLInputElement, Props>(({out, ...props}: Props, refs) => {
+export const Preview = React.forwardRef<HTMLInputElement, PreviewProps>(({out, ...props}: PreviewProps, refs) => {
     const { pre, canvas }: any = refs;
 
     return (
