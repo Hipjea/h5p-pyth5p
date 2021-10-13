@@ -1,4 +1,4 @@
-import type { EditorOptions } from './editorOptions';
+import type { EditorOptions } from './editor/editorOptions';
 
 export type Snippet = {
     id: string | number;
