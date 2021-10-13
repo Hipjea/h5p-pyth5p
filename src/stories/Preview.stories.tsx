@@ -1,5 +1,6 @@
 import React from 'react';
-import { Preview, Props as PreviewProps } from '../components/Preview';
+import { Preview } from '../components/Preview';
+import { Preview as PreviewProps } from '../types/Preview';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
 
