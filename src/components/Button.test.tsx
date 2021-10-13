@@ -3,7 +3,8 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import l10n from '../localization'; 
 import { shallow } from 'enzyme';
-import Button, { Props as ButtonProps } from './Button';
+import Button from './Button';
+import type { Button as ButtonProps } from '../types/Button';
 
 
 // Imports the story for the test
