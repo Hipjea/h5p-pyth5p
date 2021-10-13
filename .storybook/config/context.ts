@@ -1,4 +1,4 @@
-import { ContentType } from '../../src/types/contentType';
+import { ContentType } from '../../src/types/editor/contentType';
 import l10n from '../../src/localization';
 
 export const defaultContext = {

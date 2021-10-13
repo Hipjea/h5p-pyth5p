@@ -1,26 +1,26 @@
 import React from 'react';
 import './button.css';
+import type { Button as ButtonType } from '../types/Button';
 
-export type Props = {
-    id?: string;
-    title: string;
-    cls: string;
-    onLaunchAction: () => void;
-    disabled?: boolean;
-    testid?: string;
-    icon?: HTMLElement|any;
-    text: string;
-};
 
-const Button = ({id, title, cls, onLaunchAction, disabled = false, testid, icon, text}: Props) => {
+const Button = ({
+    id, 
+    title, 
+    klass, 
+    onLaunchAction, 
+    disabled = false, 
+    testid, 
+    icon, 
+    text
+}: ButtonType) => {
     return (
         <button 
             id={id}
             role="button" 
-            title={title || ""} 
-            className={cls} 
+            title={title ?? ""} 
+            className={klass} 
             onClick={onLaunchAction}
-            data-testid={testid || null}
+            data-testid={testid ?? ""}
             disabled={disabled}
         >
             {icon} 

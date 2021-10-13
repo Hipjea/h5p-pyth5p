@@ -16,7 +16,7 @@ export class H5PWrapper extends H5P.EventDispatcher implements IH5PWrapper {
     ReactDOM.render(
       <App 
         contentId={contentId} 
-        params={{ l10n, ...params }} 
+        params={{l10n, ...params}} 
         fn={H5PWrapper.prototype}
       />,
       this.wrapper,

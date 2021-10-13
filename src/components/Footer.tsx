@@ -2,31 +2,20 @@ import React, { useEffect, useState } from 'react';
 import Feedback from './Feedback';
 import Button from './Button';
 import Answer from './Answer';
-import type { ContentType } from '../types/contentType';
-import type { Behaviour } from '../types/behaviour';
-import type { Answer as TAnswer } from '../types/answer';
-import type { L10n } from '../types/l10n';
+import type { EditorAnswer } from '../types/editor/answer';
+import type { Footer as FooterProps } from '../types/Footer';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import './footer.css';
 
-export type Props = {
-    userCode: string;
-    isCodeRun: boolean;
-    performRetry: () => void;
-    fn: any;
-    l10n: L10n;
-    contentType: ContentType;
-    behaviour: Behaviour
-};
 
-export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}: Props) {
+export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}: FooterProps) {
     const isExercise = props.contentType.isExercise === true;
     const [checkBtn, toggleCheckBtn] = useState<boolean>(true),
         [correction, setCheckCode] = useState<string | undefined>(''),
         [showSolutions, setShowSolutions] = useState<boolean>(false),
         [showSolutionButton, setShowSolutionButton] = useState<boolean>(false),
-        [answers, setAnswers] = useState<Array<TAnswer> | undefined>([]),
+        [answers, setAnswers] = useState<Array<EditorAnswer> | undefined>([]),
         [score, setScore] = useState<number>(0);
 
     let footer: JQuery, progressBar: any; // must use 'any' to tweak the missing h5p types (setScore)
@@ -55,11 +44,11 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
     }
 
     const getScore = (): number => {
-        const answerTexts = props.contentType?.correction?.answers.map(a => createPreservedMarkup(a.text));
+        const answerTexts = props.contentType?.correction?.answers.map((a: EditorAnswer) => createPreservedMarkup(a.text));
         const userAnswer = createPreservedMarkup(userCode);
         let score = 0;
         if (answerTexts) {
-            answerTexts.map((answer) => answer == userAnswer ? score = 1 : null );
+            answerTexts.map((answer: string) => answer == userAnswer ? score = 1 : null );
         }
         return score;
     }
@@ -70,7 +59,9 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
             name: props.l10n.name,
             description: props.l10n.description,
             interactionType: "fill-in",
-            correctResponsesPattern: props.contentType?.correction?.answers ? props.contentType.correction.answers.map(a => a.text) : []
+            correctResponsesPattern: props.contentType?.correction?.answers 
+                ? props.contentType.correction.answers.map((a: EditorAnswer) => a.text) 
+                : []
         }
 
         const xAPI = new xAPILib(fn, 'answered', attributes, score, userCode);
@@ -104,7 +95,7 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
                     <Button
                         id="pyth5p-checkbutton"
                         title="Submit"
-                        cls="h5p-joubelui-button h5p-question-check-answer"
+                        klass="h5p-joubelui-button h5p-question-check-answer"
                         onLaunchAction={() => checkResults()}
                         disabled={!isCodeRun}
                         testid="checkbutton"
@@ -116,7 +107,7 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
             { isExercise && showSolutionButton && props.behaviour.enableSolutionsButton ?   
                 <Button
                     title="Submit"
-                    cls="h5p-joubelui-button h5p-question-show-solution"
+                    klass="h5p-joubelui-button h5p-question-show-solution"
                     onLaunchAction={() => showSolutionCb()}
                     text={props.l10n.showSolutionButtonLabel}
                 /> : null
@@ -124,7 +115,7 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
             { isExercise && !checkBtn && score < 1 ?   
                 <Button
                     title="Submit"
-                    cls="h5p-joubelui-button h5p-question-try-again"
+                    klass="h5p-joubelui-button h5p-question-try-again"
                     onLaunchAction={() => resetTask()}
                     testid="retrybutton"
                     text={props.l10n.retryButtonLabel}

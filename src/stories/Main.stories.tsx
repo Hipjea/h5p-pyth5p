@@ -1,8 +1,11 @@
 import React from 'react';
-import Main, { Props as MainProps } from '../components/Main';
+import Main from '../components/Main';
+import type { Main as MainProps } from '../types/Main';
 import Snippet from '../components/Snippet';
-import Button, { Props as ButtonProps } from '../components/Button';
-import { Preview, Props as PreviewProps } from '../components/Preview';
+import Button from '../components/Button';
+import type { Button as ButtonProps } from '../types/Button';
+import { Preview } from '../components/Preview';
+import type { Preview as PreviewProps } from '../types/Preview';
 import { behaviourUneditable } from '../../.storybook/config/behaviourContext';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
@@ -27,7 +30,7 @@ const defaultArgs: MainProps = {
 const buttonArgs: ButtonProps = {
   id: '1',
   title: 'button title',
-  cls: 'h5p-joubelui-button h5p-question-check-answer',
+  klass: 'h5p-joubelui-button h5p-question-check-answer',
   onLaunchAction: action('Button is clicked'),
   disabled: false,
   text: 'Button text'

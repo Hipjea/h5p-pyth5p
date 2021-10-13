@@ -7,22 +7,10 @@ import 'codemirror/lib/codemirror.css';
 import Button from './Button';
 import { decodeHtmlEntities } from '../utils/utils';
 import Sk from 'skulpt';
-import type { Behaviour } from '../types/behaviour';
-import type { ContentType } from '../types/contentType';
-import type { L10n } from '../types/l10n';
+import type { Main as MainProps } from '../types/Main';
 
-export type Props = {
-    id: string,
-    fn: any,
-    code: string,
-    statement: string,
-    behaviour: Behaviour,
-    contentType: ContentType,
-    answerText: string,
-    l10n: L10n
-};
 
-export default function Main({id, fn, ...props}: Props) {
+export default function Main({id, fn, ...props}: MainProps) {
     const codeeditor = React.createRef<HTMLInputElement>(),
         pre = React.createRef<HTMLInputElement>(),
         canvas = React.createRef<HTMLInputElement>();
@@ -93,7 +81,7 @@ export default function Main({id, fn, ...props}: Props) {
                 />
                 <Button 
                     title="Run code button"
-                    cls="pyth5p-run-btn"
+                    klass="pyth5p-run-btn"
                     onLaunchAction={() => runCode()} 
                     icon={<i className="play-icon"></i>}
                     text={props.l10n.run}

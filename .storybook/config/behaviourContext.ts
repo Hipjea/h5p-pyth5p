@@ -1,4 +1,4 @@
-import { Behaviour } from '../../src/types/behaviour';
+import { Behaviour } from '../../src/types/editor/behaviour';
 
 export const behaviourEditable: Behaviour = {
     isEditable: true,

@@ -1,5 +1,6 @@
 import React from 'react';
-import Answer, { Props as AnswerProps } from '../components/Answer';
+import Answer from '../components/Answer';
+import type { Answer as AnswerProps } from '../types/Answer';
 import { defaultContext } from '../../.storybook/config/context';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';

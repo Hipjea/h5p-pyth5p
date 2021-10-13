@@ -1,5 +1,6 @@
 import React from 'react';
-import Snippet, { Props as SnippetProps } from '../components/Snippet';
+import Snippet from '../components/Snippet';
+import type { Snippet as SnippetProps } from '../types/Snippet';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { action } from '@storybook/addon-actions';
 

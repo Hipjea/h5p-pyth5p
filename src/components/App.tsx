@@ -1,12 +1,8 @@
 import React from 'react';
 import './app.css';
 import Main from './Main';
+import { AppProps } from '../types/App';
 
-export type AppProps = {
-    params: any;
-    contentId: any;
-    fn: any;
-};
 
 const App: React.FC<AppProps> = ({ params, contentId, fn }) => {
     return <Main id={contentId} fn={fn} {...params} />;

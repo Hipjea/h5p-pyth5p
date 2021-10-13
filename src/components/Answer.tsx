@@ -1,18 +1,10 @@
 import React from 'react';
 import Snippet from './Snippet';
-import type { Behaviour } from '../types/behaviour';
-import type { Answer as TAnswer } from '../types/answer';
-import type { L10n } from '../types/l10n';
+import type { Answer as AnswerProps } from '../types/Answer';
 import { createMarkup } from '../utils/utils';
 
-export type Props = {
-    id: string;
-    answer: TAnswer;
-    l10n: L10n;
-    behaviour: Behaviour
-};
 
-export default function Answer({id, answer, ...props}: Props) {
+export default function Answer({id, answer, ...props}: AnswerProps) {
     const answerClass = answer.bestAnswer ? "h5p-pyth5p-feedback-best-answer" : "h5p-pyth5p-feedback";
     return (
         <li className={answerClass}>
