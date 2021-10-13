@@ -6,7 +6,6 @@ import type { ContentType } from '../types/contentType';
 import type { Behaviour } from '../types/behaviour';
 import type { Answer as TAnswer } from '../types/answer';
 import type { L10n } from '../types/l10n';
-import { usePythonCodeContext } from '../utils/PythonCodeContext';
 import { createPreservedMarkup } from '../utils/utils';
 import xAPILib from '../utils/xapi';
 import './footer.css';
@@ -15,16 +14,15 @@ export type Props = {
     userCode: string;
     isCodeRun: boolean;
     performRetry: () => void;
+    fn: any;
     l10n: L10n;
     contentType: ContentType;
     behaviour: Behaviour
 };
 
-export default function Footer({userCode, isCodeRun, performRetry, ...props}: Props) {
+export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}: Props) {
     const isExercise = props.contentType.isExercise === true;
-
-    const context = usePythonCodeContext(),
-        [checkBtn, toggleCheckBtn] = useState<boolean>(true),
+    const [checkBtn, toggleCheckBtn] = useState<boolean>(true),
         [correction, setCheckCode] = useState<string | undefined>(''),
         [showSolutions, setShowSolutions] = useState<boolean>(false),
         [showSolutionButton, setShowSolutionButton] = useState<boolean>(false),
@@ -35,10 +33,10 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Pr
 
     useEffect(() => {
         footer = H5P.jQuery('.footer-container');
-        progressBar = H5P?.JoubelUI?.createScoreBar(1, 'scoreBarLabel') || null;
+        progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel') || null;
     });
 
-    const checkCode = () => {
+    const checkCode = (): number => {
         setShowSolutionButton(true);
         setCheckCode(props.contentType?.correction?.correctionText);
         setAnswers(props.contentType?.correction?.answers);
@@ -47,16 +45,16 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Pr
         return score;
     }
 
-    const resetTask = () => {
+    const resetTask = (): void => {
         setShowSolutions(false);
         setShowSolutionButton(false);
         toggleCheckBtn(true);
         performRetry();
         footer.find('.h5p-joubelui-score-bar').remove();
-        context.trigger('resize');
+        fn.trigger('resize');
     }
 
-    function getScore() {
+    const getScore = (): number => {
         const answerTexts = props.contentType?.correction?.answers.map(a => createPreservedMarkup(a.text));
         const userAnswer = createPreservedMarkup(userCode);
         let score = 0;
@@ -66,7 +64,7 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Pr
         return score;
     }
 
-    function checkResults() {
+    const checkResults = (): void => {
         const score = checkCode();
         const attributes = {
             name: props.l10n.name,
@@ -74,23 +72,25 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Pr
             interactionType: "fill-in",
             correctResponsesPattern: props.contentType?.correction?.answers ? props.contentType.correction.answers.map(a => a.text) : []
         }
-        const xAPI = new xAPILib(context, 'answered', attributes, score, userCode);
+
+        const xAPI = new xAPILib(fn, 'answered', attributes, score, userCode);
         const completedEvent = xAPI.build();
+
         if (completedEvent) {
-            context.trigger(completedEvent, completedEvent.data);
+            fn.trigger(completedEvent, completedEvent.data);
             toggleCheckBtn(!checkBtn);
             progressBar.setScore(score);
             progressBar.appendTo(footer);
             // Set focus on the first button in the footer
             footer.children('button').first().focus();
-            context.trigger('resize');
+            fn.trigger('resize');
         }
     }
 
-    const showSolutionCb = () => {
+    const showSolutionCb = (): void => {
         setShowSolutionButton(false);
         setShowSolutions(true);
-        context.trigger('resize');
+        fn.trigger('resize');
     }
 
     const listAnswers = answers ? answers.map((answer, i) => {

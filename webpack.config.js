@@ -6,7 +6,7 @@ const stylesHandler = 'style-loader';
 
 
 const config = {
-    entry: './src/App.js',
+    entry: './src/index.tsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'pyth5p.js'

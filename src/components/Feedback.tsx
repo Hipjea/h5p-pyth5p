@@ -8,7 +8,7 @@ export type Props = {
     l10n: L10n;
 };
 
-export default function Feedback({correction, ...props}: Props) {
+const Feedback = ({correction, ...props}: Props) => {
     return (
         <div className="h5p-pyth5p-feedback">
             { correction
@@ -22,3 +22,5 @@ export default function Feedback({correction, ...props}: Props) {
         </div>
     );
 }
+
+export default Feedback;

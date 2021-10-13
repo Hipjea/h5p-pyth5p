@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import l10n from '../localization'; 
 import { shallow } from 'enzyme';
 import Button, { Props as ButtonProps } from './Button';
-import { defaultContext } from '../../.storybook/config/context';
+
 
 // Imports the story for the test
 import { RunButton } from '../stories/Button.stories';
@@ -24,18 +24,13 @@ it('renders the button in the visible state', () => {
 });
 
 describe('when the button is clicked', () => {
-  const mockCallback = jest.fn();
   const wrapper = shallow((
-    <Button {...defaultContext} {...defaultArgs} />
+    <Button {...defaultArgs} />
   )); 
 
   beforeAll(() => wrapper.find('button').simulate('click'));
 
   it('triggers a click event', () => {
-    expect(mockCallback).toHaveBeenCalled(); 
-  });
-
-  it('uses a valid callback', () => {
-    expect(mockCallback.mock.calls.length).toEqual(1);
+    expect(defaultArgs.onLaunchAction).toHaveBeenCalled(); 
   });
 });

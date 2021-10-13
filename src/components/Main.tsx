@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
 import Footer from './Footer';
-import { usePythonCodeContext } from '../utils/PythonCodeContext';
 import { createMarkup } from '../utils/utils';
 import 'codemirror/lib/codemirror.css';
 import Button from './Button';
@@ -14,6 +13,7 @@ import type { L10n } from '../types/l10n';
 
 export type Props = {
     id: string,
+    fn: any,
     code: string,
     statement: string,
     behaviour: Behaviour,
@@ -22,8 +22,7 @@ export type Props = {
     l10n: L10n
 };
 
-export default function Main({id, ...props}: Props) {
-    const context = usePythonCodeContext();
+export default function Main({id, fn, ...props}: Props) {
     const codeeditor = React.createRef<HTMLInputElement>(),
         pre = React.createRef<HTMLInputElement>(),
         canvas = React.createRef<HTMLInputElement>();
@@ -46,7 +45,7 @@ export default function Main({id, ...props}: Props) {
 
     const setCodeCb = (newCode: string): ReturnType<(s: string) => void> => {
         setCode(newCode), setIsCodeRun(false);
-        context.trigger('resize'); // Resize the H5P container
+        fn.trigger('resize'); // Resize the H5P container
     }
 
     const retryCb = (): ReturnType<() => void> => {
@@ -72,12 +71,12 @@ export default function Main({id, ...props}: Props) {
         });
 
         SkPromise.then((_: any) => {
-            context.trigger('resize');
+            fn.trigger('resize');
         }, (err: string): ReturnType<(s: string) => void> => {
             const errStr = err.toString();
             console.error(errStr);
             setOutText(errStr);
-            context.trigger('resize');
+            fn.trigger('resize');
         });
     }
 
@@ -110,6 +109,7 @@ export default function Main({id, ...props}: Props) {
                 userCode={userCode} 
                 isCodeRun={isCodeRun}
                 performRetry={retryCb}
+                fn={fn}
                 {...props} 
             />
         </div>
