@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../components/Button';
-import { Button as ButtonType } from '../types/Button';
+import { Button as ButtonProps } from '../types/Button';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { action } from '@storybook/addon-actions';
 
@@ -9,7 +9,7 @@ export default {
   component: Button
 } as ComponentMeta<typeof Button>;
 
-const defaultArgs: ButtonType = {
+const defaultArgs: ButtonProps = {
   id: '1',
   title: 'button title',
   klass: 'h5p-joubelui-button h5p-question-check-answer',
@@ -19,17 +19,17 @@ const defaultArgs: ButtonType = {
 };
 
 export const Default: ComponentStory<typeof Button> = () => {
-  const args: ButtonType = { ...defaultArgs };
+  const args: ButtonProps = { ...defaultArgs };
   return <Button { ...args } />;
 }
 
 export const Disabled: ComponentStory<typeof Button> = () => {
-  const args: ButtonType = { ...defaultArgs, disabled: true };
+  const args: ButtonProps = { ...defaultArgs, disabled: true };
   return <Button { ...args } />;
 }
 
 export const RunButton: ComponentStory<typeof Button> = () => {
-  const args: ButtonType = { 
+  const args: ButtonProps = { 
     ...defaultArgs, 
     klass: "pyth5p-run-btn", 
     icon: React.createElement('i', { className: "play-icon" }, ""),

@@ -2,7 +2,7 @@ import React from 'react';
 import Main, { Props as MainProps } from '../components/Main';
 import Snippet from '../components/Snippet';
 import Button from '../components/Button';
-import { Button as ButtonType } from '../types/Button';
+import { Button as ButtonProps } from '../types/Button';
 import { Preview, Props as PreviewProps } from '../components/Preview';
 import { behaviourUneditable } from '../../.storybook/config/behaviourContext';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
@@ -25,7 +25,7 @@ const defaultArgs: MainProps = {
   fn: h5p
 };
 
-const buttonArgs: ButtonType = {
+const buttonArgs: ButtonProps = {
   id: '1',
   title: 'button title',
   klass: 'h5p-joubelui-button h5p-question-check-answer',
