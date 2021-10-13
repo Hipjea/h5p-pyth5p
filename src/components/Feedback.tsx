@@ -1,9 +1,9 @@
 import React from 'react';
 import './feedback.css';
 import { createMarkup } from '../utils/utils';
-import { Feedback } from '../types/Feedback';
+import type { Feedback as FeedbackProps } from '../types/Feedback';
 
-const Feedback = ({correction, ...props}: Feedback) => {
+const Feedback = ({correction, ...props}: FeedbackProps) => {
     return (
         <div className="h5p-pyth5p-feedback">
             { correction
