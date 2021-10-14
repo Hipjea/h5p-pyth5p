@@ -10,7 +10,7 @@ PytH5P also allows the snippet to be an exercise with feedbacks provided as a so
 
 ### Screenshot :
 
-![PytH5P activity screenshot](./screenshot-1.jpg)
+![PytH5P activity screenshot](./screenshot.jpg)
 
 ---
 
