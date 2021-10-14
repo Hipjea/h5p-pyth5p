@@ -21,8 +21,8 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
     let footer: JQuery, progressBar: any; // must use 'any' to tweak the missing h5p types (setScore)
 
     useEffect(() => {
-        footer = H5P.jQuery('.footer-container');
-        progressBar = H5P.JoubelUI.createScoreBar(1, 'scoreBarLabel') || null;
+        footer = (H5P as any).jQuery('.footer-container');
+        progressBar = (H5P as any).JoubelUI.createScoreBar(1, 'scoreBarLabel') || null;
     });
 
     const checkCode = (): number => {
