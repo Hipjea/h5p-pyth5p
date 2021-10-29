@@ -70,7 +70,10 @@ export default function Main({id, fn, ...props}: MainProps) {
 
     return (
         <div className="h5p-pyth5p-main">
-            <p className="statement" dangerouslySetInnerHTML={ createMarkup(props.statement, false) } />
+            <p 
+                className="statement" 
+                dangerouslySetInnerHTML={ createMarkup(props.statement, false) } 
+            />
             <div className="h5p-pyth5p-code-wrapper">
                 <Snippet
                     ref={codeeditor}
