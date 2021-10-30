@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import type { Snippet as SnippetProps } from '../types/Snippet';
+import { AppContext } from './Context';
 import { decodeHtmlEntities } from '../utils/utils';
 import './snippet.css';
 import codemirror from 'codemirror';
 import 'codemirror/mode/python/python';
 
 
-export const Snippet = React.forwardRef(({id, isEditable, setCode, answerText, ...props}: SnippetProps, ref) => {
+export const Snippet = React.forwardRef(({isEditable, setCode, answerText, ...props}: SnippetProps, ref) => {
+    const { id } = useContext(AppContext);
+
     const codeeditor: any = ref || React.createRef();
     
     const changeValue = (doc: CodeMirror.Editor, _: any) => {

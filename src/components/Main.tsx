@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext } from './Context';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
 import Footer from './Footer';
@@ -11,6 +12,8 @@ import type { Main as MainProps } from '../types/Main';
 
 
 export default function Main({id, fn, ...props}: MainProps) {
+    const { setId } = useContext(AppContext);
+
     const codeeditor = React.createRef<HTMLInputElement>(),
         pre = React.createRef<HTMLInputElement>(),
         canvas = React.createRef<HTMLInputElement>();
@@ -22,6 +25,10 @@ export default function Main({id, fn, ...props}: MainProps) {
         [out, setOutText] = useState<string>(''),
         [localCode, setCode] = useState<string>(defaultVal),
         [isCodeRun, setIsCodeRun] = useState<boolean>(false);
+
+    useEffect(() => {
+        setId(id);
+    }, []);
     
     const clearOutText = (): ReturnType<(s: string) => void> => {
         setOutText(''); // Clear preview
@@ -42,7 +49,7 @@ export default function Main({id, fn, ...props}: MainProps) {
 
     const builtinRead = (x: string) => {
         if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
-            throw "File not found: '" + x + "'";
+            throw `File not found: '${x}'`;
         }
         return Sk.builtinFiles["files"][x];
     }
@@ -52,9 +59,13 @@ export default function Main({id, fn, ...props}: MainProps) {
         clearOutText(), setUserCode(value), setIsCodeRun(true);
 
         Sk.pre = pre.current;
-        Sk.configure({ output: outTextCallback, read: builtinRead, __future__: Sk.python3 }); 
+        Sk.configure({ 
+            output: outTextCallback, 
+            read: builtinRead, 
+            __future__: Sk.python3 
+        });
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvas.current;
-        const SkPromise = Sk.misceval.asyncToPromise(function() {
+        const SkPromise = Sk.misceval.asyncToPromise(() => {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
 
@@ -77,7 +88,6 @@ export default function Main({id, fn, ...props}: MainProps) {
             <div className="h5p-pyth5p-code-wrapper">
                 <Snippet
                     ref={codeeditor}
-                    id={id}
                     isEditable={props.behaviour.isEditable}
                     setCode={setCodeCb}
                     {...props}

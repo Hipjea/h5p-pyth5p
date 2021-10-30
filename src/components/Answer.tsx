@@ -11,7 +11,6 @@ export default function Answer({id, answer, ...props}: AnswerProps) {
             <div className="feedback-separator" />
             { answer.bestAnswer ? <h5>{props.l10n.bestAnswer}</h5> : null }
             <Snippet
-                id={`pyth5p-answer-${id}`}
                 code={answer.text}
                 answerText={answer.text}
                 isEditable={props.behaviour.isEditable}
