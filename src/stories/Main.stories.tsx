@@ -10,7 +10,7 @@ import { behaviourUneditable } from '../../.storybook/config/behaviourContext';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
 import { action } from '@storybook/addon-actions';
-import { h5p, previewArgs } from '../../.storybook/preview';
+import { previewArgs } from '../../.storybook/preview';
 
 export default {
   title: 'Main',
@@ -23,8 +23,7 @@ const setCode = () => {
 }
 
 const defaultArgs: MainProps = {
-  ...previewArgs,
-  fn: h5p
+  ...previewArgs
 };
 
 const buttonArgs: ButtonProps = {

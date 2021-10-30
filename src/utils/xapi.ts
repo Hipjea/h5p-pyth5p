@@ -1,13 +1,13 @@
 export default class xAPILib {
-  context: any;
+  createXAPIEventTemplate: any;
   event: any;
   attributes: any;
   score: number;
   userAnswer: string;
   definition: {};
 
-  constructor(context: any, event: any, attributes: any, score: number, userAnswer: string) {
-    this.context = context;
+  constructor(createXAPIEventTemplate: any, event: any, attributes: any, score: number, userAnswer: string) {
+    this.createXAPIEventTemplate = createXAPIEventTemplate;
     this.event = event;
     this.attributes = attributes;
     this.score = score;
@@ -34,8 +34,8 @@ export default class xAPILib {
   }
 
   getXAPIData = () => {
-    if (this.context.createXAPIEventTemplate) {
-      var xAPIEvent = this.context.createXAPIEventTemplate(this.event);
+    if (this.createXAPIEventTemplate) {
+      var xAPIEvent = this.createXAPIEventTemplate(this.event);
       this.addQuestionToXAPI(xAPIEvent);
       this.addResponseToXAPI(xAPIEvent);
     } else {
@@ -68,7 +68,6 @@ export default class xAPILib {
     for (i = 0; i < this.attributes.correctResponsesPattern.length; i++) {
       definition.correctResponses.push(this.attributes.correctResponsesPattern[i]);
     }
-  
     return definition;
   };
 }

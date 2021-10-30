@@ -6,7 +6,6 @@ export type Footer = {
     userCode: string;
     isCodeRun: boolean;
     performRetry: () => void;
-    fn: any;
     l10n: L10n;
     contentType: ContentType;
     behaviour: Behaviour;

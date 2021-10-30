@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from './Context';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
@@ -11,8 +11,8 @@ import Sk from 'skulpt';
 import type { Main as MainProps } from '../types/Main';
 
 
-export default function Main({id, fn, ...props}: MainProps) {
-    const { setId } = useContext(AppContext);
+export default function Main({...props}: MainProps) {
+    const { trigger } = useContext(AppContext);
 
     const codeeditor = React.createRef<HTMLInputElement>(),
         pre = React.createRef<HTMLInputElement>(),
@@ -25,10 +25,6 @@ export default function Main({id, fn, ...props}: MainProps) {
         [out, setOutText] = useState<string>(''),
         [localCode, setCode] = useState<string>(defaultVal),
         [isCodeRun, setIsCodeRun] = useState<boolean>(false);
-
-    useEffect(() => {
-        setId(id);
-    }, []);
     
     const clearOutText = (): ReturnType<(s: string) => void> => {
         setOutText(''); // Clear preview
@@ -40,7 +36,6 @@ export default function Main({id, fn, ...props}: MainProps) {
 
     const setCodeCb = (newCode: string): ReturnType<(s: string) => void> => {
         setCode(newCode), setIsCodeRun(false);
-        fn.trigger('resize'); // Resize the H5P container
     }
 
     const retryCb = (): ReturnType<() => void> => {
@@ -70,12 +65,12 @@ export default function Main({id, fn, ...props}: MainProps) {
         });
 
         SkPromise.then((_: any) => {
-            fn.trigger('resize');
+            trigger('resize');
         }, (err: string): ReturnType<(s: string) => void> => {
             const errStr = err.toString();
             console.error(errStr);
             setOutText(errStr);
-            fn.trigger('resize');
+            trigger('resize');
         });
     }
 
@@ -110,7 +105,6 @@ export default function Main({id, fn, ...props}: MainProps) {
                 userCode={userCode} 
                 isCodeRun={isCodeRun}
                 performRetry={retryCb}
-                fn={fn}
                 {...props} 
             />
         </div>
