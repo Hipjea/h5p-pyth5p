@@ -12,6 +12,7 @@ import l10n from '../../src/localization';
 import { action } from '@storybook/addon-actions';
 import { previewArgs } from '../../.storybook/preview';
 
+
 export default {
   title: 'Main',
   component: Main,

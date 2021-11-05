@@ -1,6 +1,4 @@
 import { defaultContext } from "./config/context";
-import { H5P } from "../src/h5p/H5P.util";
-import { H5PWrapper } from "../src/h5p/H5PWrapper";
 import { behaviourEditable } from './config/behaviourContext';
 import l10n from '../src/localization';
 
@@ -30,8 +28,6 @@ export const previewArgs = {
   answerText: 'answer text',
   l10n: l10n
 };
-
-export const h5p = new H5PWrapper({...previewArgs}, 1);
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
