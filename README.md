@@ -16,7 +16,7 @@ PytH5P also allows the snippet to be an exercise with feedbacks provided as a so
 
 ### Dependencies :
 
-This package relies on [Skupt](https://github.com/skulpt/skulpt) for the Python interpretor, [CodeMirror](https://github.com/codemirror/CodeMirror) for the code editor part, [React](https://github.com/facebook/react) and [Typescript](https://www.typescriptlang.org) on the frontend application.
+This package relies on [Skupt](https://github.com/skulpt/skulpt) for the Python interpretor, [CodeMirror](https://github.com/codemirror/CodeMirror) for the code editor part and [React](https://github.com/facebook/react).
 
 ---
 
@@ -47,3 +47,8 @@ yarn build:prod
 ```
 h5p pack H5P.PytH5P pyth5p.h5p
 ```
+
+### TODO :rage4: :
+
+- use React context within Storybook
+

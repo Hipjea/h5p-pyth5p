@@ -10,10 +10,9 @@ export default {
 } as ComponentMeta<typeof Snippet>;
 
 const defaultArgs: SnippetProps = {
-    id: '1',
-    code: 'print("hello")',
     isEditable: true,
-    setCode: action('Button is clicked'),
+    code: 'print("ok")',
+    setLocalCode: action('Button is clicked'),
     answerText: 'print("hello")'
 };
 

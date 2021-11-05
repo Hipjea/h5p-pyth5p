@@ -69,6 +69,18 @@ declare class EventDispatcher {
       external?: boolean;
     },
   ) => void;
+
+  /**
+   * createXAPIEventTemplate.
+   *
+   * @param {string} verb
+   *   Event object or event type as string
+   * @param {Object} [extras]
+   */
+   createXAPIEventTemplate: (
+    verb: string,
+    extras?: any,
+  ) => void;
 }
 
 declare interface IH5PWrapper {

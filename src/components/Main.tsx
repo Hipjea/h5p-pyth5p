@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AppContext } from '../components/Context';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
 import Footer from './Footer';
@@ -10,7 +11,9 @@ import Sk from 'skulpt';
 import type { Main as MainProps } from '../types/Main';
 
 
-export default function Main({id, fn, ...props}: MainProps) {
+export default function Main({...props}: MainProps) {
+    const { setUserCode, setCodeRun, setOutText } = useContext(AppContext);
+
     const codeeditor = React.createRef<HTMLInputElement>(),
         pre = React.createRef<HTMLInputElement>(),
         canvas = React.createRef<HTMLInputElement>();
@@ -18,65 +21,62 @@ export default function Main({id, fn, ...props}: MainProps) {
     const previewRefs: any = { pre, canvas };
     const defaultVal: string = decodeHtmlEntities(props.code);
 
-    const [userCode, setUserCode] = useState<string>(props.code),
-        [out, setOutText] = useState<string>(''),
-        [localCode, setCode] = useState<string>(defaultVal),
-        [isCodeRun, setIsCodeRun] = useState<boolean>(false);
+    const [localCode, setLocalCode] = useState<string>(defaultVal);
     
     const clearOutText = (): ReturnType<(s: string) => void> => {
         setOutText(''); // Clear preview
     }
 
-    const outTextCallback = (text: string): ReturnType<(s: string) => void> => {
-        setOutText(rest => rest + text);
-    }
-
     const setCodeCb = (newCode: string): ReturnType<(s: string) => void> => {
-        setCode(newCode), setIsCodeRun(false);
-        fn.trigger('resize'); // Resize the H5P container
-    }
-
-    const retryCb = (): ReturnType<() => void> => {
-        setIsCodeRun(false), clearOutText();
+        setLocalCode(newCode);
+        setCodeRun(false);
     }
 
     const builtinRead = (x: string) => {
         if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
-            throw "File not found: '" + x + "'";
+            throw `File not found: '${x}'`;
         }
         return Sk.builtinFiles["files"][x];
     }
 
     const runCode = (val?: string) => {
         const value = val ?? localCode;
-        clearOutText(), setUserCode(value), setIsCodeRun(true);
+        clearOutText();
+        setUserCode(value);
+        setCodeRun(true);
 
         Sk.pre = pre.current;
-        Sk.configure({ output: outTextCallback, read: builtinRead, __future__: Sk.python3 }); 
+        Sk.configure({ 
+            output: setOutText, 
+            read: builtinRead, 
+            __future__: Sk.python3 
+        });
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = canvas.current;
-        const SkPromise = Sk.misceval.asyncToPromise(function() {
+        const SkPromise = Sk.misceval.asyncToPromise(() => {
             return Sk.importMainWithBody("<stdin>", false, value, true);
         });
 
         SkPromise.then((_: any) => {
-            fn.trigger('resize');
+            H5P.PytH5P.prototype.trigger('resize');
         }, (err: string): ReturnType<(s: string) => void> => {
             const errStr = err.toString();
             console.error(errStr);
             setOutText(errStr);
-            fn.trigger('resize');
+            H5P.PytH5P.prototype.trigger('resize');
         });
     }
 
     return (
         <div className="h5p-pyth5p-main">
-            <p className="statement" dangerouslySetInnerHTML={ createMarkup(props.statement, false) } />
+            <p 
+                className="statement" 
+                dangerouslySetInnerHTML={ createMarkup(props.statement, false) } 
+            />
             <div className="h5p-pyth5p-code-wrapper">
                 <Snippet
                     ref={codeeditor}
-                    id={id}
                     isEditable={props.behaviour.isEditable}
-                    setCode={setCodeCb}
+                    setLocalCode={setCodeCb}
                     {...props}
                 />
                 <Button 
@@ -89,17 +89,10 @@ export default function Main({id, fn, ...props}: MainProps) {
                 />
                 <Preview 
                     ref={previewRefs} 
-                    out={out} 
                     {...props} 
                 />
             </div>
-            <Footer 
-                userCode={userCode} 
-                isCodeRun={isCodeRun}
-                performRetry={retryCb}
-                fn={fn}
-                {...props} 
-            />
+            <Footer {...props} />
         </div>
     );
 }

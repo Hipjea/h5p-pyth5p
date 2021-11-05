@@ -4,8 +4,7 @@ import type { Footer as FooterProps } from '../types/Footer';
 import Feedback from '../components/Feedback';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
-import { action } from '@storybook/addon-actions';
-import { h5p } from '../../.storybook/preview';
+//import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Footer',
@@ -19,10 +18,7 @@ const correction = {
 };
 
 const defaultArgs: FooterProps = {
-  userCode: 'print("hello")',
-  isCodeRun: false,
-  performRetry: action('retry'),
-  fn: h5p,
+  //performRetry: action('retry'),
   l10n: l10n,
   contentType: {
     isExercise: true,
@@ -57,7 +53,7 @@ export const Default: ComponentStory<typeof Footer> = () => {
 }
 
 export const CheckEnabled: ComponentStory<typeof Footer> = () => {
-  const args: FooterProps = { ...defaultArgs, isCodeRun: true };
+  const args: FooterProps = { ...defaultArgs };
   return <Footer {...args}>
           <Feedback {...correction} />
         </Footer>

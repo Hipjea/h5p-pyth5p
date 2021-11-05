@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../components/Context';
 import Feedback from './Feedback';
 import Button from './Button';
 import Answer from './Answer';
@@ -9,7 +10,9 @@ import xAPILib from '../utils/xapi';
 import './footer.css';
 
 
-export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}: FooterProps) {
+export default function Footer({...props}: FooterProps) {
+    const { userCode, isCodeRun, setCodeRun, clearOutText } = useContext(AppContext);
+
     const isExercise = props.contentType.isExercise === true;
     const [checkBtn, toggleCheckBtn] = useState<boolean>(true),
         [correction, setCheckCode] = useState<string | undefined>(''),
@@ -24,6 +27,11 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
         footer = (H5P as any).jQuery('.footer-container');
         progressBar = (H5P as any).JoubelUI.createScoreBar(1, 'scoreBarLabel') || null;
     });
+
+    const performRetry = (): ReturnType<() => void> => {
+        setCodeRun(false);
+        clearOutText();
+    }
 
     const checkCode = (): number => {
         setShowSolutionButton(true);
@@ -40,7 +48,6 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
         toggleCheckBtn(true);
         performRetry();
         footer.find('.h5p-joubelui-score-bar').remove();
-        fn.trigger('resize');
     }
 
     const getScore = (): number => {
@@ -64,24 +71,24 @@ export default function Footer({userCode, isCodeRun, performRetry, fn, ...props}
                 : []
         }
 
-        const xAPI = new xAPILib(fn, 'answered', attributes, score, userCode);
+        const xAPI = new xAPILib('answered', attributes, score, userCode);
         const completedEvent = xAPI.build();
 
         if (completedEvent) {
-            fn.trigger(completedEvent, completedEvent.data);
+            H5P.PytH5P.prototype.trigger(completedEvent, completedEvent.data);
             toggleCheckBtn(!checkBtn);
             progressBar.setScore(score);
             progressBar.appendTo(footer);
             // Set focus on the first button in the footer
             footer.children('button').first().focus();
-            fn.trigger('resize');
+            H5P.PytH5P.prototype.trigger('resize');
         }
     }
 
     const showSolutionCb = (): void => {
         setShowSolutionButton(false);
         setShowSolutions(true);
-        fn.trigger('resize');
+        H5P.PytH5P.prototype.trigger('resize');
     }
 
     const listAnswers = answers ? answers.map((answer, i) => {

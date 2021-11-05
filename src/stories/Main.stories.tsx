@@ -10,7 +10,8 @@ import { behaviourUneditable } from '../../.storybook/config/behaviourContext';
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import l10n from '../../src/localization';
 import { action } from '@storybook/addon-actions';
-import { h5p, previewArgs } from '../../.storybook/preview';
+import { previewArgs } from '../../.storybook/preview';
+
 
 export default {
   title: 'Main',
@@ -23,8 +24,7 @@ const setCode = () => {
 }
 
 const defaultArgs: MainProps = {
-  ...previewArgs,
-  fn: h5p
+  ...previewArgs
 };
 
 const buttonArgs: ButtonProps = {
@@ -37,7 +37,6 @@ const buttonArgs: ButtonProps = {
 };
 
 const previewStoryArgs: PreviewProps = {
-  out: '',
   l10n: l10n
 };
 
@@ -49,7 +48,7 @@ export const Empty: ComponentStory<typeof Main> = () => {
           <Snippet 
             ref={ref} 
             isEditable={true}
-            setCode={setCode} 
+            setLocalCode={setCode} 
             {...args}
           />
           <Button {...buttonArgs} />
@@ -63,7 +62,7 @@ export const Uneditable: ComponentStory<typeof Main> = () => {
           <Snippet 
             ref={ref} 
             isEditable={false}
-            setCode={setCode} 
+            setLocalCode={setCode} 
             {...args}
           />
           <Button {...buttonArgs} />

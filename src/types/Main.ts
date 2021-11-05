@@ -4,7 +4,6 @@ import type { L10n } from '../types/l10n';
 
 export type Main = {
     id: string;
-    fn: any;
     code: string;
     statement: string;
     behaviour: Behaviour;
