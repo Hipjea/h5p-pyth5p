@@ -36,7 +36,6 @@ const buttonArgs: ButtonProps = {
 };
 
 const previewStoryArgs: PreviewProps = {
-  out: '',
   l10n: l10n
 };
 
@@ -48,7 +47,7 @@ export const Empty: ComponentStory<typeof Main> = () => {
           <Snippet 
             ref={ref} 
             isEditable={true}
-            setCode={setCode} 
+            setLocalCode={setCode} 
             {...args}
           />
           <Button {...buttonArgs} />
@@ -62,7 +61,7 @@ export const Uneditable: ComponentStory<typeof Main> = () => {
           <Snippet 
             ref={ref} 
             isEditable={false}
-            setCode={setCode} 
+            setLocalCode={setCode} 
             {...args}
           />
           <Button {...buttonArgs} />

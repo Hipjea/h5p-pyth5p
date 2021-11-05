@@ -14,7 +14,7 @@ export default function Answer({id, answer, ...props}: AnswerProps) {
                 code={answer.text}
                 answerText={answer.text}
                 isEditable={props.behaviour.isEditable}
-                setCode={() => answer.text}
+                setLocalCode={() => answer.text}
                 {...props}
             />
             { answer.tipsAndFeedback 

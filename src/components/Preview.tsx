@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../components/Context';
 import type { Preview as PreviewProps } from '../types/Preview';
 import './preview.css';
 
 
-export const Preview = React.forwardRef<HTMLInputElement, PreviewProps>(({out, ...props}: PreviewProps, refs) => {
+export const Preview = React.forwardRef<HTMLInputElement, PreviewProps>(({...props}: PreviewProps, refs) => {
     const { pre, canvas }: any = refs;
+    const { outText } = useContext(AppContext);
 
     return (
         <>
@@ -13,7 +15,7 @@ export const Preview = React.forwardRef<HTMLInputElement, PreviewProps>(({out, .
                     <label>{props.l10n.output}</label>
                 </div>
                 <pre ref={pre} role="pre" className="pyth5p-pre">
-                    {out}
+                    {outText}
                 </pre>
             </div>
             <div ref={canvas} />

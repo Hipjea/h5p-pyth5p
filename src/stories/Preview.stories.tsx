@@ -10,7 +10,6 @@ export default {
 } as ComponentMeta<typeof Preview>;
 
 const defaultArgs: PreviewProps = {
-  out: '',
   l10n: l10n
 };
 
@@ -22,6 +21,6 @@ export const Empty: ComponentStory<typeof Preview> = () => {
 }
 
 export const Filled: ComponentStory<typeof Preview> = () => {
-  const args: PreviewProps = { ...defaultArgs, out: 'print("hello")' };
+  const args: PreviewProps = { ...defaultArgs };
   return <Preview {...args} ref={ref} />
 }

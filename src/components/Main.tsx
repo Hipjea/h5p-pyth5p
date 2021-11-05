@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AppContext } from '../components/Context';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
 import Footer from './Footer';
@@ -11,6 +12,8 @@ import type { Main as MainProps } from '../types/Main';
 
 
 export default function Main({...props}: MainProps) {
+    const { setUserCode, setCodeRun, setOutText } = useContext(AppContext);
+
     const codeeditor = React.createRef<HTMLInputElement>(),
         pre = React.createRef<HTMLInputElement>(),
         canvas = React.createRef<HTMLInputElement>();
@@ -18,25 +21,15 @@ export default function Main({...props}: MainProps) {
     const previewRefs: any = { pre, canvas };
     const defaultVal: string = decodeHtmlEntities(props.code);
 
-    const [userCode, setUserCode] = useState<string>(props.code),
-        [out, setOutText] = useState<string>(''),
-        [localCode, setCode] = useState<string>(defaultVal),
-        [isCodeRun, setIsCodeRun] = useState<boolean>(false);
+    const [localCode, setLocalCode] = useState<string>(defaultVal);
     
     const clearOutText = (): ReturnType<(s: string) => void> => {
         setOutText(''); // Clear preview
     }
 
-    const outTextCallback = (text: string): ReturnType<(s: string) => void> => {
-        setOutText(rest => rest + text);
-    }
-
     const setCodeCb = (newCode: string): ReturnType<(s: string) => void> => {
-        setCode(newCode), setIsCodeRun(false);
-    }
-
-    const retryCb = (): ReturnType<() => void> => {
-        setIsCodeRun(false), clearOutText();
+        setLocalCode(newCode);
+        setCodeRun(false);
     }
 
     const builtinRead = (x: string) => {
@@ -48,11 +41,13 @@ export default function Main({...props}: MainProps) {
 
     const runCode = (val?: string) => {
         const value = val ?? localCode;
-        clearOutText(), setUserCode(value), setIsCodeRun(true);
+        clearOutText();
+        setUserCode(value);
+        setCodeRun(true);
 
         Sk.pre = pre.current;
         Sk.configure({ 
-            output: outTextCallback, 
+            output: setOutText, 
             read: builtinRead, 
             __future__: Sk.python3 
         });
@@ -81,7 +76,7 @@ export default function Main({...props}: MainProps) {
                 <Snippet
                     ref={codeeditor}
                     isEditable={props.behaviour.isEditable}
-                    setCode={setCodeCb}
+                    setLocalCode={setCodeCb}
                     {...props}
                 />
                 <Button 
@@ -94,16 +89,10 @@ export default function Main({...props}: MainProps) {
                 />
                 <Preview 
                     ref={previewRefs} 
-                    out={out} 
                     {...props} 
                 />
             </div>
-            <Footer 
-                userCode={userCode} 
-                isCodeRun={isCodeRun}
-                performRetry={retryCb}
-                {...props} 
-            />
+            <Footer {...props} />
         </div>
     );
 }

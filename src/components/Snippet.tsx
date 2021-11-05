@@ -7,13 +7,13 @@ import codemirror from 'codemirror';
 import 'codemirror/mode/python/python';
 
 
-export const Snippet = React.forwardRef(({isEditable, setCode, answerText, ...props}: SnippetProps, ref) => {
+export const Snippet = React.forwardRef(({isEditable, code, setLocalCode, answerText, ...props}: SnippetProps, ref) => {
     const { id } = useContext(AppContext);
 
     const codeeditor: any = ref || React.createRef();
     
     const changeValue = (doc: CodeMirror.Editor, _: any) => {
-        setCode(doc.getValue());
+        setLocalCode(doc.getValue());
     }
 
     if (codeeditor == undefined || ref == null || ref == undefined) {
@@ -28,7 +28,7 @@ export const Snippet = React.forwardRef(({isEditable, setCode, answerText, ...pr
         return ( <div ref={answer} /> );
     }
     else {
-        const defaultVal = props.code != undefined ? decodeHtmlEntities(props.code) : '';
+        const defaultVal = code != undefined ? decodeHtmlEntities(code) : '';
         useEffect(() => {
             const editor = codemirror.fromTextArea(codeeditor.current, { ...props.editorOptions, readOnly: !isEditable });
             editor.on('change', changeValue);

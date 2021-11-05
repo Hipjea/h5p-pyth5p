@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../components/Context';
 import Feedback from './Feedback';
 import Button from './Button';
 import Answer from './Answer';
@@ -9,7 +10,9 @@ import xAPILib from '../utils/xapi';
 import './footer.css';
 
 
-export default function Footer({userCode, isCodeRun, performRetry, ...props}: FooterProps) {
+export default function Footer({...props}: FooterProps) {
+    const { userCode, isCodeRun, setCodeRun, clearOutText } = useContext(AppContext);
+
     const isExercise = props.contentType.isExercise === true;
     const [checkBtn, toggleCheckBtn] = useState<boolean>(true),
         [correction, setCheckCode] = useState<string | undefined>(''),
@@ -24,6 +27,11 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Fo
         footer = (H5P as any).jQuery('.footer-container');
         progressBar = (H5P as any).JoubelUI.createScoreBar(1, 'scoreBarLabel') || null;
     });
+
+    const performRetry = (): ReturnType<() => void> => {
+        setCodeRun(false);
+        clearOutText();
+    }
 
     const checkCode = (): number => {
         setShowSolutionButton(true);
