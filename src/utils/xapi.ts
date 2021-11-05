@@ -6,8 +6,8 @@ export default class xAPILib {
   userAnswer: string;
   definition: {};
 
-  constructor(createXAPIEventTemplate: any, event: any, attributes: any, score: number, userAnswer: string) {
-    this.createXAPIEventTemplate = createXAPIEventTemplate;
+  constructor(event: any, attributes: any, score: number, userAnswer: string) {
+    this.createXAPIEventTemplate = H5P.PytH5P.prototype.createXAPIEventTemplate;
     this.event = event;
     this.attributes = attributes;
     this.score = score;

@@ -19,9 +19,7 @@ export class H5PWrapper extends H5P.EventDispatcher implements IH5PWrapper {
       <AppProvider>
         <App
           contentId={contentId}
-          params={{l10n, ...params}} 
-          trigger={H5PWrapper.prototype.trigger}
-          createXAPIEventTemplate={H5PWrapper.prototype.createXAPIEventTemplate}
+          params={{l10n, ...params}}
         />
       </AppProvider>,
       this.wrapper,

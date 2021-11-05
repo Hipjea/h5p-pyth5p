@@ -5,13 +5,11 @@ import Main from './Main';
 import { AppProps } from '../types/App';
 
 
-const App: React.FC<AppProps> = ({ params, contentId, trigger, createXAPIEventTemplate }) => {
-    const { setId, setTrigger, setXAPIEventTemplate } = useContext(AppContext);
+const App: React.FC<AppProps> = ({ params, contentId }) => {
+    const { setId } = useContext(AppContext);
 
     useEffect(() => {
         setId(contentId);
-        setTrigger(trigger);
-        setXAPIEventTemplate(createXAPIEventTemplate);
     }, []);
 
     return <Main {...params} />;

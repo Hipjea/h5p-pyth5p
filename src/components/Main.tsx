@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { AppContext } from './Context';
+import React, { useState } from 'react';
 import Snippet from './Snippet';
 import { Preview } from './Preview';
 import Footer from './Footer';
@@ -12,8 +11,6 @@ import type { Main as MainProps } from '../types/Main';
 
 
 export default function Main({...props}: MainProps) {
-    const { trigger } = useContext(AppContext);
-
     const codeeditor = React.createRef<HTMLInputElement>(),
         pre = React.createRef<HTMLInputElement>(),
         canvas = React.createRef<HTMLInputElement>();
@@ -65,12 +62,12 @@ export default function Main({...props}: MainProps) {
         });
 
         SkPromise.then((_: any) => {
-            trigger('resize');
+            H5P.PytH5P.prototype.trigger('resize');
         }, (err: string): ReturnType<(s: string) => void> => {
             const errStr = err.toString();
             console.error(errStr);
             setOutText(errStr);
-            trigger('resize');
+            H5P.PytH5P.prototype.trigger('resize');
         });
     }
 

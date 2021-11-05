@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AppContext } from './Context';
+import React, { useEffect, useState } from 'react';
 import Feedback from './Feedback';
 import Button from './Button';
 import Answer from './Answer';
@@ -11,8 +10,6 @@ import './footer.css';
 
 
 export default function Footer({userCode, isCodeRun, performRetry, ...props}: FooterProps) {
-    const { trigger, createXAPIEventTemplate } = useContext(AppContext);
-
     const isExercise = props.contentType.isExercise === true;
     const [checkBtn, toggleCheckBtn] = useState<boolean>(true),
         [correction, setCheckCode] = useState<string | undefined>(''),
@@ -66,24 +63,24 @@ export default function Footer({userCode, isCodeRun, performRetry, ...props}: Fo
                 : []
         }
 
-        const xAPI = new xAPILib(createXAPIEventTemplate, 'answered', attributes, score, userCode);
+        const xAPI = new xAPILib('answered', attributes, score, userCode);
         const completedEvent = xAPI.build();
 
         if (completedEvent) {
-            trigger(completedEvent, completedEvent.data);
+            H5P.PytH5P.prototype.trigger(completedEvent, completedEvent.data);
             toggleCheckBtn(!checkBtn);
             progressBar.setScore(score);
             progressBar.appendTo(footer);
             // Set focus on the first button in the footer
             footer.children('button').first().focus();
-            trigger('resize');
+            H5P.PytH5P.prototype.trigger('resize');
         }
     }
 
     const showSolutionCb = (): void => {
         setShowSolutionButton(false);
         setShowSolutions(true);
-        trigger('resize');
+        H5P.PytH5P.prototype.trigger('resize');
     }
 
     const listAnswers = answers ? answers.map((answer, i) => {
